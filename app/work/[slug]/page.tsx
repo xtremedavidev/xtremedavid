@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @next/next/no-img-element */
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useCallback, useMemo } from "react";
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 import { useRouter, useParams } from "next/navigation";
 import projectsData from "@/app/data/projects.cdn.json";
 
@@ -234,7 +235,7 @@ export default function ProjectDetailPage() {
   );
 
   /* ═══ GSAP Init ═══ */
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!project) return;
 
     const init = () => {
@@ -325,7 +326,7 @@ export default function ProjectDetailPage() {
     };
 
     if ((window as any).gsap && (window as any).ScrollTrigger) {
-      setTimeout(init, 50);
+      init();
     } else {
       window.addEventListener("load", init);
       return () => window.removeEventListener("load", init);
@@ -396,9 +397,11 @@ export default function ProjectDetailPage() {
   }, [project, renderableMedia]);
 
   /* ═══ Cleanup ═══ */
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     return () => {
-      gsapCtxRef.current?.revert();
+      if (gsapCtxRef.current) {
+        gsapCtxRef.current.revert();
+      }
     };
   }, []);
 

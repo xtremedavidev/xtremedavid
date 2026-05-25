@@ -2,7 +2,7 @@
 import { initHeroScene } from "./heroScene";
 import { initLiquidOverlay } from "./liquidOverlay";
 
-export function initAnimations() {
+export function initAnimations(): (() => void) | undefined {
   const gsap = (window as any).gsap;
   const ScrollTrigger = (window as any).ScrollTrigger;
   const Lenis = (window as any).Lenis;
@@ -10,73 +10,89 @@ export function initAnimations() {
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // Kill stale animations from any previous mount
+  ScrollTrigger.getAll().forEach((st: any) => st.kill());
+  gsap.killTweensOf("*");
+
   // --- LENIS SMOOTH SCROLL ---
   const lenis = new Lenis({ duration: 1.2, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
   lenis.on("scroll", ScrollTrigger.update);
-  gsap.ticker.add((time: number) => lenis.raf(time * 1000));
+  const lenisTickFn = (time: number) => lenis.raf(time * 1000);
+  gsap.ticker.add(lenisTickFn);
   gsap.ticker.lagSmoothing(0);
 
-  // --- CUSTOM CURSOR ---
-  initCursor(gsap);
+  let ctx: any;
+  ctx = gsap.context(() => {
+    // --- CUSTOM CURSOR ---
+    initCursor(gsap);
 
-  // --- THREE.JS HERO ---
-  initHeroScene();
+    // --- THREE.JS HERO ---
+    initHeroScene();
 
-  // --- LIQUID RIPPLE OVERLAY ---
-  initLiquidOverlay();
+    // --- LIQUID RIPPLE OVERLAY ---
+    initLiquidOverlay();
 
-  // Logo hover
-  const logo = document.querySelector(".navbar__logo");
-  if (logo) {
-    logo.addEventListener("mouseenter", () => gsap.to(logo, { skewX: -6, duration: 0.3, ease: "power2.out" }));
-    logo.addEventListener("mouseleave", () => gsap.to(logo, { skewX: 0, duration: 0.3, ease: "power2.out" }));
-  }
+    // Logo hover
+    const logo = document.querySelector(".navbar__logo");
+    if (logo) {
+      logo.addEventListener("mouseenter", () => gsap.to(logo, { skewX: -6, duration: 0.3, ease: "power2.out" }));
+      logo.addEventListener("mouseleave", () => gsap.to(logo, { skewX: 0, duration: 0.3, ease: "power2.out" }));
+    }
 
-  // --- HERO ENTRANCE ---
-  heroEntrance(gsap);
+    // --- HERO ENTRANCE ---
+    heroEntrance(gsap);
 
-  // --- SCROLL INDICATOR LOOP ---
-  gsap.to("#scroll-line-anim", { y: 12, opacity: 0, repeat: -1, duration: 1.4, ease: "power1.inOut", yoyo: false, repeatDelay: 0.2 });
+    // --- SCROLL INDICATOR LOOP ---
+    gsap.to("#scroll-line-anim", { y: 12, opacity: 0, repeat: -1, duration: 1.4, ease: "power1.inOut", yoyo: false, repeatDelay: 0.2 });
 
-  // --- HERO PIN + PARALLAX ---
-  ScrollTrigger.create({
-    trigger: "#hero",
-    start: "top top",
-    end: "+=150%",
-    pin: true,
-    onUpdate: (self: any) => {
-      const p = self.progress;
-      gsap.set("#hero-content", { y: -80 * p, opacity: p > 0.7 ? 1 - (p - 0.7) / 0.3 : 1 });
-    },
+    // --- HERO PIN + PARALLAX ---
+    ScrollTrigger.create({
+      trigger: "#hero",
+      start: "top top",
+      end: "+=150%",
+      pin: true,
+      onUpdate: (self: any) => {
+        const p = self.progress;
+        gsap.set("#hero-content", { y: -80 * p, opacity: p > 0.7 ? 1 - (p - 0.7) / 0.3 : 1 });
+      },
+    });
+
+    // --- PROGRESS BAR ---
+    gsap.to("#progress-bar", {
+      width: "100%",
+      ease: "none",
+      scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.3 },
+    });
+
+    // --- SECTION 2: WORK ---
+    initWorkSection(gsap, ScrollTrigger);
+
+    // --- SECTION 3: CRAFT ---
+    initCraftSection(gsap, ScrollTrigger);
+
+    // --- SECTION 4: PERSON ---
+    initPersonSection(gsap, ScrollTrigger);
+
+    // --- SECTION 5: TESTIMONIES ---
+    initTestimoniesSection(gsap, ScrollTrigger);
+
+    // --- SECTION 6: CTA ---
+    initCTASection(gsap, ScrollTrigger);
+
+    // --- CHAPTER NUMBER ---
+    initChapterUpdater(gsap, ScrollTrigger);
+
+    // --- BODY BG TRANSITIONS ---
+    initBgTransitions(gsap, ScrollTrigger);
   });
 
-  // --- PROGRESS BAR ---
-  gsap.to("#progress-bar", {
-    width: "100%",
-    ease: "none",
-    scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.3 },
-  });
-
-  // --- SECTION 2: WORK ---
-  initWorkSection(gsap, ScrollTrigger);
-
-  // --- SECTION 3: CRAFT ---
-  initCraftSection(gsap, ScrollTrigger);
-
-  // --- SECTION 4: PERSON ---
-  initPersonSection(gsap, ScrollTrigger);
-
-  // --- SECTION 5: TESTIMONIES ---
-  initTestimoniesSection(gsap, ScrollTrigger);
-
-  // --- SECTION 6: CTA ---
-  initCTASection(gsap, ScrollTrigger);
-
-  // --- CHAPTER NUMBER ---
-  initChapterUpdater(gsap, ScrollTrigger);
-
-  // --- BODY BG TRANSITIONS ---
-  initBgTransitions(gsap, ScrollTrigger);
+  // Return cleanup function
+  return () => {
+    if (ctx) ctx.revert();
+    // Remove lenis ticker
+    gsap.ticker.remove(lenisTickFn);
+    lenis.destroy();
+  };
 }
 
 function initCursor(gsap: any) {

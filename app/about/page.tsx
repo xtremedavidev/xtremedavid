@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 import { useRouter } from "next/navigation";
 
 /* ═══════════ Cursor ═══════════ */
@@ -67,9 +68,7 @@ function splitToWords(selector: string | Element) {
       
       // Add a space after word except for the last one
       if (i < arr.length - 1) {
-        const space = document.createElement("span");
-        space.innerHTML = "&nbsp;";
-        el.appendChild(space);
+        el.appendChild(document.createTextNode(" "));
       }
     });
   });
@@ -103,7 +102,7 @@ export default function AboutPage() {
     }
   }, [router]);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     let chapterObserver: IntersectionObserver | null = null;
     const init = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -115,7 +114,12 @@ export default function AboutPage() {
       if (!gsap || !ScrollTrigger) return;
 
       gsap.registerPlugin(ScrollTrigger);
-      gsapCtxRef.current?.revert();
+      // Kill stale animations from previous mount (no revert — it crashes React)
+      const ScrollTriggerRef = (window as any).ScrollTrigger;
+      if (ScrollTriggerRef) {
+        ScrollTriggerRef.getAll().forEach((st: any) => st.kill());
+      }
+      gsap.killTweensOf("*");
 
       gsap.context(() => {
         // Reset stale styles
@@ -398,7 +402,7 @@ export default function AboutPage() {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((window as any).gsap && (window as any).ScrollTrigger) {
-      setTimeout(init, 50);
+      init();
     } else {
       window.addEventListener("load", init);
     }
@@ -406,6 +410,13 @@ export default function AboutPage() {
     return () => {
       chapterObserver?.disconnect();
       window.removeEventListener("load", init);
+      if (gsapCtxRef.current) {
+        gsapCtxRef.current.revert();
+      }
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
     };
   }, []);
 

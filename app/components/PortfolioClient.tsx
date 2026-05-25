@@ -1,8 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 export default function PortfolioClient() {
-  useEffect(() => {
+  const cleanupRef = useRef<(() => void) | null>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    let isMounted = true;
     const init = () => {
        
       if (
@@ -15,19 +20,31 @@ export default function PortfolioClient() {
         !(window as any).Lenis
       )
         return;
-      import("../lib/animations").then((mod) => mod.initAnimations());
+      import("../lib/animations").then((mod) => {
+        if (!isMounted) return; // Prevent running if unmounted during import
+        const cleanup = mod.initAnimations();
+        if (cleanup) cleanupRef.current = cleanup;
+      });
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((window as any).gsap && (window as any).THREE && (window as any).Lenis) {
       init();
     } else {
       window.addEventListener("load", init);
-      return () => window.removeEventListener("load", init);
     }
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("load", init);
+      if (cleanupRef.current) {
+        cleanupRef.current();
+        cleanupRef.current = null;
+      }
+    };
   }, []);
 
   return (
-    <>
+    <main className="portfolio-page">
       {/* LOADER */}
       <div id="page-loader">
         <div className="loader-text">ADEBAYO<span>.</span></div>
@@ -75,14 +92,11 @@ export default function PortfolioClient() {
         <div className="craft-section__bg" id="craft-bg"></div>
         <p className="chapter-label chapter-label--right">Chapter 02 — The Craft</p>
         <div className="craft-section__heading">
-          <h2 id="craft-heading">Built Different</h2>
+          <h2 id="craft-heading" dangerouslySetInnerHTML={{ __html: "Built Different" }} />
         </div>
         <div className="craft-section__grid">
           <div className="craft-section__copy">
-            <p id="craft-copy">
-              I don&apos;t just design screens — I architect experiences.
-              Every pixel is a decision. Every interaction, a conversation.
-            </p>
+            <p id="craft-copy" dangerouslySetInnerHTML={{ __html: "I don't just design screens — I architect experiences. Every pixel is a decision. Every interaction, a conversation." }} />
           </div>
           <div className="craft-section__tags" id="craft-tags">
             {["React Native","Next.js","Django","WordPress","Elementor","Three.js","GSAP","Figma","Framer","UI/UX","Design Systems","Python","Expo","TypeScript","Node.js","Healthcare Tech"].map((s) => (
@@ -92,15 +106,15 @@ export default function PortfolioClient() {
         </div>
         <div className="craft-section__stats" id="craft-stats">
           <div className="stat">
-            <div className="stat__number" data-count="100">0</div>
+            <div className="stat__number" data-count="100" dangerouslySetInnerHTML={{ __html: "0" }} />
             <div className="stat__label">Brands Worked With</div>
           </div>
           <div className="stat">
-            <div className="stat__number" data-count-text="#1">#0</div>
+            <div className="stat__number" data-count-text="#1" dangerouslySetInnerHTML={{ __html: "#0" }} />
             <div className="stat__label">Nigeria Behance UI/UX</div>
           </div>
           <div className="stat">
-            <div className="stat__number" data-count="5">0</div>
+            <div className="stat__number" data-count="5" dangerouslySetInnerHTML={{ __html: "0" }} />
             <div className="stat__label">Years Building</div>
           </div>
         </div>
@@ -118,7 +132,7 @@ export default function PortfolioClient() {
             </svg>
           </div>
           <div className="person-section__text">
-            <p className="person-section__story" id="person-story">David Adebayo is a globally recognized UI/UX designer and software engineer. From Lagos to the world — his work sits at the intersection of craft, code, and storytelling. When he&apos;s not building products, he&apos;s in communion with his faith and his person, Ife.</p>
+            <p className="person-section__story" id="person-story" dangerouslySetInnerHTML={{ __html: "David Adebayo is a globally recognized UI/UX designer and software engineer. From Lagos to the world — his work sits at the intersection of craft, code, and storytelling. When he's not building products, he's in communion with his faith and his person, Ife." }} />
             <p className="person-section__quote" id="person-quote">Faith. Code. Purpose.</p>
           </div>
         </div>
@@ -185,7 +199,7 @@ export default function PortfolioClient() {
           </div>
         </footer>
       </section>
-    </>
+    </main>
   );
 }
 

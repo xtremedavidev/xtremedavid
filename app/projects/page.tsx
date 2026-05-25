@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @next/next/no-img-element */
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useCallback, useMemo } from "react";
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 import { useRouter } from "next/navigation";
 import projectsData from "@/app/data/projects.cdn.json";
 
@@ -211,7 +212,7 @@ export default function ProjectsPage() {
   );
 
   /* ───── GSAP Init: Lenis, Cursor, Hero Animations ───── */
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const init = () => {
       const gsap = (window as any).gsap;
       const ScrollTrigger = (window as any).ScrollTrigger;
@@ -219,8 +220,9 @@ export default function ProjectsPage() {
       if (!gsap || !ScrollTrigger) return;
       gsap.registerPlugin(ScrollTrigger);
 
-      /* Kill stale GSAP context from previous mount */
-      gsapCtxRef.current?.revert();
+      /* Kill stale GSAP animations from previous mount (no revert — it crashes React) */
+      ScrollTrigger.getAll().forEach((st: any) => st.kill(true));
+      gsap.killTweensOf("*");
 
       const ctx = gsap.context(() => {
         /* Reset page visibility (exit animations leave opacity:0) */
@@ -353,46 +355,55 @@ export default function ProjectsPage() {
     }
   }, []);
 
-  /* ───── Cleanup GSAP context on unmount ───── */
-  useEffect(() => {
+  /* ───── Cleanup GSAP on unmount ───── */
+  useIsomorphicLayoutEffect(() => {
     return () => {
-      gsapCtxRef.current?.revert();
+      const gsap = (window as any).gsap;
+      if (gsapCtxRef.current) {
+        gsapCtxRef.current.revert();
+      }
     };
   }, []);
 
   /* ───── Card scroll entrance ───── */
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const gsap = (window as any).gsap;
     const ScrollTrigger = (window as any).ScrollTrigger;
     if (!gsap || !ScrollTrigger) return;
 
+    let ctx: any;
     const raf = requestAnimationFrame(() => {
       const cards = gridRef.current?.querySelectorAll(".wk-card");
       if (!cards) return;
 
-      // Reset cards
-      gsap.set(cards, { opacity: 0, y: 60, rotateX: 8 });
+      ctx = gsap.context(() => {
+        // Reset cards
+        gsap.set(cards, { opacity: 0, y: 60, rotateX: 8 });
 
-      cards.forEach((card, j) => {
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top 88%",
-          once: true,
-          onEnter: () => {
-            gsap.to(card, {
-              opacity: 1,
-              y: 0,
-              rotateX: 0,
-              duration: 0.9,
-              delay: (j % 3) * 0.1,
-              ease: "expo.out",
-            });
-          },
+        cards.forEach((card: Element, j: number) => {
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top 88%",
+            once: true,
+            onEnter: () => {
+              gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                rotateX: 0,
+                duration: 0.9,
+                delay: (j % 3) * 0.1,
+                ease: "expo.out",
+              });
+            },
+          });
         });
       });
     });
 
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      if (ctx) ctx.revert();
+    };
   }, [filteredProjects]);
 
   /* ───── Card hover GSAP ───── */
@@ -491,24 +502,18 @@ export default function ProjectsPage() {
           {/* Stats */}
           <div className="wk-hero-stats" ref={statsRef}>
             <div className="wk-stat">
-              <span className="wk-stat-number" data-wk-count={totalProjects}>
-                0
-              </span>
+              <span className="wk-stat-number" data-wk-count={totalProjects}>0</span>
               <span className="wk-stat-label">Projects</span>
             </div>
             <div className="wk-stat">
               <span
                 className="wk-stat-number"
                 data-wk-count={totalAppreciations}
-              >
-                0
-              </span>
+              >0</span>
               <span className="wk-stat-label">Appreciations</span>
             </div>
             <div className="wk-stat">
-              <span className="wk-stat-number" data-wk-count={totalViews}>
-                0
-              </span>
+              <span className="wk-stat-number" data-wk-count={totalViews}>0</span>
               <span className="wk-stat-label">Total Views</span>
             </div>
           </div>

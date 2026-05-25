@@ -79,7 +79,7 @@ export default function RootLayout({
         </div>
 
         {/* Chapter Number */}
-        <div id="chapter-number">01 / 04</div>
+        <div id="chapter-number" dangerouslySetInnerHTML={{ __html: "01 / 04" }} />
 
         <Navbar />
         {children}

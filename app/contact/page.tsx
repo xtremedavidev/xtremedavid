@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 function initCursor(gsap: any) {
   const dot = document.getElementById("cursor-dot");
@@ -114,7 +115,7 @@ export default function ContactPage() {
   };
 
   // Setup GSAP and Canvas
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const init = async () => {
       const gsap = (window as any).gsap;
       if (!gsap || !pageRef.current) return;
@@ -219,15 +220,17 @@ export default function ContactPage() {
     };
 
     if ((window as any).gsap) {
-      setTimeout(init, 50);
+      init();
     } else {
       window.addEventListener("load", init);
-      return () => window.removeEventListener("load", init);
     }
 
     return () => {
+      window.removeEventListener("load", init);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      if (gsapCtxRef.current) gsapCtxRef.current.revert();
+      if (gsapCtxRef.current) {
+        gsapCtxRef.current.revert();
+      }
     };
   }, []);
 
