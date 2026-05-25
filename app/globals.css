@@ -3988,3 +3988,15 @@ a {
     padding: 60px 24px 24px;
   }
 }
+
+@media (max-width: 768px) {
+  #cursor-dot, #cursor-ring {
+    display: none !important;
+  }
+  * {
+    cursor: auto !important;
+  }
+  a, button, [data-cursor="hover"], .wk-card, .pd-related-card, .ab-btn-primary, .ab-btn-secondary {
+    cursor: pointer !important;
+  }
+}

@@ -33,16 +33,26 @@ function useLagosTime() {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      const optionsTime: Intl.DateTimeFormatOptions = { timeZone: "Africa/Lagos", hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      const timeString = new Intl.DateTimeFormat('en-US', optionsTime).format(now); // "HH:MM:SS" or "24:00:00"
+      // Lagos is UTC+1 all year
+      const lagosTime = new Date(now.getTime() + 3600 * 1000);
       
-      const [h, m, s] = timeString.split(":");
-      setTimeParts({ h: h === "24" ? "00" : h, m, s });
+      const h = lagosTime.getUTCHours().toString().padStart(2, "0");
+      const m = lagosTime.getUTCMinutes().toString().padStart(2, "0");
+      const s = lagosTime.getUTCSeconds().toString().padStart(2, "0");
+      
+      setTimeParts({ h, m, s });
 
-      const optionsDate: Intl.DateTimeFormatOptions = { timeZone: "Africa/Lagos", weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      setDateStr(new Intl.DateTimeFormat('en-US', optionsDate).format(now));
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      
+      const dayName = days[lagosTime.getUTCDay()];
+      const monthName = months[lagosTime.getUTCMonth()];
+      const dateNum = lagosTime.getUTCDate();
+      const year = lagosTime.getUTCFullYear();
+      
+      setDateStr(`${dayName}, ${monthName} ${dateNum}, ${year}`);
 
-      const hour = parseInt(h === "24" ? "00" : h, 10);
+      const hour = parseInt(h, 10);
       setIsAsleep(hour >= 0 && hour < 7);
     };
 

@@ -15,6 +15,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isActive = (href: string) => {
+    if (!pathname) return false;
     if (href === "/projects") {
       return pathname === "/projects" || pathname.startsWith("/work");
     }
