@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @next/next/no-img-element */
 "use client";
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
-import Navbar from "@/app/components/Navbar";
 import projectsData from "@/app/data/projects.cdn.json";
 
 /* ═══════════ Types ═══════════ */

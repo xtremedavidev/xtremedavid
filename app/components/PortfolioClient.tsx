@@ -1,19 +1,23 @@
 "use client";
 
 import { useEffect } from "react";
-import Navbar from "./Navbar";
 export default function PortfolioClient() {
   useEffect(() => {
     const init = () => {
+       
       if (
         typeof window === "undefined" ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         !(window as any).gsap ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         !(window as any).THREE ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         !(window as any).Lenis
       )
         return;
       import("../lib/animations").then((mod) => mod.initAnimations());
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((window as any).gsap && (window as any).THREE && (window as any).Lenis) {
       init();
     } else {
@@ -147,7 +151,7 @@ export default function PortfolioClient() {
             }
           ].map((t, i) => (
             <div className="testimony-card" key={i} data-cursor="hover">
-              <div className="testimony-card__quote-mark">"</div>
+              <div className="testimony-card__quote-mark">&quot;</div>
               <p className="testimony-card__text">{t.quote}</p>
               <div className="testimony-card__author">
                 <span className="testimony-card__name">{t.author}</span>
@@ -185,7 +189,7 @@ export default function PortfolioClient() {
   );
 }
 
-function Card({ idx, gradient, tag, title, desc, comingSoon }: { idx: number; gradient: string; tag: string; title: string; desc: string; comingSoon?: boolean }) {
+function Card({ gradient, tag, title, desc, comingSoon }: { idx?: number; gradient: string; tag: string; title: string; desc: string; comingSoon?: boolean }) {
   return (
     <div className={`project-card${comingSoon ? " coming-soon" : ""}`} data-cursor="hover" style={comingSoon ? { opacity: 0.5 } : {}}>
       <div className="project-card__image">

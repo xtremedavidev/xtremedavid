@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import Navbar from "@/app/components/Navbar";
 
 /* ═══════════ Cursor ═══════════ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function initCursor(gsap: any) {
   const dot = document.getElementById("cursor-dot");
   const ring = document.getElementById("cursor-ring");
@@ -79,13 +79,16 @@ function splitToWords(selector: string | Element) {
 export default function AboutPage() {
   const router = useRouter();
   const pageRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const gsapCtxRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lenisRef = useRef<any>(null);
 
   const [activeChapter, setActiveChapter] = useState(0);
   
   // Navigate with transition
   const navigateTo = useCallback((href: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const gsap = (window as any).gsap;
     if (gsap && pageRef.current) {
       gsap.to(pageRef.current, {
@@ -101,16 +104,20 @@ export default function AboutPage() {
   }, [router]);
 
   useEffect(() => {
+    let chapterObserver: IntersectionObserver | null = null;
     const init = () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const gsap = (window as any).gsap;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const ScrollTrigger = (window as any).ScrollTrigger;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const Lenis = (window as any).Lenis;
       if (!gsap || !ScrollTrigger) return;
 
       gsap.registerPlugin(ScrollTrigger);
       gsapCtxRef.current?.revert();
 
-      const ctx = gsap.context(() => {
+      gsap.context(() => {
         // Reset stale styles
         if (pageRef.current) {
           gsap.set(pageRef.current, { clearProps: "opacity,y,transform" });
@@ -154,7 +161,7 @@ export default function AboutPage() {
         });
 
         // Intersection observer for chapter dots
-        const chapterObserver = new IntersectionObserver((entries) => {
+        chapterObserver = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const idx = parseInt((entry.target as HTMLElement).dataset.chapterIdx || "0", 10);
@@ -163,7 +170,7 @@ export default function AboutPage() {
           });
         }, { threshold: 0.3 });
         
-        document.querySelectorAll("[data-chapter-idx]").forEach(el => chapterObserver.observe(el));
+        document.querySelectorAll("[data-chapter-idx]").forEach(el => chapterObserver!.observe(el));
 
         // Section 1: Arrival
         // Blob breathing
@@ -346,7 +353,7 @@ export default function AboutPage() {
         });
 
         const s5Rows = document.querySelectorAll(".ab-s5-row");
-        s5Rows.forEach((row, i) => {
+        s5Rows.forEach((row) => {
           ScrollTrigger.create({
             trigger: row,
             start: "top 80%",
@@ -387,18 +394,19 @@ export default function AboutPage() {
         });
 
       }, pageRef);
-
-      return () => {
-        chapterObserver?.disconnect();
-      };
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((window as any).gsap && (window as any).ScrollTrigger) {
       setTimeout(init, 50);
     } else {
       window.addEventListener("load", init);
-      return () => window.removeEventListener("load", init);
     }
+
+    return () => {
+      chapterObserver?.disconnect();
+      window.removeEventListener("load", init);
+    };
   }, []);
 
   const scrollToChapter = (idx: number) => {
@@ -553,7 +561,7 @@ export default function AboutPage() {
         <section className="ab-section ab-sec-4" data-chapter-idx="2">
           <div className="ab-ch-label ab-ch-label-3">Chapter 03 — The Person</div>
           <div className="ab-s4-content">
-            <div className="ab-s4-quote">"I build with my hands. I live by my faith."</div>
+            <div className="ab-s4-quote">&quot;I build with my hands. I live by my faith.&quot;</div>
             <div className="ab-s4-hr" />
             <div className="ab-s4-p">David&apos;s faith is not a footnote. It is the foundation. Every project he takes on, every decision he makes — it runs through a filter of purpose. He doesn&apos;t build for applause. He builds because it means something.</div>
             <div className="ab-s4-p">He and Ife share a relationship defined by depth, not performance. The kind that holds steady when the work is hard and the nights are long. That groundedness shows up in his work — in the care, the patience, the refusal to ship something that isn&apos;t right.</div>
@@ -598,9 +606,9 @@ export default function AboutPage() {
         <section className="ab-section ab-sec-6">
           <div className="ab-s6-blob" />
           <div className="ab-s6-content">
-            <div className="ab-s6-close">If you've read this far, we should probably talk.</div>
+            <div className="ab-s6-close">If you&apos;ve read this far, we should probably talk.</div>
             <h2 className="ab-s6-head">
-              <div className="ab-s6-head-line" style={{ color: "var(--text)" }}>Let's Build</div>
+              <div className="ab-s6-head-line" style={{ color: "var(--text)" }}>Let&apos;s Build</div>
               <div className="ab-s6-head-line ghost">Something Real.</div>
             </h2>
             <div className="ab-s6-btns">

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
 
 function initCursor(gsap: any) {
   const dot = document.getElementById("cursor-dot");
@@ -57,7 +57,6 @@ function useLagosTime() {
 const PROJECT_TYPES = ["Website", "Mobile App", "Design System", "Brand & Identity", "Motion / Animation", "Something Else"];
 
 export default function ContactPage() {
-  const router = useRouter();
   const pageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const formCardRef = useRef<HTMLDivElement>(null);
@@ -467,7 +466,7 @@ export default function ContactPage() {
               {/* Field 03 - Budget */}
               <div className="ct-form-group">
                 <div className="ct-budget-header">
-                  <label className="ct-label active">What's the investment range?</label>
+                  <label className="ct-label active">What&apos;s the investment range?</label>
                   <span className="ct-budget-val">{currentBudgetLabel}</span>
                 </div>
                 <div className="ct-slider-wrap" {...bindCursor()}>
@@ -528,7 +527,7 @@ export default function ContactPage() {
                   <div className={`ct-input-line ${focusedField === "email" ? "active" : ""} ${emailValid === false ? "error" : ""}`}></div>
                   {emailValid && focusedField !== "email" && <div className="ct-check">✓</div>}
                 </div>
-                {emailValid === false && <div className="ct-error-msg">That doesn't look right</div>}
+                {emailValid === false && <div className="ct-error-msg">That doesn&apos;t look right</div>}
               </div>
 
               {/* Submit */}
@@ -564,7 +563,7 @@ export default function ContactPage() {
         <div className="ct-marquee">
           <div className="ct-marquee-inner">
             {[1, 2, 3].map(i => (
-              <span key={i}>LET'S BUILD SOMETHING REAL <span className="sep">—</span> </span>
+              <span key={i}>LET&apos;S BUILD SOMETHING REAL <span className="sep">—</span> </span>
             ))}
           </div>
         </div>

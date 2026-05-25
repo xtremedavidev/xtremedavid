@@ -1,0 +1,135 @@
+﻿
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\about\page.tsx
+    3:52  warning  'useMemo' is defined but never used                              @typescript-eslint/no-unused-vars
+    5:8   warning  'Navbar' is defined but never used                               @typescript-eslint/no-unused-vars
+    8:27  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   82:29  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   83:27  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   89:29  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  105:31  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  106:40  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  107:32  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  113:13  warning  'ctx' is assigned a value but never used                         @typescript-eslint/no-unused-vars
+  349:30  warning  'i' is defined but never used                                    @typescript-eslint/no-unused-vars
+  396:20  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  396:44  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  556:42  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  556:85  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  601:48  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  603:84  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\components\Navbar.tsx
+  33:7  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\components\PortfolioClient.tsx
+    4:8   warning  'Navbar' is defined but never used                               @typescript-eslint/no-unused-vars
+   10:21  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   11:21  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   12:21  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   17:20  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   17:44  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   17:69  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  150:59  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  188:17  warning  'idx' is defined but never used                                  @typescript-eslint/no-unused-vars
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\contact\page.tsx
+    6:27  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+   60:9   warning  'router' is assigned a value but never used                      @typescript-eslint/no-unused-vars
+   64:29  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  110:31  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  212:20  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  227:58  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  228:18  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  253:58  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  255:20  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  275:20  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  276:18  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  296:30  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  297:18  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  306:22  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  307:20  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  319:22  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  320:31  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  470:58  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  531:82  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  567:32  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\layout.tsx
+  26:9  warning  Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font  @next/next/no-page-custom-font
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\lib\animations.ts
+    5:27  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+    6:36  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+    7:28  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   46:22  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   81:27  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  121:29  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  141:48  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  141:72  warning  'gsap' is defined but never used          @typescript-eslint/no-unused-vars
+  141:78  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  168:32  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  168:52  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  197:33  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  197:53  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  304:46  warning  'gsap' is defined but never used          @typescript-eslint/no-unused-vars
+  304:52  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  333:34  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  333:54  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  392:39  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  392:59  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  419:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  419:51  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  441:35  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  441:55  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  467:34  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  467:54  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\lib\heroScene.ts
+   3:28  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  69:7   error  'mouseNDC' is never reassigned. Use 'const' instead    prefer-const
+  70:7   error  'mouseWorld' is never reassigned. Use 'const' instead  prefer-const
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\lib\liquidOverlay.ts
+  3:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\projects\page.tsx
+    5:8   warning  'Navbar' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+   74:27  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  129:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  159:31  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  193:31  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  216:31  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  217:40  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  218:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  348:20  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  348:44  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  365:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  366:38  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  400:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  421:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  559:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\app\work\[slug]\page.tsx
+    5:8   warning  'Navbar' is defined but never used                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+   65:27  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  193:27  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  194:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  220:31  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  241:31  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  242:40  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  243:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  327:20  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  327:44  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  338:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  459:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  496:9   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  569:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  644:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  670:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\USER\Documents\codebase\xtremedavid\xtremedavid\parse-eslint.js
+  1:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+Γ£û 109 problems (92 errors, 17 warnings)
+  2 errors and 0 warnings potentially fixable with the `--fix` option.
+

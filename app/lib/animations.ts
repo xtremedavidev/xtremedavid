@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { initHeroScene } from "./heroScene";
 import { initLiquidOverlay } from "./liquidOverlay";
 
@@ -129,8 +130,8 @@ function heroEntrance(gsap: any) {
   tl.from("#hero-canvas", { opacity: 0, duration: 1.2 }, 1.2);
 
   // Split chars — set visibility properly
-  splitAndAnimate("#hero-name-david", tl, 1.5, gsap);
-  splitAndAnimate("#hero-name-adebayo", tl, 1.75, gsap);
+  splitAndAnimate("#hero-name-david", tl, 1.5);
+  splitAndAnimate("#hero-name-adebayo", tl, 1.75);
 
   tl.from("#hero-tagline", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, 2.1);
   tl.from("#hero-subtagline", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, 2.3);
@@ -138,7 +139,7 @@ function heroEntrance(gsap: any) {
   tl.from("#hero-scroll", { opacity: 0, y: 10, duration: 0.6 }, 2.7);
 }
 
-function splitAndAnimate(selector: string, tl: any, startTime: number, gsap: any) {
+function splitAndAnimate(selector: string, tl: any, startTime: number) {
   const el = document.querySelector(selector);
   if (!el) return;
   const text = el.textContent || "";
@@ -207,7 +208,7 @@ function initCraftSection(gsap: any, ScrollTrigger: any) {
   ScrollTrigger.create({
     trigger: "#craft-heading",
     start: "top 75%",
-    onEnter: () => slotMachineReveal("#craft-heading", gsap),
+    onEnter: () => slotMachineReveal("#craft-heading"),
     once: true,
   });
 
@@ -301,7 +302,7 @@ function initCraftSection(gsap: any, ScrollTrigger: any) {
   });
 }
 
-function slotMachineReveal(selector: string, gsap: any) {
+function slotMachineReveal(selector: string) {
   const el = document.querySelector(selector);
   if (!el) return;
   const text = el.textContent || "";

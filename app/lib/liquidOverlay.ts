@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* Three.js Fluid Overlay — lightweight, subtle, nearly transparent */
 export function initLiquidOverlay() {
   const THREE = (window as any).THREE;

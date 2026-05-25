@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* Three.js Hero Particle Field — Enhanced cursor interaction */
 export function initHeroScene() {
   const THREE = (window as any).THREE;
@@ -66,8 +67,8 @@ export function initHeroScene() {
   scene.add(points);
 
   // Mouse tracking in NDC
-  let mouseNDC = new THREE.Vector2(9999, 9999);
-  let mouseWorld = new THREE.Vector3(0, 0, 0);
+  const mouseNDC = new THREE.Vector2(9999, 9999);
+  const mouseWorld = new THREE.Vector3(0, 0, 0);
   const raycaster = new THREE.Raycaster();
   const mousePlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { useState, useCallback } from "react";
 
 const NAV_LINKS = [
@@ -30,24 +31,24 @@ export default function Navbar() {
 
   return (
     <nav className="navbar" id="navbar">
-      <a href="/" className="navbar__logo" data-cursor="hover">DA</a>
+      <Link href="/" className="navbar__logo" data-cursor="hover">DA</Link>
 
       {/* Desktop links */}
       <ul className="navbar__links">
         {NAV_LINKS.map((link) => (
           <li key={link.href}>
-            <a
+            <Link
               href={link.href}
               className="navbar__link nav-link-item"
               style={isActive(link.href) ? { color: "var(--text)" } : undefined}
             >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
 
-      <a href="/contact" className="navbar__cta navbar__cta--desktop" data-cursor="hover">Let&apos;s Talk →</a>
+      <Link href="/contact" className="navbar__cta navbar__cta--desktop" data-cursor="hover">Let&apos;s Talk →</Link>
 
       {/* Mobile hamburger */}
       <button
@@ -64,20 +65,20 @@ export default function Navbar() {
         <ul className="navbar__mobile-links">
           {NAV_LINKS.map((link, i) => (
             <li key={link.href} style={{ transitionDelay: `${0.05 + i * 0.05}s` }}>
-              <a
+              <Link
                 href={link.href}
                 className={`navbar__mobile-link ${isActive(link.href) ? "active" : ""}`}
                 onClick={closeMenu}
                 data-cursor="hover"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
-        <a href="/contact" className="navbar__cta navbar__cta--mobile" onClick={closeMenu} data-cursor="hover">
+        <Link href="/contact" className="navbar__cta navbar__cta--mobile" onClick={closeMenu} data-cursor="hover">
           Let&apos;s Talk →
-        </a>
+        </Link>
         <div className="navbar__mobile-footer">
           <a href="#" data-cursor="hover">LinkedIn</a>
           <a href="#" data-cursor="hover">Behance</a>
