@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import { submitContactForm } from "./actions";
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 function initCursor(gsap: any) {
@@ -312,7 +313,7 @@ export default function ContactPage() {
     }
   };
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (!name || !email || !message || emailValid === false) {
       if ((window as any).gsap && formCardRef.current) {
@@ -324,16 +325,31 @@ export default function ContactPage() {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      
-      if ((window as any).gsap && formCardRef.current) {
-        const tl = (window as any).gsap.timeline();
-        tl.to(".ct-form-group", { opacity: 0, y: -10, stagger: -0.05, duration: 0.3, ease: "power2.in" })
-          .fromTo(".ct-success-view", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.5)" });
+    try {
+      const res = await submitContactForm({
+        name,
+        email,
+        projectTypes,
+        budget: currentBudgetLabel,
+        message,
+      });
+
+      if (res.success) {
+        setIsSuccess(true);
+        if ((window as any).gsap && formCardRef.current) {
+          const tl = (window as any).gsap.timeline();
+          tl.to(".ct-form-group", { opacity: 0, y: -10, stagger: -0.05, duration: 0.3, ease: "power2.in" })
+            .fromTo(".ct-success-view", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.5)" });
+        }
+      } else {
+        alert("Failed to send message: " + (res.error || "Unknown error"));
       }
-    }, 2500);
+    } catch (err: any) {
+      console.error(err);
+      alert("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Cursor Hover Effects (form fields)
@@ -410,18 +426,35 @@ export default function ContactPage() {
             <div className="ct-direct-lines">
               <div className="ct-direct-row">
                 <span className="ct-direct-lbl">Email</span>
-                <a href="mailto:davidadebayo702@email.com" className="ct-direct-val" data-cursor="hover">hello@davidadewale.com</a>
+                <a href="mailto:davidadebayo702@gmail.com" className="ct-direct-val" data-cursor="hover">davidadebayo702@gmail.com</a>
               </div>
               <div className="ct-direct-row">
                 <span className="ct-direct-lbl">Behance</span>
-                <a href="https://behance.net/davidadewale" target="_blank" rel="noopener noreferrer" className="ct-direct-val" data-cursor="hover">behance.net/davidadewale</a>
+                <a href="https://www.behance.net/xtremedavid" target="_blank" rel="noopener noreferrer" className="ct-direct-val" data-cursor="hover">behance.net/xtremedavid</a>
               </div>
             </div>
 
             <div className="ct-social-row">
-              {["LinkedIn", "Twitter / X", "GitHub", "Behance"].map(s => (
-                <a href="#" key={s} className="ct-social-link" data-cursor="hover">{s}</a>
-              ))}
+              {["LinkedIn", "Twitter / X", "GitHub", "Behance"].map(s => {
+                const hrefs: Record<string, string> = {
+                  "LinkedIn": "https://www.linkedin.com/in/david-adebayo/",
+                  "Twitter / X": "https://x.com/xtremedaviddev",
+                  "Behance": "https://www.behance.net/xtremedavid",
+                  "GitHub": "#"
+                };
+                return (
+                  <a
+                    href={hrefs[s] || "#"}
+                    key={s}
+                    className="ct-social-link"
+                    data-cursor="hover"
+                    target={s !== "GitHub" ? "_blank" : undefined}
+                    rel={s !== "GitHub" ? "noopener noreferrer" : undefined}
+                  >
+                    {s}
+                  </a>
+                );
+              })}
             </div>
 
             <div className="ct-ambient-time">
@@ -580,7 +613,7 @@ export default function ContactPage() {
             ))}
           </div>
         </div>
-        <div className="ct-copyright">© 2026 David Adewale · Built with intention.</div>
+        <div className="ct-copyright">© 2026 David Adebayo · Built with intention.</div>
       </div>
     </div>
   );

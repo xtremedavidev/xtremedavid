@@ -81,9 +81,9 @@ export default function Navbar() {
           Let&apos;s Talk →
         </Link>
         <div className="navbar__mobile-footer">
-          <a href="#" data-cursor="hover">LinkedIn</a>
-          <a href="#" data-cursor="hover">Behance</a>
-          <a href="#" data-cursor="hover">Email</a>
+          <a href="https://www.linkedin.com/in/david-adebayo/" target="_blank" rel="noopener noreferrer" data-cursor="hover">LinkedIn</a>
+          <a href="https://www.behance.net/xtremedavid" target="_blank" rel="noopener noreferrer" data-cursor="hover">Behance</a>
+          <a href="mailto:davidadebayo702@gmail.com" data-cursor="hover">Email</a>
         </div>
       </div>
     </nav>

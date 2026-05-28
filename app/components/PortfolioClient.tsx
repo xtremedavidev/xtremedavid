@@ -186,10 +186,10 @@ export default function PortfolioClient() {
             <h2><span className="outline-text">The World Remembers.</span></h2>
           </div>
           <div className="cta-section__buttons">
-            <a href="mailto:davidadebayo702@email.com" className="cta-section__btn-primary" data-cursor="hover">Start a Project</a>
-            <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="cta-section__btn-secondary" data-cursor="hover">View Full Behance</a>
+            <a href="mailto:davidadebayo702@gmail.com" className="cta-section__btn-primary" data-cursor="hover">Start a Project</a>
+            <a href="https://www.behance.net/xtremedavid" target="_blank" rel="noopener noreferrer" className="cta-section__btn-secondary" data-cursor="hover">View Full Behance</a>
           </div>
-          <a href="mailto:davidadebayo702@email.com" className="cta-section__email" data-cursor="hover">davidadebayo702@email.com</a>
+          <a href="mailto:davidadebayo702@gmail.com" className="cta-section__email" data-cursor="hover">davidadebayo702@gmail.com</a>
         </div>
         <footer className="footer">
           <div className="footer__rule"></div>

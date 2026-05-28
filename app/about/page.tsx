@@ -627,9 +627,9 @@ export default function AboutPage() {
               <button className="ab-btn-secondary" onClick={() => navigateTo("/projects")} data-cursor="hover">See the Work →</button>
             </div>
             <div className="ab-s6-social">
-              <a href="#" data-cursor="hover">LINKEDIN</a>
-              <a href="#" data-cursor="hover">BEHANCE</a>
-              <a href="#" data-cursor="hover">EMAIL</a>
+              <a href="https://www.linkedin.com/in/david-adebayo/" target="_blank" rel="noopener noreferrer" data-cursor="hover">LINKEDIN</a>
+              <a href="https://www.behance.net/xtremedavid" target="_blank" rel="noopener noreferrer" data-cursor="hover">BEHANCE</a>
+              <a href="mailto:davidadebayo702@gmail.com" data-cursor="hover">EMAIL</a>
             </div>
           </div>
           <div className="ab-s6-foot">Lagos · Nigeria · The World</div>
