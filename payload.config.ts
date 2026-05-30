@@ -21,6 +21,7 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || 'f3f982701b24e996c723b2701b24bea18365f',
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || 'mongodb://127.0.0.1:27017/xtremedavid',
+    transactionOptions: false,
   }),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
