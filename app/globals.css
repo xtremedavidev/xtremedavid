@@ -3685,6 +3685,15 @@ a {
   touch-action: none;
 }
 
+.ct-slider-track::after {
+  content: '';
+  position: absolute;
+  top: -24px;
+  bottom: -24px;
+  left: 0;
+  right: 0;
+}
+
 .ct-slider-fill {
   position: absolute;
   top: 0;
