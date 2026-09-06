@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
 import { submitContactForm } from "./actions";
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
@@ -413,13 +414,22 @@ export default function ContactPage() {
             <div className="ct-hr" />
 
             <div className="ct-status-wrap">
-              <div className="ct-status-dot-wrap">
-                <div className="ct-status-inner" style={{ background: isAsleep ? "#FF9500" : "#00FF88" }}></div>
-                <div className="ct-status-outer" style={{ background: isAsleep ? "#FF9500" : "#00FF88" }}></div>
+              <div className="ct-status-avatar-wrap">
+                <Image
+                  src="/images/image.jpeg"
+                  alt="David Adebayo"
+                  width={44}
+                  height={44}
+                  className="ct-status-avatar-img"
+                />
+                <div className="ct-status-dot-wrap">
+                  <div className="ct-status-inner" style={{ background: isAsleep ? "#FF9500" : "#00FF88" }}></div>
+                  <div className="ct-status-outer" style={{ background: isAsleep ? "#FF9500" : "#00FF88" }}></div>
+                </div>
               </div>
               <div className="ct-status-texts">
                 <div className="ct-status-main">{isAsleep ? "Likely resting — will respond soon" : "Available for new projects"}</div>
-                <div className="ct-status-sub">Response within 24 hours</div>
+                <div className="ct-status-sub">David Adebayo · Response within 24 hours</div>
               </div>
             </div>
 

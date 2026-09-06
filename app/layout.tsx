@@ -7,6 +7,35 @@ export const metadata: Metadata = {
   title: "David Adebayo — UI/UX Designer & Software Engineer",
   description:
     "Portfolio of David Adebayo — #1 on Behance Nigeria (UI/UX). Globally recognized designer & engineer building digital worlds.",
+  icons: {
+    icon: [
+      { url: "/images/fav.jpeg", type: "image/jpeg" },
+      { url: "/fav.jpeg", type: "image/jpeg" },
+    ],
+    shortcut: "/images/fav.jpeg",
+    apple: "/images/fav.jpeg",
+  },
+  openGraph: {
+    title: "David Adebayo — UI/UX Designer & Software Engineer",
+    description:
+      "Portfolio of David Adebayo — #1 on Behance Nigeria (UI/UX). Globally recognized designer & engineer building digital worlds.",
+    images: [
+      {
+        url: "/images/image.jpeg",
+        width: 1200,
+        height: 1500,
+        alt: "David Adebayo",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "David Adebayo — UI/UX Designer & Software Engineer",
+    description:
+      "Portfolio of David Adebayo — #1 on Behance Nigeria (UI/UX). Globally recognized designer & engineer building digital worlds.",
+    images: ["/images/image.jpeg"],
+  },
 };
 
 export default function RootLayout({
@@ -17,6 +46,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Favicon */}
+        <link rel="icon" href="/images/fav.jpeg" type="image/jpeg" />
+        <link rel="shortcut icon" href="/images/fav.jpeg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/images/fav.jpeg" />
+
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

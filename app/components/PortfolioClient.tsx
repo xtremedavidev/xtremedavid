@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef } from "react";
+import Image from "next/image";
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export default function PortfolioClient() {
@@ -80,10 +81,14 @@ export default function PortfolioClient() {
           <h2><span id="work-word-1">Selected</span>{" "}<span id="work-word-2">Work</span></h2>
         </div>
         <div className="work-section__track" id="work-track">
-          <Card idx={1} gradient="1" tag="UI/UX · Mobile" title="Carebond" desc="Healthcare mobile app — React Native & Expo" />
-          <Card idx={2} gradient="2" tag="Web · Agency" title="The Iris" desc="WordPress agency site — Elementor & custom code" />
-          <Card idx={3} gradient="3" tag="UI/UX · Portfolio" title="Behance Portfolio" desc="#1 in Nigeria — UI/UX category showcase" />
-          <Card idx={4} gradient="4" tag="Coming Soon" title="Untitled 04" desc="Next project — details under wraps" comingSoon />
+          <Card image="/images/Carebond.png" tag="UI/UX · Web" title="Carebond" desc="Healthcare platform — design & development" href="https://www.carebond.ch/en" />
+          <Card image="/images/Iris.png" tag="Web · Agency" title="The Iris" desc="Creative agency — branding & web" href="https://theiris.io" />
+          <Card image="/images/behance.png" tag="UI/UX · Portfolio" title="Behance Portfolio" desc="#1 in Nigeria — UI/UX category showcase" href="https://behance.net/xtremedavid" />
+          <Card image="/images/wonderphone.png" tag="Web · Product" title="Wonderphone" desc="Consumer tech — product site" href="https://www.wondersimple.com/" />
+          <Card image="/images/kevda.png" tag="Web · Biotech" title="Kevda" desc="Bioworks — science meets design" href="https://kevdabioworks.com" />
+          <Card image="/images/codarket.png" tag="Web · Agency" title="Codarket" desc="Digital agency — timeless experiences" href="https://www.codarket.com/" />
+          <Card tag="Web · SaaS" title="HitchGuardian" desc="Safety & security platform" href="https://www.hitchguardian.me/" />
+          <Card image="/images/axy.png" tag="Web · Digital" title="AXY Digital" desc="Digital solutions — strategy & build" href="https://www.axy.digital/" />
         </div>
       </section>
 
@@ -126,7 +131,17 @@ export default function PortfolioClient() {
         <p className="chapter-label chapter-label--left">Chapter 03 — The Person</p>
         <div className="person-section__grid">
           <div className="person-section__image" id="person-image">
-            <div className="person-section__image-placeholder"><span>DA</span></div>
+            <div className="person-section__image-inner">
+              <Image
+                src="/images/image.jpeg"
+                alt="David Adebayo"
+                fill
+                sizes="(max-width: 768px) 320px, 380px"
+                priority
+                className="person-section__img"
+              />
+              <div className="person-section__overlay" />
+            </div>
             <svg className="person-section__border-frame" id="person-frame" viewBox="0 0 400 534" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="1" y="1" width="398" height="532" rx="13" stroke="#C8FF00" strokeWidth="1.5" strokeDasharray="1868" strokeDashoffset="1868"/>
             </svg>
@@ -203,18 +218,38 @@ export default function PortfolioClient() {
   );
 }
 
-function Card({ gradient, tag, title, desc, comingSoon }: { idx?: number; gradient: string; tag: string; title: string; desc: string; comingSoon?: boolean }) {
+function Card({ image, tag, title, desc, href }: { image?: string; tag: string; title: string; desc: string; href: string }) {
   return (
-    <div className={`project-card${comingSoon ? " coming-soon" : ""}`} data-cursor="hover" style={comingSoon ? { opacity: 0.5 } : {}}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="project-card"
+      data-cursor="hover"
+    >
       <div className="project-card__image">
-        <div className={`project-card__image-inner project-card__gradient-${gradient}`}></div>
+        {image ? (
+          <div className="project-card__image-inner">
+            <Image
+              src={image}
+              alt={title}
+              fill
+              sizes="480px"
+              className="project-card__img"
+            />
+          </div>
+        ) : (
+          <div className="project-card__image-inner project-card__gradient-fallback">
+            <span className="project-card__image-initials">{title.split(" ").map(w => w[0]).join("")}</span>
+          </div>
+        )}
       </div>
       <div className="project-card__body">
         <span className="project-card__tag">{tag}</span>
         <h3 className="project-card__title">{title}</h3>
         <p className="project-card__desc">{desc}</p>
-        {!comingSoon && <a href="#" className="project-card__link">View →</a>}
+        <span className="project-card__link">Visit Site →</span>
       </div>
-    </div>
+    </a>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 import { useRouter } from "next/navigation";
 
@@ -486,7 +487,15 @@ export default function AboutPage() {
             <div className="ab-s2-left">
               <div className="ab-s2-img-wrap">
                 <div className="ab-s2-img">
-                  <span>DA</span>
+                  <Image
+                    src="/images/image.jpeg"
+                    alt="David Adebayo"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    priority
+                    className="ab-s2-photo"
+                  />
+                  <div className="ab-s2-photo-gradient" />
                 </div>
                 <svg className="ab-s2-brackets" viewBox="0 0 100 100" preserveAspectRatio="none">
                   {/* Top Left */}

@@ -195,15 +195,16 @@ function initWorkSection(gsap: any, ScrollTrigger: any) {
 
   const track = document.getElementById("work-track");
   if (!track) return;
-  const totalScroll = track.scrollWidth - window.innerWidth;
+
+  const getScrollAmount = () => track.scrollWidth - window.innerWidth;
 
   gsap.to(track, {
-    x: -totalScroll,
+    x: () => -getScrollAmount(),
     ease: "none",
     scrollTrigger: {
       trigger: "#work",
       start: "top top",
-      end: () => `+=${totalScroll}`,
+      end: () => `+=${getScrollAmount()}`,
       pin: true,
       scrub: 1,
       invalidateOnRefresh: true,
