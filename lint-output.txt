@@ -1,0 +1,23 @@
+
+> xtremedavid@0.1.0 lint
+> eslint
+
+
+/vercel/sandbox/primary/app/(payload)/admin/[[...segments]]/page.tsx
+  3:8  warning  'React' is defined but never used  @typescript-eslint/no-unused-vars
+
+/vercel/sandbox/primary/app/about/page.tsx
+  119:43  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  121:48  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/vercel/sandbox/primary/app/contact/actions.ts
+  138:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/vercel/sandbox/primary/app/lib/animations.ts
+  25:3  error  'ctx' is never reassigned. Use 'const' instead  prefer-const
+
+/vercel/sandbox/primary/app/projects/page.tsx
+  361:13  warning  'gsap' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 6 problems (4 errors, 2 warnings)
+
