@@ -95,7 +95,14 @@ export async function POST(req: NextRequest) {
         }
 
         // Make sure it was actually sent to you (fixes self-testing loop)
-        const isToMe = parsed.to?.value?.some(t => t.address?.toLowerCase() === gmailUser.toLowerCase())
+        const toList = parsed.to
+          ? Array.isArray(parsed.to)
+            ? parsed.to.flatMap((item) => item.value)
+            : parsed.to.value
+          : []
+        const isToMe = toList.some(
+          (t) => t.address?.toLowerCase() === gmailUser.toLowerCase()
+        )
         if (!isToMe) continue
 
         // Clean up the body text

@@ -14,7 +14,7 @@ async function main() {
     console.log(`Latest contact: ${c.name}, Email: ${c.email}`)
     console.log(`Conversation length: ${c.conversation?.length}`)
     if (c.conversation) {
-        c.conversation.forEach((msg, idx) => {
+        c.conversation.forEach((msg: any, idx: number) => {
             console.log(`Msg ${idx}: Sender: ${msg.sender}, MsgID: ${msg.emailMessageId}`)
         })
     }
