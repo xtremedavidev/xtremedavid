@@ -24,6 +24,14 @@ export async function submitContactForm(data: ContactData) {
         projectTypes: data.projectTypes.map((t) => ({ type: t })),
         budget: data.budget,
         message: data.message,
+        status: 'new',
+        conversation: [
+          {
+            sender: 'client',
+            body: data.message,
+            sentAt: new Date().toISOString(),
+          },
+        ],
       },
     });
 
@@ -74,6 +82,7 @@ export async function submitContactForm(data: ContactData) {
           </div>
         </div>
       `,
+      text: `New Project Request\n\nName: ${data.name}\nEmail: ${data.email}\nServices: ${data.projectTypes.join(", ") || "None selected"}\nBudget: ${data.budget}\n\nMessage:\n${data.message}\n\nSent from xtremedavid.dev portfolio dashboard.`,
     };
 
     // Email to client (Receipt Notification)
@@ -126,6 +135,7 @@ export async function submitContactForm(data: ContactData) {
           </div>
         </div>
       `,
+      text: `Hi ${data.name.split(" ")[0]},\n\nThank you for reaching out and sharing details about your project. I have received your inquiry and will review it shortly. You can typically expect a response from me within 24 hours.\n\nInquiry Details:\nServices: ${data.projectTypes.join(", ") || "Custom"}\nBudget Range: ${data.budget}\n\nI look forward to discussing how we can turn your vision into a premium digital experience.\n\n--\nDavid Adebayo\nUI/UX Designer & Software Engineer\nBehance: https://www.behance.net/xtremedavid\nLinkedIn: https://www.linkedin.com/in/david-adebayo\nX/Twitter: https://x.com/xtremedaviddev`,
     };
 
     // Send emails in parallel

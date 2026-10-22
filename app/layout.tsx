@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "./components/Navbar";
+import PortfolioShell from "./components/PortfolioShell";
 
 export const metadata: Metadata = {
   title: "David Adebayo — UI/UX Designer & Software Engineer",
@@ -89,35 +89,9 @@ export default function RootLayout({
           defer
         ></script>
       </head>
-      <body>
-        {/* Custom Cursor */}
-        <div id="cursor-dot"></div>
-        <div id="cursor-ring"></div>
-
-        {/* Progress Bar */}
-        <div id="progress-bar"></div>
-
-        {/* Noise Overlay */}
-        <div id="noise-overlay">
-          <svg width="100%" height="100%">
-            <filter id="noise">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.65"
-                numOctaves="3"
-                stitchTiles="stitch"
-              />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#noise)" />
-          </svg>
-        </div>
-
-        {/* Chapter Number */}
-        <div id="chapter-number" dangerouslySetInnerHTML={{ __html: "01 / 04" }} />
-
-        <Navbar />
+      <PortfolioShell>
         {children}
-      </body>
+      </PortfolioShell>
     </html>
   );
 }
