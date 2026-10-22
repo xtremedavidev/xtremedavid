@@ -21,6 +21,17 @@ export const concepts: Concept[] = [
       themeColor: "#F2F2EF",
     },
   },
+  {
+    id: "ecolit",
+    name: "ECOLIT",
+    meta: {
+      title: "ECOLIT — Homes from light steel, anywhere. · Concept by David Adebayo",
+      description:
+        "An unsolicited homepage concept for ECOLIT: cold-formed steel homes, a global partner network, and a business you can open in your city.",
+      ogImage: "/og/ecolit.png",
+      themeColor: "#ECEDEA",
+    },
+  },
 ];
 
 export function getConcept(id: string): Concept | undefined {

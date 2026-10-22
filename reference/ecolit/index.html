@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ECOLIT — Homes from light steel, anywhere. · Concept by David Adebayo</title>
+<meta name="description" content="An unsolicited homepage concept for ECOLIT: cold-formed steel homes, a global partner network, and a business you can open in your city." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#ECEDEA" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.css" />
+<!--
+  REFERENCE BUILD v2 — source of truth for layout + motion.
+  Assets: ../../public/concepts/ecolit/*  (Next.js: /concepts/ecolit/*). Drawings are inline SVG / canvas (no files).
+  Port with PORT-ecolit.md.
+-->
+<style>
+:root{
+  --bg:#ECEDEA; --fg:#0F1210; --muted:#636B66; --line:rgba(15,18,16,.12); --surface:#FFFFFF;
+  --accent:#00CB14; --neon:#54FF65; --ink:#0F1210;
+  --pad: clamp(16px, 2.8vw, 40px);
+  --st: clamp(38px, 4.6vw, 66px);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{font-family:"Montserrat",sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{padding-inline:var(--pad)}
+.lab{font-family:"Michroma",sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.num{font-family:"Michroma",sans-serif;font-weight:400;letter-spacing:-.02em}
+.statement{font-weight:300;font-size:var(--st);line-height:1.05;letter-spacing:-.045em}
+.statement .ln{display:block;white-space:nowrap}
+.statement .in1{padding-left:calc(var(--st) * 2.6)}
+.statement .in2{padding-left:calc(var(--st) * 1.4)}
+.statement .acc{color:var(--accent)}
+.note{font-size:16px;line-height:1.6;color:rgba(15,18,16,.78);max-width:380px}
+.sec{position:relative;padding-top:120px}
+.sec__top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px}
+.sec__top .lab{display:block;margin-bottom:28px}
+.hr{height:1px;background:var(--line);transform-origin:0 50%}
+.pill{display:inline-flex;align-items:center;gap:14px;height:48px;padding:0 8px 0 24px;border-radius:999px;font-weight:600;font-size:14px;white-space:nowrap;will-change:transform}
+.pill i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-style:normal}
+.pill--neon{background:var(--neon);color:var(--fg)}.pill--neon i{background:var(--ink);color:#fff}
+.pill--ghost{border:1px solid rgba(255,255,255,.25);color:#fff;padding:0 24px}
+
+/* progress + nav */
+.progress{position:fixed;inset:0 0 auto 0;height:2px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:60}
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:32px;padding:28px var(--pad) 26px;background:linear-gradient(var(--bg) 70%,transparent)}
+.nav__logo{background:var(--ink);border-radius:14px;width:150px;height:46px;display:grid;place-items:center;flex:none}
+.nav__logo img{width:118px}
+.nav__tag{flex:1}
+.nav__links{display:flex;gap:36px;font-size:13px;font-weight:500}
+.nav__links a{position:relative}
+.nav__links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--fg);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s var(--ease)}
+.nav__links a:hover::after{transform:scaleX(1)}
+.nav__cta{background:var(--ink);color:#fff;border-radius:999px;padding:13px 20px;font-size:13px;font-weight:600}
+
+/* hero */
+.hero{position:relative;height:100vh;min-height:860px;padding-top:150px}
+.hero__rule{position:absolute;left:var(--pad);right:var(--pad);top:100px}
+.hero .lab{display:block;margin-bottom:40px}
+.hero .statement{position:relative;z-index:2}
+.iso{position:absolute;right:calc(var(--pad) - 10px);top:230px;width:min(40vw,580px);height:auto;z-index:1;overflow:visible}
+.iso path{vector-effect:non-scaling-stroke}
+.neon-block{position:absolute;right:calc(var(--pad) + 200px);top:170px;width:104px;height:104px;background:var(--neon);z-index:3;display:grid;place-items:center}
+.neon-block svg{width:56px}
+.hero__cap{position:absolute;right:var(--pad);top:182px;z-index:3;width:170px}
+.hero__cap b{display:block;font-size:13px;font-weight:500;margin-top:6px}
+.person{position:absolute;z-index:4;width:196px;background:#fff;border-radius:6px;padding:14px;box-shadow:0 16px 40px rgba(0,0,0,.08)}
+.person__top{display:flex;justify-content:space-between;margin-bottom:12px}
+.person img{width:100%;height:130px;object-fit:cover;border-radius:2px}
+.person b{display:block;font-size:14px;font-weight:600;margin-top:12px}
+.person small{font-size:11px;color:var(--muted)}
+.hero .person{left:44.5%;top:560px}
+.hero__foot{position:absolute;left:var(--pad);right:var(--pad);bottom:40px;display:flex;align-items:flex-end;gap:56px}
+.hero__foot .hr{position:absolute;left:0;right:0;top:-26px}
+.hero__stat b{display:block;font-size:28px}
+.hero__stat .lab{margin:6px 0 0}
+.hero__foot .note{margin-left:auto;font-size:13px;max-width:340px}
+
+/* reality (pinned) */
+.reality{padding-top:40px}
+.reality__stage{position:relative;height:calc(100vh - 80px);min-height:720px;border-radius:8px;overflow:hidden;background:var(--bg)}
+.reality__photo{position:absolute;inset:0;clip-path:circle(0% at 68% 52%)}
+.reality__photo img{width:100%;height:100%;object-fit:cover}
+.reality__photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.65))}
+.reality__iso{position:absolute;left:48%;top:10%;width:42%;z-index:2;overflow:visible}
+.reality__iso path{stroke:var(--fg);vector-effect:non-scaling-stroke}
+.reality__txt{position:absolute;left:48px;bottom:48px;z-index:3;color:#fff}
+.reality__txt .lab{color:rgba(255,255,255,.7);display:block;margin-bottom:20px}
+.reality__txt .statement{font-size:clamp(34px,4.2vw,60px)}
+.machine{position:absolute;right:40px;bottom:48px;z-index:3;width:280px;padding:18px;border-radius:8px;background:rgba(255,255,255,.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.machine .num{font-size:20px;margin:8px 0 14px}
+.machine p{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:5px 0}
+.machine p b{font-weight:600;color:var(--accent);opacity:.15}
+.machine p b.is-done{opacity:1}
+.machine p:last-child b{color:var(--fg);opacity:1}
+
+/* network */
+.map{position:relative;margin-top:60px;aspect-ratio:1360/603}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 3px var(--neon);z-index:2}
+.pin::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--neon);opacity:0;transform:scale(1)}
+.pin.is-pulse::after{animation:pulse 1.4s var(--ease)}
+@keyframes pulse{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(3.2)}}
+.mate{position:absolute;z-index:3;display:flex;gap:10px;align-items:center;padding:6px 14px 6px 6px;background:#fff;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.07);white-space:nowrap}
+.mate img{width:40px;height:40px;border-radius:4px;object-fit:cover}
+.mate b{display:block;font-size:12px;font-weight:600}
+.mate small{font-size:10px;color:var(--muted)}
+.leaders{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.leaders line{stroke:var(--fg);stroke-opacity:.35;stroke-width:.6}
+.map__foot{display:flex;justify-content:space-between;margin-top:24px}
+.map__foot .lab:first-child{color:var(--accent)}
+
+/* portal */
+.device{position:relative;margin:70px auto 0;width:min(1100px,100%);aspect-ratio:1100/700;background:var(--ink);border-radius:32px;padding:12px;box-shadow:0 40px 80px -20px rgba(0,0,0,.18);transform-origin:50% 100%}
+.screen{width:100%;height:100%;border-radius:22px;background:#F7F7F5;overflow:hidden;display:grid;grid-template-columns:230fr 546fr 300fr}
+.side{background:#fff;padding:22px 12px;display:flex;flex-direction:column}
+.side__logo{display:flex;align-items:center;gap:10px;padding:0 8px;margin-bottom:34px}
+.side__logo span{background:var(--ink);border-radius:10px;width:120px;height:38px;display:grid;place-items:center}
+.side__logo img{width:92px}
+.step{display:flex;gap:18px;align-items:center;padding:11px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--muted)}
+.step .num{font-size:10px}
+.step.is-on{background:var(--bg);color:var(--fg);font-weight:600}.step.is-on .num{color:var(--accent)}
+.side .lab{margin-top:auto;padding:0 8px}
+.cfg{padding:28px}
+.cfg h4{font-size:22px;font-weight:600;margin:4px 0 22px}
+.cfg__row{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-bottom:22px}
+.cfg .lab{display:block;margin-bottom:8px}
+.seg{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--bg);border-radius:8px;padding:4px}
+.seg span{position:relative;z-index:1;text-align:center;font-size:12px;font-weight:500;color:var(--muted);padding:9px 0;transition:color .3s}
+.seg span.is-on{color:var(--fg);font-weight:600}
+.seg i{position:absolute;top:4px;bottom:4px;left:4px;border-radius:6px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.slider{position:relative;height:6px;border-radius:3px;background:#E2E5E0;margin:14px 0 24px}
+.slider i{position:absolute;inset:0 auto 0 0;width:45%;border-radius:3px;background:var(--accent)}
+.slider b{position:absolute;top:50%;left:45%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
+.area{float:right;margin-top:-26px}
+.preview{background:#fff;border-radius:12px;padding:16px;height:calc(100% - 330px);min-height:200px;position:relative}
+.preview svg{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);height:84%;width:auto;overflow:visible}
+.sum{background:#fff;padding:28px 24px;display:flex;flex-direction:column}
+.kit{margin-top:14px}
+.kit p{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:500;padding:14px 0;border-top:1px solid rgba(15,18,16,.08)}
+.kit p i{width:20px;height:20px;border-radius:50%;background:var(--neon);font-style:normal;font-size:10px;font-weight:600;display:grid;place-items:center;transform:scale(0)}
+.fac{border-top:1px solid rgba(15,18,16,.08);padding-top:22px;margin-top:6px}
+.fac p{display:flex;justify-content:space-between;font-size:13px;font-weight:600;padding:7px 0}.fac p span{font-weight:400;color:var(--muted);font-size:12px}
+.sum .pill{margin-top:auto;align-self:flex-start;height:48px}
+.toast{position:absolute;right:-60px;bottom:-30px;width:280px;display:flex;gap:12px;align-items:center;padding:16px;background:#fff;border-radius:10px;box-shadow:0 16px 40px rgba(0,0,0,.12);z-index:3}
+.toast i{width:24px;height:24px;border-radius:50%;background:var(--neon);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:600;flex:none}
+.toast b{display:block;font-size:13px}.toast small{font-size:11px;color:var(--muted)}
+
+/* engineered */
+.eng{display:grid;grid-template-columns:1fr 640px;gap:40px;margin-top:40px;align-items:start}
+.eng svg{width:100%;height:auto;overflow:visible}
+.specs .row{padding:18px 0 20px;position:relative}
+.specs .row .hr{position:absolute;left:0;right:0;top:0}
+.specs .row p{font-size:18px;margin-top:8px}
+.specs .last{position:relative;height:1px}
+.closeups{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.closeups img{height:150px;width:100%;object-fit:cover;border-radius:6px}
+.eng__foot{display:flex;justify-content:space-between;margin-top:10px}
+
+/* energy */
+.energy__top{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:start}
+.big15{font-size:clamp(140px,19.4vw,280px);line-height:.95;letter-spacing:-.06em;color:var(--accent)}
+.energy__top .statement{font-size:clamp(32px,3.9vw,56px);padding-top:30px}
+.energy__top .note{margin-top:20px;font-size:13px;color:var(--muted)}
+.chart{margin-top:80px}
+.bar{display:grid;grid-template-columns:60px 260px 1fr 80px;align-items:center;padding:22px 0;position:relative}
+.bar .hr{position:absolute;left:0;right:0;top:0}
+.bar span{font-size:15px}
+.bar__line{position:relative;height:2px}
+.bar__line i{position:absolute;left:0;top:0;height:100%;background:var(--fg);transform-origin:0 50%;border-radius:2px}
+.bar__line i::after{content:"";position:absolute;right:-5px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:inherit}
+.bar b{font-size:18px;text-align:right}
+.bar.is-us span{font-weight:600}.bar.is-us .lab,.bar.is-us b{color:var(--accent)}
+.bar.is-us .bar__line{height:8px}.bar.is-us .bar__line i{background:var(--neon)}.bar.is-us .bar__line i::after{background:var(--accent)}
+
+/* approvals */
+.approvals{display:grid;grid-template-columns:1fr 420px;gap:60px;margin-top:40px}
+.docs{position:relative;height:560px}
+.doc{position:absolute;width:230px;aspect-ratio:230/320;border:1px solid #E2E5E0;border-radius:4px;overflow:hidden;background:#fff;box-shadow:0 18px 40px rgba(0,0,0,.1)}
+.doc img{width:100%;height:100%;object-fit:cover;object-position:top}
+.list .row{display:grid;grid-template-columns:80px 1fr 20px;align-items:center;padding:24px 0;position:relative}
+.list .row .hr{position:absolute;left:0;right:0;top:0}
+.list .num{font-size:22px}
+.list span{font-size:16px}
+.list .row.is-on .num{color:var(--accent)}.list .row.is-on span{font-weight:600}
+.list i{font-style:normal;color:var(--muted)}
+
+/* partnership */
+.pship{display:grid;grid-template-columns:640fr 656fr;gap:64px;align-items:start}
+.pship__photo{position:relative;height:760px;border-radius:8px;overflow:hidden}
+.pship__photo > img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover}
+.pship__tag{position:absolute;left:24px;top:24px;padding:7px 12px;border-radius:999px;background:rgba(15,18,16,.6);color:#fff;font-family:"Michroma",sans-serif;font-size:10px;letter-spacing:.1em}
+.pship__card{position:absolute;left:24px;bottom:24px;display:flex;gap:16px;align-items:center;padding:12px 24px 12px 12px;background:#fff;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.12)}
+.pship__card img{width:80px;height:80px;border-radius:4px;object-fit:cover}
+.pship__card b{display:block;font-size:17px;font-weight:600;margin-top:6px}
+.pship__card small{font-size:13px;color:var(--muted)}
+.pship__title{font-weight:300;font-size:clamp(36px,4.2vw,60px);line-height:1.04;letter-spacing:-.045em}
+.pship__title .ln{display:block}
+.pship__title .acc{color:var(--accent);font-weight:400}
+.pship__lead{font-size:17px;line-height:1.6;color:rgba(15,18,16,.8);max-width:620px;margin-top:28px}
+.steps4{margin-top:40px}
+.s4{position:relative;display:grid;grid-template-columns:86px 1fr;padding:26px 0 24px}
+.s4 .hr{position:absolute;left:0;right:0;top:0}
+.s4 .num{font-size:22px;padding-top:2px}
+.s4.is-last .num{color:var(--accent)}
+.s4 h4{font-size:20px;font-weight:600}
+.s4 p{font-size:16px;line-height:1.55;color:rgba(15,18,16,.78);margin-top:6px}
+.ctabar{position:relative;display:flex;align-items:center;gap:40px;margin-top:40px;min-height:170px;border-radius:8px;background:var(--neon);color:var(--ink);padding:32px 48px;overflow:hidden}
+.faces{display:flex;flex:none}
+.faces img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid var(--neon);margin-right:-16px}
+.ctabar__txt{flex:1}
+.ctabar__txt small{display:block;font-size:15px;font-weight:600}
+.ctabar__txt strong{display:block;font-size:clamp(24px,2.65vw,38px);margin-top:8px}
+.ctabar__arrow{flex:none;width:106px;height:106px;border-radius:50%;background:var(--ink);color:var(--neon);display:grid;place-items:center;font-style:normal;font-size:46px;font-weight:300;transition:transform .6s var(--ease)}
+.ctabar:hover .ctabar__arrow{transform:rotate(45deg) scale(1.06)}
+.pship__foot{display:flex;justify-content:space-between;margin-top:22px;font-size:14px;color:var(--muted)}
+.pship__foot b{color:var(--fg);font-weight:600}
+
+/* footer */
+.foot{padding-top:120px;padding-bottom:40px}
+.foot__top{display:grid;grid-template-columns:1fr 220px 220px 220px;gap:24px}
+.foot__top h6{font-family:"Michroma",sans-serif;font-weight:400;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.foot__top li{list-style:none;font-size:14px;color:rgba(15,18,16,.7);line-height:2}
+.mark{position:relative;margin:120px auto 0;width:min(1200px,90%)}
+.mark img{width:100%;filter:none}
+.mark .c{position:absolute;background:var(--muted);opacity:.6}
+.mark .c--v{width:1px;top:-60px;bottom:-30px;transform-origin:50% 0}
+.mark .c--h{height:1px;left:-8%;right:-8%;transform-origin:0 50%}
+.mark .num{position:absolute;top:-62px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted)}
+.foot__bottom{display:flex;justify-content:space-between;margin-top:110px;padding-top:22px;border-top:1px solid var(--line)}
+
+/* badge + cursor */
+.badge{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:70;display:flex;align-items:center;gap:10px;padding:6px 6px 6px 16px;border-radius:999px;background:#121412;color:#F4F2EE;font-size:12px;border:1px solid #2C2C30;white-space:nowrap}
+.badge i{width:6px;height:6px;border-radius:50%;background:#FF4D00}
+.badge a{background:#F4F2EE;color:#121412;border-radius:999px;padding:6px 12px;font-weight:600}
+
+/* responsive */
+@media (max-width:1100px){
+  .nav__links,.nav__tag{display:none}.nav{justify-content:space-between}
+  .hero{height:auto;min-height:0;padding-bottom:40px}
+  .statement .in1{padding-left:calc(var(--st) * 1.2)}.statement .in2{padding-left:calc(var(--st) * .7)}
+  .statement .ln{white-space:normal}
+  .iso{position:relative;right:auto;top:auto;width:100%;margin-top:40px}
+  .neon-block{top:auto;bottom:auto;right:var(--pad);transform:translateY(-120px)}
+  .hero__cap{display:none}
+  .hero .person{position:relative;left:auto;top:auto;margin-top:-80px}
+  .hero__foot{position:relative;left:auto;right:auto;bottom:auto;flex-wrap:wrap;gap:28px;margin-top:60px}
+  .hero__foot .note{margin-left:0}
+  .sec__top{flex-direction:column}
+  .mate{display:none}.leaders{display:none}
+  .screen{grid-template-columns:1fr}.side,.sum{display:none}
+  .device{aspect-ratio:auto}
+  .preview{height:320px}
+  .toast{right:10px}
+  .eng{grid-template-columns:1fr}
+  .energy__top{grid-template-columns:1fr}
+  .bar{grid-template-columns:40px 1fr 60px;row-gap:12px}.bar .bar__line{grid-column:1 / -1;grid-row:2}
+  .approvals{grid-template-columns:1fr}.docs{height:460px}
+  .pship{grid-template-columns:1fr}.pship__photo{height:520px}
+  .ctabar{flex-wrap:wrap}
+  .foot__top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .nav__logo{width:132px;height:42px}.nav__logo img{width:104px}
+  .hero{padding-top:110px}
+  .statement .in1,.statement .in2{padding-left:0}
+  .reality__iso{left:10%;width:80%}
+  .reality__txt{left:20px;right:20px;bottom:150px}
+  .machine{left:20px;right:20px;width:auto;bottom:20px}
+  .ctabar{padding:28px 24px;gap:20px}.ctabar__arrow{width:72px;height:72px;font-size:30px}.faces img{width:44px;height:44px;margin-right:-14px}.faces img:nth-child(n+6){display:none}.ctabar{flex-direction:column;align-items:flex-start;min-height:0}.ctabar__txt{flex:none;width:100%}.ctabar__arrow{position:absolute;right:24px;top:24px;width:56px;height:56px;font-size:24px}
+  .pship__foot{flex-direction:column;gap:10px}
+  .foot__top{grid-template-columns:1fr}
+  .badge{font-size:11px;bottom:12px;padding-left:12px}.badge .long{display:none}
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav" data-nav>
+  <a class="nav__logo" href="#top" aria-label="ECOLIT home"><img src="../../public/concepts/ecolit/logo.svg" alt="ECOLIT — ECOLIT construction system" /></a>
+  <span class="nav__tag lab">Cold-formed steel · ECO-concrete</span>
+  <nav class="nav__links"><a href="#reality">Technologies</a><a href="#portal">Partner portal</a><a href="#network">Network</a><a href="#partnership">Partnership</a></nav>
+  <a class="nav__cta" data-magnetic href="#partnership">Contact</a>
+</header>
+
+<main id="top">
+  <!-- 01 HERO -->
+  <section class="hero wrap" data-section="hero">
+    <i class="hr hero__rule" data-rule></i>
+    <span class="lab">(01) — Global construction system</span>
+    <h1 class="statement" data-statement>
+      <span class="ln">Heavy construction</span>
+      <span class="ln in1">is slow and wasteful.</span>
+      <span class="ln">We build homes from</span>
+      <span class="ln in2"><span class="acc">light steel</span> — anywhere.</span>
+    </h1>
+    <svg class="iso" data-iso="hero" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1117 1056" fill="none" stroke-linecap="round">
+<path data-layer="slab" d="M448.0 462.2L933.0 742.2M933.0 742.2L569.2 952.2M569.2 952.2L84.2 672.2M84.2 672.2L448.0 462.2M448.0 476.2L933.0 756.2M933.0 756.2L569.2 966.2M569.2 966.2L84.2 686.2M84.2 686.2L448.0 476.2M448.0 462.2L448.0 476.2M933.0 742.2L933.0 756.2M569.2 952.2L569.2 966.2M84.2 672.2L84.2 686.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="gf" d="M448.0 462.2L933.0 742.2M448.0 266.2L933.0 546.2M448.0 462.2L448.0 266.2M484.4 483.2L484.4 287.2M520.7 504.2L520.7 308.2M557.1 525.2L557.1 329.2M593.5 546.2L593.5 350.2M629.8 567.2L629.8 371.2M666.2 588.2L666.2 392.2M702.6 609.2L702.6 413.2M739.0 630.2L739.0 434.2M775.3 651.2L775.3 455.2M811.7 672.2L811.7 476.2M848.1 693.2L848.1 497.2M884.5 714.2L884.5 518.2M920.8 735.2L920.8 539.2M448.0 378.2L933.0 658.2M933.0 742.2L569.2 952.2M933.0 546.2L569.2 756.2M933.0 742.2L933.0 546.2M896.6 763.2L896.6 567.2M860.2 784.2L860.2 588.2M823.8 805.2L823.8 609.2M787.5 826.2L787.5 763.2M787.5 679.2L787.5 630.2M751.1 847.2L751.1 784.2M751.1 700.2L751.1 651.2M714.7 868.2L714.7 805.2M714.7 721.2L714.7 672.2M678.3 889.2L678.3 693.2M642.0 910.2L642.0 714.2M605.6 931.2L605.6 735.2M569.2 952.2L569.2 756.2M805.6 752.7L696.5 815.7M805.6 668.7L696.5 731.7M805.6 815.7L805.6 619.7M696.5 878.7L696.5 682.7M569.2 952.2L84.2 672.2M569.2 756.2L84.2 476.2M569.2 952.2L569.2 756.2M532.8 931.2L532.8 735.2M496.5 910.2L496.5 714.2M460.1 742.2L460.1 693.2M423.7 868.2L423.7 672.2M387.4 847.2L387.4 651.2M351.0 826.2L351.0 630.2M314.6 805.2L314.6 742.2M314.6 658.2L314.6 609.2M278.2 784.2L278.2 721.2M278.2 637.2L278.2 588.2M241.9 763.2L241.9 700.2M241.9 616.2L241.9 567.2M205.5 742.2L205.5 546.2M169.1 721.2L169.1 525.2M132.7 700.2L132.7 504.2M96.4 679.2L96.4 483.2M496.5 763.2L435.9 728.2M496.5 910.2L496.5 714.2M435.9 875.2L435.9 679.2M351.0 763.2L229.7 693.2M351.0 679.2L229.7 609.2M351.0 826.2L351.0 630.2M229.7 756.2L229.7 560.2M84.2 672.2L448.0 462.2M84.2 476.2L448.0 266.2M84.2 672.2L84.2 476.2M120.6 651.2L120.6 455.2M157.0 630.2L157.0 434.2M193.4 609.2L193.4 413.2M229.7 588.2L229.7 392.2M266.1 567.2L266.1 371.2M302.5 546.2L302.5 350.2M338.9 525.2L338.9 329.2M375.2 504.2L375.2 308.2M411.6 483.2L411.6 287.2M448.0 462.2L448.0 266.2M84.2 588.2L448.0 378.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="floor" d="M448.0 266.2L84.2 476.2M484.4 287.2L120.6 497.2M520.7 308.2L157.0 518.2M557.1 329.2L193.4 539.2M593.5 350.2L229.7 560.2M629.8 371.2L266.1 581.2M666.2 392.2L302.5 602.2M702.6 413.2L338.9 623.2M739.0 434.2L375.2 644.2M775.3 455.2L411.6 665.2M811.7 476.2L448.0 686.2M848.1 497.2L484.4 707.2M884.5 518.2L520.7 728.2M920.8 539.2L557.1 749.2M448.0 252.2L933.0 532.2M84.2 462.2L569.2 742.2M448.0 252.2L84.2 462.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="ff" d="M448.0 252.2L933.0 532.2M448.0 56.2L933.0 336.2M448.0 252.2L448.0 56.2M484.4 273.2L484.4 77.2M520.7 294.2L520.7 98.2M557.1 315.2L557.1 119.2M593.5 336.2L593.5 140.2M629.8 357.2L629.8 161.2M666.2 378.2L666.2 182.2M702.6 399.2L702.6 203.2M739.0 420.2L739.0 224.2M775.3 441.2L775.3 245.2M811.7 462.2L811.7 266.2M848.1 483.2L848.1 287.2M884.5 504.2L884.5 308.2M920.8 525.2L920.8 329.2M448.0 168.2L933.0 448.2M933.0 532.2L569.2 742.2M933.0 336.2L569.2 546.2M933.0 532.2L933.0 336.2M896.6 553.2L896.6 357.2M860.2 574.2L860.2 378.2M823.8 595.2L823.8 399.2M787.5 616.2L787.5 560.2M787.5 469.2L787.5 420.2M751.1 637.2L751.1 581.2M751.1 490.2L751.1 441.2M714.7 658.2L714.7 602.2M714.7 511.2L714.7 462.2M678.3 679.2L678.3 483.2M642.0 700.2L642.0 504.2M605.6 721.2L605.6 525.2M569.2 742.2L569.2 546.2M805.6 549.7L696.5 612.7M805.6 458.7L696.5 521.7M805.6 605.7L805.6 409.7M696.5 668.7L696.5 472.7M569.2 742.2L84.2 462.2M569.2 546.2L84.2 266.2M569.2 742.2L569.2 546.2M532.8 721.2L532.8 525.2M496.5 700.2L496.5 644.2M496.5 553.2L496.5 504.2M460.1 679.2L460.1 623.2M460.1 532.2L460.1 483.2M423.7 658.2L423.7 602.2M423.7 511.2L423.7 462.2M387.4 637.2L387.4 441.2M351.0 616.2L351.0 420.2M314.6 595.2L314.6 399.2M278.2 574.2L278.2 518.2M278.2 427.2L278.2 378.2M241.9 553.2L241.9 497.2M241.9 406.2L241.9 357.2M205.5 532.2L205.5 476.2M205.5 385.2L205.5 336.2M169.1 511.2L169.1 315.2M132.7 490.2L132.7 294.2M96.4 469.2L96.4 273.2M508.6 651.2L387.4 581.2M508.6 560.2L387.4 490.2M508.6 707.2L508.6 511.2M387.4 637.2L387.4 441.2M290.4 525.2L169.1 455.2M290.4 434.2L169.1 364.2M290.4 581.2L290.4 385.2M169.1 511.2L169.1 315.2M84.2 462.2L448.0 252.2M84.2 266.2L448.0 56.2M84.2 462.2L84.2 266.2M120.6 441.2L120.6 245.2M157.0 420.2L157.0 224.2M193.4 399.2L193.4 203.2M229.7 378.2L229.7 182.2M266.1 357.2L266.1 161.2M302.5 336.2L302.5 140.2M338.9 315.2L338.9 119.2M375.2 294.2L375.2 98.2M411.6 273.2L411.6 77.2M448.0 252.2L448.0 56.2M84.2 378.2L448.0 168.2" stroke="#00CB14" stroke-width="1.6"/>
+<path data-layer="roof" d="M448.0 56.2L84.2 266.2M472.2 58.4L266.1 40.0M266.1 40.0L60.0 296.4M357.0 108.7L357.0 48.1M357.0 108.7L266.1 40.0M175.2 213.7L266.1 40.0M175.2 213.7L175.2 153.1M266.1 161.2L266.1 40.0M520.7 98.2L157.0 308.2M545.0 100.4L338.9 82.0M338.9 82.0L132.7 338.4M429.8 150.7L429.8 90.1M429.8 150.7L338.9 82.0M247.9 255.7L338.9 82.0M247.9 255.7L247.9 195.1M338.9 203.2L338.9 82.0M593.5 140.2L229.7 350.2M617.7 142.4L411.6 124.0M411.6 124.0L205.5 380.4M502.5 192.7L502.5 132.1M502.5 192.7L411.6 124.0M320.7 297.7L411.6 124.0M320.7 297.7L320.7 237.1M411.6 245.2L411.6 124.0M666.2 182.2L302.5 392.2M690.5 184.4L484.4 166.0M484.4 166.0L278.2 422.4M575.3 234.7L575.3 174.1M575.3 234.7L484.4 166.0M393.4 339.7L484.4 166.0M393.4 339.7L393.4 279.1M484.4 287.2L484.4 166.0M739.0 224.2L375.2 434.2M763.2 226.4L557.1 208.0M557.1 208.0L351.0 464.4M648.0 276.7L648.0 216.1M648.0 276.7L557.1 208.0M466.2 381.7L557.1 208.0M466.2 381.7L466.2 321.1M557.1 329.2L557.1 208.0M811.7 266.2L448.0 476.2M836.0 268.4L629.8 250.0M629.8 250.0L423.7 506.4M720.8 318.7L720.8 258.1M720.8 318.7L629.8 250.0M538.9 423.7L629.8 250.0M538.9 423.7L538.9 363.1M629.8 371.2L629.8 250.0M884.5 308.2L520.7 518.2M908.7 310.4L702.6 292.0M702.6 292.0L496.5 548.4M793.5 360.7L793.5 300.1M793.5 360.7L702.6 292.0M611.7 465.7L702.6 292.0M611.7 465.7L611.7 405.1M702.6 413.2L702.6 292.0M933.0 336.2L569.2 546.2M957.2 338.4L751.1 320.0M751.1 320.0L545.0 576.4M842.0 388.7L842.0 328.1M842.0 388.7L751.1 320.0M660.2 493.7L751.1 320.0M660.2 493.7L660.2 433.1M751.1 441.2L751.1 320.0M266.1 40.0L751.1 320.0M388.0 50.9L872.9 330.9M144.3 191.6L629.2 471.6M327.9 45.5L812.9 325.5M204.3 116.9L689.3 396.9" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="dims" d="M78.2 689.8L49.7 706.9M563.2 969.8L534.7 986.9M54.2 704.2L539.2 984.2M51.2 707.2L57.2 701.2M536.2 987.2L542.2 981.2M939.0 759.8L967.5 776.9M575.2 969.8L603.7 986.9M963.0 774.2L599.2 984.2M960.0 777.2L966.0 771.2M596.2 987.2L602.2 981.2M560.4 952.2L518.6 952.2M560.4 546.2L518.6 546.2M525.2 952.2L525.2 546.2M522.2 955.2L528.2 949.2M522.2 549.2L528.2 543.2" stroke="#8E948F" stroke-width="0.8"/>
+<text data-layer="dimtext" x="296.7" y="838.2" transform="rotate(30.0 296.7 844.2)" font-family="Michroma, sans-serif" font-size="11" fill="#8E948F" stroke="none" text-anchor="middle">8 000</text>
+<text data-layer="dimtext" x="781.1" y="873.2" transform="rotate(-30.0 781.1 879.2)" font-family="Michroma, sans-serif" font-size="11" fill="#8E948F" stroke="none" text-anchor="middle">6 000</text>
+<text data-layer="dimtext" x="525.2" y="743.2" transform="rotate(-90.0 525.2 749.2)" font-family="Michroma, sans-serif" font-size="11" fill="#8E948F" stroke="none" text-anchor="middle">5 800</text>
+</svg>
+    <div class="neon-block" data-neon aria-hidden="true"><svg viewBox="0 0 52 44"><rect x="0" y="0" width="52" height="8" rx="4"/><rect x="0" y="18" width="40" height="8" rx="4"/><rect x="0" y="36" width="52" height="8" rx="4"/><rect x="0" y="0" width="8" height="44" rx="4"/></svg></div>
+    <div class="hero__cap" data-cap><span class="lab">Frame · illustrative</span><b>2-storey CFS house</b></div>
+    <div class="person" data-person>
+      <div class="person__top"><span class="lab">Founder</span><span class="lab">×</span></div>
+      <img src="../../public/concepts/ecolit/partner-denis-lozenko.jpg" alt="Denis Lozenko" />
+      <b>Denis Lozenko</b><small>CEO &amp; Founder, ECOLIT</small>
+    </div>
+    <div class="hero__foot" data-hero-foot>
+      <i class="hr" data-rule></i>
+      <div class="hero__stat"><b class="num" data-count="20">20</b><span class="lab">Countries</span></div>
+      <div class="hero__stat"><b class="num" data-count="25">25</b><span class="lab">Factories</span></div>
+      <div class="hero__stat"><b class="num"><span data-count="1500">1500</span>+</b><span class="lab">Clients</span></div>
+      <div class="hero__stat"><b class="num" data-count="17">17</b><span class="lab">Years</span></div>
+      <p class="note">ECOLIT designs and manufactures cold-formed steel building systems, CNC equipment and ECO-concrete insulation — and helps partners build with them locally.</p>
+    </div>
+  </section>
+
+  <!-- 02 DRAWING → REALITY (pinned) -->
+  <section class="reality wrap" id="reality" data-section="reality">
+    <div class="reality__stage" data-reality>
+      <div class="reality__photo" data-reality-photo><img src="../../public/concepts/ecolit/frame-6.jpg" alt="ECOLIT steel frame under construction" /></div>
+      <svg class="reality__iso" data-iso="reality" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1117 1056" fill="none" stroke-linecap="round">
+<path data-layer="slab" d="M448.0 462.2L933.0 742.2M933.0 742.2L569.2 952.2M569.2 952.2L84.2 672.2M84.2 672.2L448.0 462.2M448.0 476.2L933.0 756.2M933.0 756.2L569.2 966.2M569.2 966.2L84.2 686.2M84.2 686.2L448.0 476.2M448.0 462.2L448.0 476.2M933.0 742.2L933.0 756.2M569.2 952.2L569.2 966.2M84.2 672.2L84.2 686.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="gf" d="M448.0 462.2L933.0 742.2M448.0 266.2L933.0 546.2M448.0 462.2L448.0 266.2M484.4 483.2L484.4 287.2M520.7 504.2L520.7 308.2M557.1 525.2L557.1 329.2M593.5 546.2L593.5 350.2M629.8 567.2L629.8 371.2M666.2 588.2L666.2 392.2M702.6 609.2L702.6 413.2M739.0 630.2L739.0 434.2M775.3 651.2L775.3 455.2M811.7 672.2L811.7 476.2M848.1 693.2L848.1 497.2M884.5 714.2L884.5 518.2M920.8 735.2L920.8 539.2M448.0 378.2L933.0 658.2M933.0 742.2L569.2 952.2M933.0 546.2L569.2 756.2M933.0 742.2L933.0 546.2M896.6 763.2L896.6 567.2M860.2 784.2L860.2 588.2M823.8 805.2L823.8 609.2M787.5 826.2L787.5 763.2M787.5 679.2L787.5 630.2M751.1 847.2L751.1 784.2M751.1 700.2L751.1 651.2M714.7 868.2L714.7 805.2M714.7 721.2L714.7 672.2M678.3 889.2L678.3 693.2M642.0 910.2L642.0 714.2M605.6 931.2L605.6 735.2M569.2 952.2L569.2 756.2M805.6 752.7L696.5 815.7M805.6 668.7L696.5 731.7M805.6 815.7L805.6 619.7M696.5 878.7L696.5 682.7M569.2 952.2L84.2 672.2M569.2 756.2L84.2 476.2M569.2 952.2L569.2 756.2M532.8 931.2L532.8 735.2M496.5 910.2L496.5 714.2M460.1 742.2L460.1 693.2M423.7 868.2L423.7 672.2M387.4 847.2L387.4 651.2M351.0 826.2L351.0 630.2M314.6 805.2L314.6 742.2M314.6 658.2L314.6 609.2M278.2 784.2L278.2 721.2M278.2 637.2L278.2 588.2M241.9 763.2L241.9 700.2M241.9 616.2L241.9 567.2M205.5 742.2L205.5 546.2M169.1 721.2L169.1 525.2M132.7 700.2L132.7 504.2M96.4 679.2L96.4 483.2M496.5 763.2L435.9 728.2M496.5 910.2L496.5 714.2M435.9 875.2L435.9 679.2M351.0 763.2L229.7 693.2M351.0 679.2L229.7 609.2M351.0 826.2L351.0 630.2M229.7 756.2L229.7 560.2M84.2 672.2L448.0 462.2M84.2 476.2L448.0 266.2M84.2 672.2L84.2 476.2M120.6 651.2L120.6 455.2M157.0 630.2L157.0 434.2M193.4 609.2L193.4 413.2M229.7 588.2L229.7 392.2M266.1 567.2L266.1 371.2M302.5 546.2L302.5 350.2M338.9 525.2L338.9 329.2M375.2 504.2L375.2 308.2M411.6 483.2L411.6 287.2M448.0 462.2L448.0 266.2M84.2 588.2L448.0 378.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="floor" d="M448.0 266.2L84.2 476.2M484.4 287.2L120.6 497.2M520.7 308.2L157.0 518.2M557.1 329.2L193.4 539.2M593.5 350.2L229.7 560.2M629.8 371.2L266.1 581.2M666.2 392.2L302.5 602.2M702.6 413.2L338.9 623.2M739.0 434.2L375.2 644.2M775.3 455.2L411.6 665.2M811.7 476.2L448.0 686.2M848.1 497.2L484.4 707.2M884.5 518.2L520.7 728.2M920.8 539.2L557.1 749.2M448.0 252.2L933.0 532.2M84.2 462.2L569.2 742.2M448.0 252.2L84.2 462.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="ff" d="M448.0 252.2L933.0 532.2M448.0 56.2L933.0 336.2M448.0 252.2L448.0 56.2M484.4 273.2L484.4 77.2M520.7 294.2L520.7 98.2M557.1 315.2L557.1 119.2M593.5 336.2L593.5 140.2M629.8 357.2L629.8 161.2M666.2 378.2L666.2 182.2M702.6 399.2L702.6 203.2M739.0 420.2L739.0 224.2M775.3 441.2L775.3 245.2M811.7 462.2L811.7 266.2M848.1 483.2L848.1 287.2M884.5 504.2L884.5 308.2M920.8 525.2L920.8 329.2M448.0 168.2L933.0 448.2M933.0 532.2L569.2 742.2M933.0 336.2L569.2 546.2M933.0 532.2L933.0 336.2M896.6 553.2L896.6 357.2M860.2 574.2L860.2 378.2M823.8 595.2L823.8 399.2M787.5 616.2L787.5 560.2M787.5 469.2L787.5 420.2M751.1 637.2L751.1 581.2M751.1 490.2L751.1 441.2M714.7 658.2L714.7 602.2M714.7 511.2L714.7 462.2M678.3 679.2L678.3 483.2M642.0 700.2L642.0 504.2M605.6 721.2L605.6 525.2M569.2 742.2L569.2 546.2M805.6 549.7L696.5 612.7M805.6 458.7L696.5 521.7M805.6 605.7L805.6 409.7M696.5 668.7L696.5 472.7M569.2 742.2L84.2 462.2M569.2 546.2L84.2 266.2M569.2 742.2L569.2 546.2M532.8 721.2L532.8 525.2M496.5 700.2L496.5 644.2M496.5 553.2L496.5 504.2M460.1 679.2L460.1 623.2M460.1 532.2L460.1 483.2M423.7 658.2L423.7 602.2M423.7 511.2L423.7 462.2M387.4 637.2L387.4 441.2M351.0 616.2L351.0 420.2M314.6 595.2L314.6 399.2M278.2 574.2L278.2 518.2M278.2 427.2L278.2 378.2M241.9 553.2L241.9 497.2M241.9 406.2L241.9 357.2M205.5 532.2L205.5 476.2M205.5 385.2L205.5 336.2M169.1 511.2L169.1 315.2M132.7 490.2L132.7 294.2M96.4 469.2L96.4 273.2M508.6 651.2L387.4 581.2M508.6 560.2L387.4 490.2M508.6 707.2L508.6 511.2M387.4 637.2L387.4 441.2M290.4 525.2L169.1 455.2M290.4 434.2L169.1 364.2M290.4 581.2L290.4 385.2M169.1 511.2L169.1 315.2M84.2 462.2L448.0 252.2M84.2 266.2L448.0 56.2M84.2 462.2L84.2 266.2M120.6 441.2L120.6 245.2M157.0 420.2L157.0 224.2M193.4 399.2L193.4 203.2M229.7 378.2L229.7 182.2M266.1 357.2L266.1 161.2M302.5 336.2L302.5 140.2M338.9 315.2L338.9 119.2M375.2 294.2L375.2 98.2M411.6 273.2L411.6 77.2M448.0 252.2L448.0 56.2M84.2 378.2L448.0 168.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="roof" d="M448.0 56.2L84.2 266.2M472.2 58.4L266.1 40.0M266.1 40.0L60.0 296.4M357.0 108.7L357.0 48.1M357.0 108.7L266.1 40.0M175.2 213.7L266.1 40.0M175.2 213.7L175.2 153.1M266.1 161.2L266.1 40.0M520.7 98.2L157.0 308.2M545.0 100.4L338.9 82.0M338.9 82.0L132.7 338.4M429.8 150.7L429.8 90.1M429.8 150.7L338.9 82.0M247.9 255.7L338.9 82.0M247.9 255.7L247.9 195.1M338.9 203.2L338.9 82.0M593.5 140.2L229.7 350.2M617.7 142.4L411.6 124.0M411.6 124.0L205.5 380.4M502.5 192.7L502.5 132.1M502.5 192.7L411.6 124.0M320.7 297.7L411.6 124.0M320.7 297.7L320.7 237.1M411.6 245.2L411.6 124.0M666.2 182.2L302.5 392.2M690.5 184.4L484.4 166.0M484.4 166.0L278.2 422.4M575.3 234.7L575.3 174.1M575.3 234.7L484.4 166.0M393.4 339.7L484.4 166.0M393.4 339.7L393.4 279.1M484.4 287.2L484.4 166.0M739.0 224.2L375.2 434.2M763.2 226.4L557.1 208.0M557.1 208.0L351.0 464.4M648.0 276.7L648.0 216.1M648.0 276.7L557.1 208.0M466.2 381.7L557.1 208.0M466.2 381.7L466.2 321.1M557.1 329.2L557.1 208.0M811.7 266.2L448.0 476.2M836.0 268.4L629.8 250.0M629.8 250.0L423.7 506.4M720.8 318.7L720.8 258.1M720.8 318.7L629.8 250.0M538.9 423.7L629.8 250.0M538.9 423.7L538.9 363.1M629.8 371.2L629.8 250.0M884.5 308.2L520.7 518.2M908.7 310.4L702.6 292.0M702.6 292.0L496.5 548.4M793.5 360.7L793.5 300.1M793.5 360.7L702.6 292.0M611.7 465.7L702.6 292.0M611.7 465.7L611.7 405.1M702.6 413.2L702.6 292.0M933.0 336.2L569.2 546.2M957.2 338.4L751.1 320.0M751.1 320.0L545.0 576.4M842.0 388.7L842.0 328.1M842.0 388.7L751.1 320.0M660.2 493.7L751.1 320.0M660.2 493.7L660.2 433.1M751.1 441.2L751.1 320.0M266.1 40.0L751.1 320.0M388.0 50.9L872.9 330.9M144.3 191.6L629.2 471.6M327.9 45.5L812.9 325.5M204.3 116.9L689.3 396.9" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="dims" d="M78.2 689.8L49.7 706.9M563.2 969.8L534.7 986.9M54.2 704.2L539.2 984.2M51.2 707.2L57.2 701.2M536.2 987.2L542.2 981.2M939.0 759.8L967.5 776.9M575.2 969.8L603.7 986.9M963.0 774.2L599.2 984.2M960.0 777.2L966.0 771.2M596.2 987.2L602.2 981.2M560.4 952.2L518.6 952.2M560.4 546.2L518.6 546.2M525.2 952.2L525.2 546.2M522.2 955.2L528.2 949.2M522.2 549.2L528.2 543.2" stroke="#8E948F" stroke-width="0.8"/>
+</svg>
+      <div class="reality__txt">
+        <span class="lab">(02) — Manufacturing</span>
+        <p class="statement" data-reality-statement><span class="ln">Every profile is</span><span class="ln in1">cut, punched and marked</span><span class="ln">by ECOLIT machines.</span></p>
+      </div>
+      <div class="machine" data-machine>
+        <span class="lab">Roll-former · live</span>
+        <div class="num">Profile C-89</div>
+        <p>Cut <b data-tick>✓</b></p><p>Punched <b data-tick>✓</b></p><p>Marked <b data-tick>✓</b></p><p>Next <b data-next>Stud 047</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 NETWORK -->
+  <section class="sec wrap" id="network" data-section="network">
+    <div class="sec__top">
+      <div><span class="lab">(03) — Network</span>
+        <h2 class="statement" data-statement><span class="ln">25 factories.</span><span class="ln in1">20 countries.</span><span class="ln">One system.</span></h2></div>
+      <p class="note" data-note>Partners build with ECOLIT equipment and the patented system in their own country — supported by the network.</p>
+    </div>
+    <div class="map" data-map>
+      <canvas data-map-canvas></canvas>
+      <svg class="leaders" viewBox="0 0 1360 603" preserveAspectRatio="none" data-leaders></svg>
+    </div>
+    <div class="map__foot"><span class="lab">● ECOLIT countries</span><span class="lab">Partners &amp; locations: ecolit.tech</span></div>
+  </section>
+
+  <!-- 04 PARTNER PORTAL -->
+  <section class="sec wrap" id="portal" data-section="portal">
+    <div class="sec__top">
+      <div><span class="lab">(04) — Partner portal · concept</span>
+        <h2 class="statement" data-statement><span class="ln">Spec a full house kit</span><span class="ln in1">from one screen.</span></h2></div>
+      <p class="note" data-note>A concept for ECOLIT partners: configure a building, check the kit and request it from the nearest factory.</p>
+    </div>
+    <div class="device" data-device>
+      <div class="screen">
+        <aside class="side">
+          <div class="side__logo"><span><img src="../../public/concepts/ecolit/logo.svg" alt="" /></span><em class="lab">Partner</em></div>
+          <div class="step"><span class="num">01</span>Plot</div>
+          <div class="step is-on"><span class="num">02</span>Structure</div>
+          <div class="step"><span class="num">03</span>Insulation</div>
+          <div class="step"><span class="num">04</span>Kit &amp; quote</div>
+          <span class="lab">Draft 03 · saved</span>
+        </aside>
+        <div class="cfg">
+          <span class="lab">New house kit</span><h4>Structure</h4>
+          <div class="cfg__row">
+            <div><span class="lab">Storeys</span><div class="seg" data-seg="storeys"><i></i><span>1</span><span>2</span><span>3</span></div></div>
+            <div><span class="lab">Seismic design</span><div class="seg" data-seg="seismic"><i></i><span>Standard</span><span>High</span><span>M9</span></div></div>
+          </div>
+          <span class="lab">Floor area</span><span class="num area" data-area>60 m²</span>
+          <div class="slider" data-slider><i></i><b></b></div>
+          <span class="lab">Climate zone</span><div class="seg" data-seg="climate" style="margin-bottom:22px"><i></i><span>Hot</span><span>Temperate</span><span>Cold</span></div>
+          <div class="preview"><span class="lab">Live preview</span><svg class="" data-iso="preview" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1117 1056" fill="none" stroke-linecap="round">
+<path data-layer="slab" d="M448.0 462.2L933.0 742.2M933.0 742.2L569.2 952.2M569.2 952.2L84.2 672.2M84.2 672.2L448.0 462.2M448.0 476.2L933.0 756.2M933.0 756.2L569.2 966.2M569.2 966.2L84.2 686.2M84.2 686.2L448.0 476.2M448.0 462.2L448.0 476.2M933.0 742.2L933.0 756.2M569.2 952.2L569.2 966.2M84.2 672.2L84.2 686.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="gf" d="M448.0 462.2L933.0 742.2M448.0 266.2L933.0 546.2M448.0 462.2L448.0 266.2M484.4 483.2L484.4 287.2M520.7 504.2L520.7 308.2M557.1 525.2L557.1 329.2M593.5 546.2L593.5 350.2M629.8 567.2L629.8 371.2M666.2 588.2L666.2 392.2M702.6 609.2L702.6 413.2M739.0 630.2L739.0 434.2M775.3 651.2L775.3 455.2M811.7 672.2L811.7 476.2M848.1 693.2L848.1 497.2M884.5 714.2L884.5 518.2M920.8 735.2L920.8 539.2M448.0 378.2L933.0 658.2M933.0 742.2L569.2 952.2M933.0 546.2L569.2 756.2M933.0 742.2L933.0 546.2M896.6 763.2L896.6 567.2M860.2 784.2L860.2 588.2M823.8 805.2L823.8 609.2M787.5 826.2L787.5 763.2M787.5 679.2L787.5 630.2M751.1 847.2L751.1 784.2M751.1 700.2L751.1 651.2M714.7 868.2L714.7 805.2M714.7 721.2L714.7 672.2M678.3 889.2L678.3 693.2M642.0 910.2L642.0 714.2M605.6 931.2L605.6 735.2M569.2 952.2L569.2 756.2M805.6 752.7L696.5 815.7M805.6 668.7L696.5 731.7M805.6 815.7L805.6 619.7M696.5 878.7L696.5 682.7M569.2 952.2L84.2 672.2M569.2 756.2L84.2 476.2M569.2 952.2L569.2 756.2M532.8 931.2L532.8 735.2M496.5 910.2L496.5 714.2M460.1 742.2L460.1 693.2M423.7 868.2L423.7 672.2M387.4 847.2L387.4 651.2M351.0 826.2L351.0 630.2M314.6 805.2L314.6 742.2M314.6 658.2L314.6 609.2M278.2 784.2L278.2 721.2M278.2 637.2L278.2 588.2M241.9 763.2L241.9 700.2M241.9 616.2L241.9 567.2M205.5 742.2L205.5 546.2M169.1 721.2L169.1 525.2M132.7 700.2L132.7 504.2M96.4 679.2L96.4 483.2M496.5 763.2L435.9 728.2M496.5 910.2L496.5 714.2M435.9 875.2L435.9 679.2M351.0 763.2L229.7 693.2M351.0 679.2L229.7 609.2M351.0 826.2L351.0 630.2M229.7 756.2L229.7 560.2M84.2 672.2L448.0 462.2M84.2 476.2L448.0 266.2M84.2 672.2L84.2 476.2M120.6 651.2L120.6 455.2M157.0 630.2L157.0 434.2M193.4 609.2L193.4 413.2M229.7 588.2L229.7 392.2M266.1 567.2L266.1 371.2M302.5 546.2L302.5 350.2M338.9 525.2L338.9 329.2M375.2 504.2L375.2 308.2M411.6 483.2L411.6 287.2M448.0 462.2L448.0 266.2M84.2 588.2L448.0 378.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="floor" d="M448.0 266.2L84.2 476.2M484.4 287.2L120.6 497.2M520.7 308.2L157.0 518.2M557.1 329.2L193.4 539.2M593.5 350.2L229.7 560.2M629.8 371.2L266.1 581.2M666.2 392.2L302.5 602.2M702.6 413.2L338.9 623.2M739.0 434.2L375.2 644.2M775.3 455.2L411.6 665.2M811.7 476.2L448.0 686.2M848.1 497.2L484.4 707.2M884.5 518.2L520.7 728.2M920.8 539.2L557.1 749.2M448.0 252.2L933.0 532.2M84.2 462.2L569.2 742.2M448.0 252.2L84.2 462.2" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="ff" d="M448.0 252.2L933.0 532.2M448.0 56.2L933.0 336.2M448.0 252.2L448.0 56.2M484.4 273.2L484.4 77.2M520.7 294.2L520.7 98.2M557.1 315.2L557.1 119.2M593.5 336.2L593.5 140.2M629.8 357.2L629.8 161.2M666.2 378.2L666.2 182.2M702.6 399.2L702.6 203.2M739.0 420.2L739.0 224.2M775.3 441.2L775.3 245.2M811.7 462.2L811.7 266.2M848.1 483.2L848.1 287.2M884.5 504.2L884.5 308.2M920.8 525.2L920.8 329.2M448.0 168.2L933.0 448.2M933.0 532.2L569.2 742.2M933.0 336.2L569.2 546.2M933.0 532.2L933.0 336.2M896.6 553.2L896.6 357.2M860.2 574.2L860.2 378.2M823.8 595.2L823.8 399.2M787.5 616.2L787.5 560.2M787.5 469.2L787.5 420.2M751.1 637.2L751.1 581.2M751.1 490.2L751.1 441.2M714.7 658.2L714.7 602.2M714.7 511.2L714.7 462.2M678.3 679.2L678.3 483.2M642.0 700.2L642.0 504.2M605.6 721.2L605.6 525.2M569.2 742.2L569.2 546.2M805.6 549.7L696.5 612.7M805.6 458.7L696.5 521.7M805.6 605.7L805.6 409.7M696.5 668.7L696.5 472.7M569.2 742.2L84.2 462.2M569.2 546.2L84.2 266.2M569.2 742.2L569.2 546.2M532.8 721.2L532.8 525.2M496.5 700.2L496.5 644.2M496.5 553.2L496.5 504.2M460.1 679.2L460.1 623.2M460.1 532.2L460.1 483.2M423.7 658.2L423.7 602.2M423.7 511.2L423.7 462.2M387.4 637.2L387.4 441.2M351.0 616.2L351.0 420.2M314.6 595.2L314.6 399.2M278.2 574.2L278.2 518.2M278.2 427.2L278.2 378.2M241.9 553.2L241.9 497.2M241.9 406.2L241.9 357.2M205.5 532.2L205.5 476.2M205.5 385.2L205.5 336.2M169.1 511.2L169.1 315.2M132.7 490.2L132.7 294.2M96.4 469.2L96.4 273.2M508.6 651.2L387.4 581.2M508.6 560.2L387.4 490.2M508.6 707.2L508.6 511.2M387.4 637.2L387.4 441.2M290.4 525.2L169.1 455.2M290.4 434.2L169.1 364.2M290.4 581.2L290.4 385.2M169.1 511.2L169.1 315.2M84.2 462.2L448.0 252.2M84.2 266.2L448.0 56.2M84.2 462.2L84.2 266.2M120.6 441.2L120.6 245.2M157.0 420.2L157.0 224.2M193.4 399.2L193.4 203.2M229.7 378.2L229.7 182.2M266.1 357.2L266.1 161.2M302.5 336.2L302.5 140.2M338.9 315.2L338.9 119.2M375.2 294.2L375.2 98.2M411.6 273.2L411.6 77.2M448.0 252.2L448.0 56.2M84.2 378.2L448.0 168.2" stroke="#00CB14" stroke-width="1.6"/>
+<path data-layer="roof" d="M448.0 56.2L84.2 266.2M472.2 58.4L266.1 40.0M266.1 40.0L60.0 296.4M357.0 108.7L357.0 48.1M357.0 108.7L266.1 40.0M175.2 213.7L266.1 40.0M175.2 213.7L175.2 153.1M266.1 161.2L266.1 40.0M520.7 98.2L157.0 308.2M545.0 100.4L338.9 82.0M338.9 82.0L132.7 338.4M429.8 150.7L429.8 90.1M429.8 150.7L338.9 82.0M247.9 255.7L338.9 82.0M247.9 255.7L247.9 195.1M338.9 203.2L338.9 82.0M593.5 140.2L229.7 350.2M617.7 142.4L411.6 124.0M411.6 124.0L205.5 380.4M502.5 192.7L502.5 132.1M502.5 192.7L411.6 124.0M320.7 297.7L411.6 124.0M320.7 297.7L320.7 237.1M411.6 245.2L411.6 124.0M666.2 182.2L302.5 392.2M690.5 184.4L484.4 166.0M484.4 166.0L278.2 422.4M575.3 234.7L575.3 174.1M575.3 234.7L484.4 166.0M393.4 339.7L484.4 166.0M393.4 339.7L393.4 279.1M484.4 287.2L484.4 166.0M739.0 224.2L375.2 434.2M763.2 226.4L557.1 208.0M557.1 208.0L351.0 464.4M648.0 276.7L648.0 216.1M648.0 276.7L557.1 208.0M466.2 381.7L557.1 208.0M466.2 381.7L466.2 321.1M557.1 329.2L557.1 208.0M811.7 266.2L448.0 476.2M836.0 268.4L629.8 250.0M629.8 250.0L423.7 506.4M720.8 318.7L720.8 258.1M720.8 318.7L629.8 250.0M538.9 423.7L629.8 250.0M538.9 423.7L538.9 363.1M629.8 371.2L629.8 250.0M884.5 308.2L520.7 518.2M908.7 310.4L702.6 292.0M702.6 292.0L496.5 548.4M793.5 360.7L793.5 300.1M793.5 360.7L702.6 292.0M611.7 465.7L702.6 292.0M611.7 465.7L611.7 405.1M702.6 413.2L702.6 292.0M933.0 336.2L569.2 546.2M957.2 338.4L751.1 320.0M751.1 320.0L545.0 576.4M842.0 388.7L842.0 328.1M842.0 388.7L751.1 320.0M660.2 493.7L751.1 320.0M660.2 493.7L660.2 433.1M751.1 441.2L751.1 320.0M266.1 40.0L751.1 320.0M388.0 50.9L872.9 330.9M144.3 191.6L629.2 471.6M327.9 45.5L812.9 325.5M204.3 116.9L689.3 396.9" stroke="#0F1210" stroke-width="1"/>
+<path data-layer="dims" d="M78.2 689.8L49.7 706.9M563.2 969.8L534.7 986.9M54.2 704.2L539.2 984.2M51.2 707.2L57.2 701.2M536.2 987.2L542.2 981.2M939.0 759.8L967.5 776.9M575.2 969.8L603.7 986.9M963.0 774.2L599.2 984.2M960.0 777.2L966.0 771.2M596.2 987.2L602.2 981.2M560.4 952.2L518.6 952.2M560.4 546.2L518.6 546.2M525.2 952.2L525.2 546.2M522.2 955.2L528.2 949.2M522.2 549.2L528.2 543.2" stroke="#8E948F" stroke-width="0.8"/>
+</svg></div>
+        </div>
+        <div class="sum">
+          <span class="lab">Kit summary</span>
+          <div class="kit" data-kit><p>Wall panels · CFS<i>✓</i></p><p>Floor joists<i>✓</i></p><p>Roof trusses<i>✓</i></p><p>Rivets, screws &amp; plates<i>✓</i></p><p>ECO-concrete mix<i>✓</i></p></div>
+          <div class="fac"><span class="lab">Nearest factories</span><p>Changzhou <span>China</span></p><p>New Jersey <span>USA</span></p><p>Dubai <span>UAE</span></p></div>
+          <a class="pill pill--neon" href="#partnership">Request quote <i>↗</i></a>
+        </div>
+      </div>
+      <div class="toast" data-toast><i>✓</i><div><b>Quote requested</b><small>Changzhou factory · draft 03</small></div></div>
+    </div>
+  </section>
+
+  <!-- 05 ENGINEERED -->
+  <section class="sec wrap" data-section="engineered">
+    <div class="sec__top">
+      <div><span class="lab">(05) — System</span>
+        <h2 class="statement" data-statement><span class="ln">Engineered</span><span class="ln in1">to the millimetre.</span></h2></div>
+    </div>
+    <div class="eng">
+      <div data-profile><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 833 812" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path data-layer="profile" d="M70.0 362.0L70.0 400.4M70.0 400.4L183.6 334.8M183.6 334.8L183.6 50.0M183.6 50.0L70.0 115.6M70.0 115.6L70.0 154.0M679.7 714.0L679.7 752.4M679.7 752.4L793.3 686.8M793.3 686.8L793.3 402.0M793.3 402.0L679.7 467.6M679.7 467.6L679.7 506.0M70.0 362.0L679.7 714.0M70.0 400.4L679.7 752.4M183.6 334.8L793.3 686.8M183.6 50.0L793.3 402.0M70.0 115.6L679.7 467.6M70.0 154.0L679.7 506.0M183.6 238.8L793.3 590.8M183.6 146.0L793.3 498.0" stroke="#0F1210" stroke-width="1.2"/>
+<path data-layer="holes" d="M385.9 309.2L385.2 303.8L382.9 297.6L379.2 290.9L374.3 283.9L368.1 276.9L361.0 269.9L353.1 263.2L344.7 257.0L336.0 251.6L327.4 247.0L319.0 243.5L311.1 241.1L304.0 239.8L297.8 239.8L292.8 241.1L289.2 243.5L286.9 247.0L286.2 251.6L286.9 257.0L289.2 263.2L292.8 269.9L297.8 276.9L304.0 283.9L311.1 290.9L319.0 297.6L327.4 303.8L336.0 309.2L344.7 313.8L353.1 317.3L361.0 319.7L368.1 321.0L374.3 321.0L379.2 319.7L382.9 317.3L385.2 313.8L385.9 309.2ZM690.8 485.2L690.0 479.8L687.8 473.6L684.1 466.9L679.1 459.9L672.9 452.9L665.8 445.9L657.9 439.2L649.5 433.0L640.9 427.6L632.2 423.0L623.8 419.5L615.9 417.1L608.8 415.8L602.7 415.8L597.7 417.1L594.0 419.5L591.8 423.0L591.0 427.6L591.8 433.0L594.0 439.2L597.7 445.9L602.7 452.9L608.8 459.9L615.9 466.9L623.8 473.6L632.2 479.8L640.9 485.2L649.5 489.8L657.9 493.3L665.8 495.7L672.9 497.0L679.1 497.0L684.1 495.7L687.8 493.3L690.0 489.8L690.8 485.2Z" stroke="#00CB14" stroke-width="1.4"/>
+<path data-layer="dims" d="M183.6 334.8L143.6 334.8M183.6 50.0L143.6 50.0M143.6 334.8L143.6 50.0M183.6 50.0L165.6 26.0M70.0 115.6L52.0 91.6M165.6 26.0L52.0 91.6M183.6 334.8L197.6 364.8M793.3 686.8L807.3 716.8M197.6 364.8L807.3 716.8" stroke="#8E948F" stroke-width="0.8"/>
+<text x="143.6" y="186.4" transform="rotate(-90.0 143.6 192.4)" font-family="Michroma, sans-serif" font-size="10" fill="#8E948F" text-anchor="middle">89</text>
+<text x="108.8" y="52.8" transform="rotate(-30.0 108.8 58.8)" font-family="Michroma, sans-serif" font-size="10" fill="#8E948F" text-anchor="middle">41</text>
+<text x="502.5" y="534.8" transform="rotate(30.0 502.5 540.8)" font-family="Michroma, sans-serif" font-size="10" fill="#8E948F" text-anchor="middle">1 punched stud · length to order</text>
+</svg><span class="lab">C-profile · punched stud · illustrative</span></div>
+      <div class="specs" data-specs>
+        <div class="row"><i class="hr"></i><span class="lab">01 · Material</span><p>Galvanised cold-formed steel (LGS / CFS)</p></div>
+        <div class="row"><i class="hr"></i><span class="lab">02 · Connections</span><p>Rivets, self-tapping screws, seismic plates</p></div>
+        <div class="row"><i class="hr"></i><span class="lab">03 · Seismic</span><p>Designed for up to magnitude 9*</p></div>
+        <div class="row"><i class="hr"></i><span class="lab">04 · Sound</span><p>60+ dB with ECO-concrete walls*</p></div>
+        <div class="row"><i class="hr"></i><span class="lab">05 · Moisture</span><p>Zinc-coated — no rot, no mould</p></div>
+        <div class="row"><i class="hr"></i><span class="lab">06 · Metal use</span><p>1.5–2× less than traditional steel*</p></div>
+        <div class="last"><i class="hr" style="position:absolute;inset:0"></i></div>
+        <div class="closeups"><img src="../../public/concepts/ecolit/rivet.jpg" alt="ECOLIT rivet connection" /><img src="../../public/concepts/ecolit/frame-on-wall.jpg" alt="Steel frame with ECO-concrete blocks" /></div>
+        <div class="eng__foot"><span></span><span class="lab">* ECOLIT data</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 ENERGY -->
+  <section class="sec wrap" data-section="energy">
+    <span class="lab" style="display:block;margin-bottom:28px">(06) — Energy</span>
+    <div class="energy__top">
+      <div class="big15 num" data-big15>15</div>
+      <div><p class="statement" data-statement><span class="ln">kWh/m² a year.</span><span class="ln in2">A building from</span><span class="ln">the 70s needs 280.</span></p>
+        <p class="note">Annual electricity demand for hot water, ventilation and heat loss. Source: ECOLIT.</p></div>
+    </div>
+    <div class="chart" data-chart>
+      <div class="bar" data-bar><i class="hr"></i><span class="lab">01</span><span>1970s building</span><div class="bar__line"><i style="width:100%"></i></div><b class="num" data-count="280">280</b></div>
+      <div class="bar" data-bar><i class="hr"></i><span class="lab">02</span><span>1980s building</span><div class="bar__line"><i style="width:60.7%"></i></div><b class="num" data-count="170">170</b></div>
+      <div class="bar" data-bar><i class="hr"></i><span class="lab">03</span><span>1990s building</span><div class="bar__line"><i style="width:46.4%"></i></div><b class="num" data-count="130">130</b></div>
+      <div class="bar" data-bar><i class="hr"></i><span class="lab">04</span><span>Modern building</span><div class="bar__line"><i style="width:25%"></i></div><b class="num" data-count="70">70</b></div>
+      <div class="bar is-us" data-bar><i class="hr"></i><span class="lab">05</span><span>ECOLIT building</span><div class="bar__line"><i style="width:5.4%"></i></div><b class="num" data-count="15">15</b></div>
+      <i class="hr" style="display:block"></i>
+    </div>
+  </section>
+
+  <!-- 07 APPROVALS -->
+  <section class="sec wrap" data-section="approvals">
+    <div class="sec__top"><div><span class="lab">(07) — Approvals</span>
+      <h2 class="statement" data-statement><span class="ln">Patented and approved</span><span class="ln in1">on three continents.</span></h2></div></div>
+    <div class="approvals">
+      <div class="docs" data-docs>
+        <div class="doc" data-doc data-x="6%" data-y="2%" data-r="-6" data-blur="1"><img src="../../public/concepts/ecolit/cert-us.jpg" alt="US patent" /></div>
+        <div class="doc" data-doc data-x="21%" data-y="7%" data-r="4" data-blur="0"><img src="../../public/concepts/ecolit/cert-de.jpg" alt="German patent" /></div>
+        <div class="doc" data-doc data-x="37%" data-y="0%" data-r="-2" data-blur="0"><img src="../../public/concepts/ecolit/cert-uae.jpg" alt="Dubai system approval" /></div>
+        <div class="doc" data-doc data-x="52%" data-y="9%" data-r="5" data-blur="0"><img src="../../public/concepts/ecolit/cert-jamaica.jpg" alt="Jamaica system approval" /></div>
+        <div class="doc" data-doc data-x="66%" data-y="3%" data-r="-4" data-blur="0"><img src="../../public/concepts/ecolit/cert-labc.jpg" alt="LABC Warranty" /></div>
+        <div class="doc" data-doc data-x="60%" data-y="30%" data-r="2" data-blur="4"><img src="../../public/concepts/ecolit/cert-premier.jpg" alt="Premier Guarantee" /></div>
+      </div>
+      <div class="list" data-list>
+        <div class="row"><i class="hr"></i><span class="num">US</span><span>US patent</span><i>↗</i></div>
+        <div class="row"><i class="hr"></i><span class="num">DE</span><span>German patent</span><i>↗</i></div>
+        <div class="row is-on"><i class="hr"></i><span class="num">AE</span><span>Dubai system approval</span><i>↗</i></div>
+        <div class="row"><i class="hr"></i><span class="num">JM</span><span>Jamaica system approval</span><i>↗</i></div>
+        <div class="row"><i class="hr"></i><span class="num">UK</span><span>LABC Warranty</span><i>↗</i></div>
+        <div class="row"><i class="hr"></i><span class="num">UK</span><span>Premier Guarantee</span><i>↗</i></div>
+        <i class="hr" style="display:block"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 PARTNERSHIP -->
+  <section class="sec wrap" id="partnership" data-section="partnership">
+    <span class="lab" style="display:block;margin-bottom:28px">(08) — Partnership program</span>
+    <div class="pship">
+      <figure class="pship__photo" data-pship-photo>
+        <img src="../../public/concepts/ecolit/frame-3.jpg" alt="ECOLIT light-gauge steel frame project" data-pship-img />
+        <span class="pship__tag">ECOLIT project · LGSF</span>
+        <div class="pship__card" data-pship-card><img src="../../public/concepts/ecolit/partner-paul-stephenson.jpg" alt="Paul Stephenson" /><div><span class="lab">ECOLIT partner</span><b>Paul Stephenson</b><small>Kingston, Jamaica</small></div></div>
+      </figure>
+      <div class="pship__body">
+        <h2 class="pship__title" data-statement><span class="ln">Open an ECOLIT</span><span class="ln">construction business</span><span class="ln acc">in your city.</span></h2>
+        <p class="pship__lead" data-note>Equipment, the patented system, training and a network of 25 factories — everything a builder needs to make energy-efficient steel-frame homes locally.</p>
+        <div class="steps4" data-steps4>
+          <div class="s4" data-s4><i class="hr"></i><b class="num">01</b><div><h4>Apply</h4><p>Share your city, market and the homes you want to build.</p></div></div>
+          <div class="s4" data-s4><i class="hr"></i><b class="num">02</b><div><h4>Equip</h4><p>ECOLIT CNC roll-forming lines, robotics and tooling.</p></div></div>
+          <div class="s4" data-s4><i class="hr"></i><b class="num">03</b><div><h4>Train</h4><p>BIM design, engineering and on-site assembly training.</p></div></div>
+          <div class="s4 is-last" data-s4><i class="hr"></i><b class="num">04</b><div><h4>Build</h4><p>Certified, patented steel-frame homes — made locally.</p></div></div>
+          <i class="hr" style="display:block"></i>
+        </div>
+      </div>
+    </div>
+    <a class="ctabar" href="#partnership" data-ctabar>
+      <span class="faces" data-faces><img src="../../public/concepts/ecolit/partner-denis-lozenko.jpg" alt="" /><img src="../../public/concepts/ecolit/partner-jamaal-marcano.jpg" alt="" /><img src="../../public/concepts/ecolit/partner-nii-kojo-biney.jpg" alt="" /><img src="../../public/concepts/ecolit/partner-tanaphak-krabat.jpg" alt="" /><img src="../../public/concepts/ecolit/partner-siril-george.jpg" alt="" /><img src="../../public/concepts/ecolit/partner-chris-rayson.jpg" alt="" /><img src="../../public/concepts/ecolit/partner-nikita-shumeiko.jpg" alt="" /><img src="../../public/concepts/ecolit/partner-mark-farrelly.jpg" alt="" /></span>
+      <span class="ctabar__txt"><small>Join partners in 20 countries</small><strong class="num" data-ctabar-text>Become an ECOLIT partner</strong></span>
+      <i class="ctabar__arrow" data-ctabar-arrow>↗</i>
+    </a>
+    <div class="pship__foot"><a href="#partnership"><b>Or talk to us on WhatsApp →</b></a><span>Telegram · @DenisEcolit</span></div>
+  </section>
+</main>
+
+<footer class="foot wrap" data-section="footer">
+  <div class="foot__top">
+    <span class="lab">(09) — ECOLIT global construction system</span>
+    <div><h6>Company</h6><ul><li>About us</li><li>Technologies</li><li>Projects</li><li>News</li></ul></div>
+    <div><h6>Contact</h6><ul><li>Telegram · @DenisEcolit</li><li>WhatsApp</li><li>LinkedIn</li><li>YouTube · Instagram</li></ul></div>
+    <div><h6>Offices</h6><ul><li>USA · UK · UAE</li><li>China · Indonesia</li><li>Australia · Thailand</li></ul></div>
+  </div>
+  <div class="mark" data-mark>
+    <i class="c c--v" style="left:0" data-c></i><i class="c c--v" style="right:0" data-c></i>
+    <i class="c c--h" style="top:0" data-c></i><i class="c c--h" style="top:38%" data-c></i>
+    <span class="num">1200</span>
+    <img src="../../public/concepts/ecolit/logo-ink.svg" alt="ECOLIT" data-mark-img />
+  </div>
+  <div class="foot__bottom"><span class="lab">© 2026 ECOLIT</span><span class="lab">Unsolicited concept by David Adebayo — not affiliated with ECOLIT</span></div>
+</footer>
+
+<div class="badge"><i></i><span>Concept<span class="long"> for ECOLIT</span> · not affiliated</span><a href="/">By David Adebayo ↗</a></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script>
+/* ECOLIT v2 — motion system. Each block = a Motion Note in Figma. */
+(() => {
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const EASE = 'expo.out';
+
+  /* ---- Map data (dot grid, ECOLIT countries = 2) + partner pins ---- */
+  const MAP = { w: 1360, h: 603, step: 9, rle: '0151|051.11.01.15.01.113.027.11.051|044.13.02.15.06.110.021.11.07.17.06.13.036|041.11.01.14.02.11.01.15.05.18.021.11.03.117.01.16.033|024.11.03.27.111.01.13.01.11.01.11.01.12.03.16.014.17.01.11.01.137.024|026.21.01.26.117.01.14.04.13.06.12.08.13.01.146.022|025.27.115.05.11.07.13.014.14.01.143.01.13.022|025.22.05.21.113.05.13.01.11.021.14.02.21.136.03.11.02.11.024|024.21.08.114.04.15.018.21.03.11.01.11.01.23.135.06.12.023|033.115.01.18.015.22.01.21.02.15.21.112.25.121.05.11.023|032.116.01.17.018.22.01.119.26.114.22.16.04.11.022|032.120.04.11.018.15.22.110.214.19.25.15.026|032.214.15.21.11.022.118.01.213.110.25.12.01.11.025|032.214.13.23.11.022.15.01.15.01.11.01.13.02.215.16.27.12.027|031.215.11.23.022.15.02.12.01.14.04.13.02.216.14.27.11.03.11.024|030.218.024.14.05.11.01.11.02.18.01.13.223.12.028|030.218.024.13.06.11.01.11.01.19.01.15.21.12.216.03.11.04.11.023|030.217.026.11.02.14.06.11.02.115.217.02.11.03.11.023|030.216.027.16.010.116.216.04.11.025|031.11.213.027.18.21.02.21.05.117.216.03.11.025|032.13.29.028.17.26.122.215.029|032.14.22.05.21.027.18.26.19.01.114.23.11.210.028|031.11.01.14.06.21.026.19.26.14.01.15.03.116.29.028|031.11.01.14.033.110.25.14.01.16.01.21.04.112.29.11.027|033.14.05.12.025.113.24.14.01.16.21.11.04.112.22.11.24.01.11.027|033.14.02.12.03.11.024.115.22.14.01.18.06.15.02.16.01.21.031|033.14.02.11.06.12.021.122.01.17.06.15.03.12.21.12.01.21.031|035.15.029.122.02.15.07.14.05.11.23.11.05.11.026|038.13.028.123.01.14.09.12.07.11.22.12.04.11.026|039.12.028.126.011.12.08.21.13.05.11.025|040.11.028.124.013.12.010.12.05.11.025|040.11.04.15.020.14.22.120.011.11.043|043.18.019.14.22.120.011.12.07.21.09.12.023|044.16.22.019.13.22.120.021.21.033|044.17.21.12.018.11.05.117.020.21.01.11.05.12.026|043.18.21.13.025.115.021.21.11.04.11.21.027|043.112.024.115.022.22.03.11.24.02.21.022|042.113.024.114.024.21.03.23.02.21.03.21.020|043.115.022.112.025.22.02.23.01.21.04.21.01.22.017|042.118.020.112.026.21.012.23.12.015|042.119.020.111.027.21.013.21.12.01.11.01.11.011|043.118.020.111.029.22.09.22.11.016|043.118.020.111.034.21.09.11.04.11.09|044.116.021.111.059|044.116.021.111.03.11.033.22.02.21.017|045.115.020.112.03.11.030.25.02.22.08.11.07|046.114.020.111.02.13.030.26.01.22.016|047.113.021.19.03.12.030.210.016|047.112.022.19.03.12.027.213.06.11.09|048.111.022.19.03.12.026.215.015|048.19.024.18.04.11.026.216.015|048.18.025.17.032.216.015|048.19.025.16.032.215.016|048.18.026.15.033.215.016|048.18.027.14.033.24.03.27.017|048.15.01.11.028.11.035.22.07.25.018|048.16.074.24.019|048.16.074.22.010.12.09|049.14.098|049.14.075.21.08.11.013|049.13.083.11.015|049.13.099|050.12.047.11.051|050.12.099|051.12.098|0151|0151' };
+  const PINS = [
+    ['Mark Farrelly','United Kingdom','partner-mark-farrelly.jpg',679.6,94.6,520,0],
+    ['Nikita Shumeiko','New Jersey, USA','partner-nikita-shumeiko.jpg',434.6,141.5,240,30],
+    ['Paul Stephenson','Kingston, Jamaica','partner-paul-stephenson.jpg',400.9,243.9,160,200],
+    ['Jamaal Marcano','Guyana','partner-jamaal-marcano.jpg',464.2,299.4,260,360],
+    ['Nii Kojo Biney','Ghana','partner-nii-kojo-biney.jpg',679.3,305.4,580,360],
+    ['Siril George','Dubai, UAE','partner-siril-george.jpg',876.3,209.3,796,120],
+    ['Tanaphak Krabat','Thailand','partner-tanaphak-krabat.jpg',1049,264.9,1090,200],
+    ['Chris Rayson','Australia','partner-chris-rayson.jpg',1196.6,498,940,520]];
+  const ASSET = '../../public/concepts/ecolit/';
+
+  // Build dots from RLE
+  const dots = []; MAP.rle.split('|').forEach((row, ri) => { let col = 0; row.split('.').forEach(tok => { const ch = tok[0], n = +tok.slice(1); for (let k = 0; k < n; k++) { if (ch !== '0') dots.push({ x: MAP.step / 2 + col * MAP.step, y: MAP.step / 2 + ri * MAP.step, eco: ch === '2', a: 0, g: 0, r: Math.random() }); col++; } }); });
+  const map = $('[data-map]'), cv = $('[data-map-canvas]'), ctx2 = cv.getContext('2d');
+  const drawMap = () => { const dpr = Math.min(2, devicePixelRatio || 1), W = map.clientWidth, H = map.clientHeight; if (cv.width !== W * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
+    const s = W / MAP.w; ctx2.setTransform(dpr * s, 0, 0, dpr * s, 0, 0); ctx2.clearRect(0, 0, MAP.w, MAP.h);
+    for (const d of dots) { if (d.a <= 0) continue; ctx2.beginPath();
+      if (d.eco && d.g > 0) { ctx2.fillStyle = `rgba(0,203,20,${d.a})`; ctx2.arc(d.x, d.y, 1.7 + 0.9 * d.g, 0, 6.283); }
+      else { ctx2.fillStyle = `rgba(15,18,16,${0.22 * d.a})`; ctx2.arc(d.x, d.y, 1.7, 0, 6.283); }
+      ctx2.fill(); } };
+  // pins, cards, leaders
+  const lead = $('[data-leaders]');
+  PINS.forEach(([n, loc, img, px, py, cx, cy]) => {
+    const pin = document.createElement('i'); pin.className = 'pin'; pin.dataset.pin = ''; pin.style.left = (px / MAP.w * 100) + '%'; pin.style.top = (py / MAP.h * 100) + '%'; map.appendChild(pin);
+    const card = document.createElement('div'); card.className = 'mate'; card.dataset.mate = ''; card.style.left = (cx / MAP.w * 100) + '%'; card.style.top = (cy / MAP.h * 100) + '%';
+    card.innerHTML = `<img src="${ASSET + img}" alt="${n}"><div><b>${n}</b><small>${loc}</small></div>`; map.appendChild(card);
+    const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line'); ln.setAttribute('x1', px); ln.setAttribute('y1', py); ln.setAttribute('x2', cx + 100); ln.setAttribute('y2', cy + 26); lead.appendChild(ln);
+    card.addEventListener('mouseenter', () => { pin.classList.remove('is-pulse'); void pin.offsetWidth; pin.classList.add('is-pulse'); });
+  });
+  addEventListener('resize', drawMap);
+
+  if (reduce) { dots.forEach(d => { d.a = 1; d.g = 1; }); drawMap(); $$('[data-count]').forEach(el => el.textContent = el.dataset.count); return; }
+  drawMap();
+  $$('[data-count]').forEach(el => el.textContent = '0');
+
+  /* 00 Smooth scroll + progress + magnetic */
+  const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length < 2) return; const t = $(id); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { offset: -90, duration: 1.4 }); }));
+  gsap.to('.progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
+  const nav = $('[data-nav]');
+  ScrollTrigger.create({ start: 'top -80', end: 'max', onUpdate(self) { gsap.to(nav, { yPercent: self.direction === 1 && self.scroll() > 600 ? -120 : 0, duration: 0.6, ease: 'power3.out', overwrite: 'auto' }); } });
+  $$('[data-magnetic]').forEach(el => { const xTo = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3.out' }), yTo = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3.out' });
+    el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); xTo((e.clientX - r.left - r.width / 2) * 0.25); yTo((e.clientY - r.top - r.height / 2) * 0.3); });
+    el.addEventListener('pointerleave', () => { xTo(0); yTo(0); }); });
+  const countUp = (el, dur = 1.4) => { const o = { v: 0 }; return gsap.to(o, { v: +el.dataset.count, duration: dur, ease: 'power3.out', onUpdate: () => el.textContent = Math.round(o.v) }); };
+
+  /* helper: prepare stroke-draw on paths */
+  const prepDraw = paths => paths.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
+
+  /* Statements: staggered lines rise (masked) */
+  const statement = (el, opts = {}) => { const s = SplitText.create(el.querySelectorAll('.ln'), { type: 'lines', mask: 'lines' }); return gsap.from(s.lines, { yPercent: 110, duration: 1.2, stagger: 0.1, ease: EASE, ...opts }); };
+
+  /* 01 Load — the frame draws itself, layer by layer */
+  const heroIso = $('[data-iso="hero"]'); const layers = ['slab', 'gf', 'floor', 'ff', 'roof'].map(k => heroIso.querySelector(`[data-layer="${k}"]`));
+  prepDraw([...layers, heroIso.querySelector('[data-layer="dims"]')]);
+  gsap.set(heroIso.querySelectorAll('text'), { opacity: 0 });
+  gsap.set('[data-neon]', { scale: 0 }); gsap.set('[data-person]', { y: 60, opacity: 0 }); gsap.set('[data-cap]', { opacity: 0, x: 10 });
+  gsap.set('[data-rule]', { scaleX: 0 });
+  const intro = gsap.timeline({ delay: 0.2 });
+  intro.from('[data-nav] > *', { y: -20, opacity: 0, duration: 1, stagger: 0.06, ease: EASE })
+    .to('[data-rule]', { scaleX: 1, duration: 1.4, ease: 'expo.inOut', stagger: 0.2 }, 0.1)
+    .add(statement($('.hero [data-statement]')), 0.3);
+  layers.forEach((p, i) => intro.to(p, { strokeDashoffset: 0, duration: i === 3 ? 1.1 : 0.9, ease: 'power2.inOut' }, 0.6 + i * 0.38));
+  intro.to(heroIso.querySelector('[data-layer="dims"]'), { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, 2.4)
+    .to(heroIso.querySelectorAll('text'), { opacity: 1, duration: 0.6 }, 2.8)
+    .to('[data-neon]', { scale: 1, duration: 0.7, ease: 'back.out(1.8)' }, 2.5)
+    .to('[data-cap]', { opacity: 1, x: 0, duration: 0.8, ease: EASE }, 2.7)
+    .to('[data-person]', { y: 0, opacity: 1, duration: 1, ease: EASE }, 2.6)
+    .from('.hero__stat, .hero__foot .note', { y: 20, opacity: 0, stagger: 0.07, duration: 0.9, ease: EASE }, 2.2)
+    .add(() => $$('.hero [data-count]').forEach(el => countUp(el, 1.6)), 2.3);
+
+  /* 02 Hero depth — drawing and founder card drift apart with the pointer */
+  const hero = $('[data-section="hero"]');
+  const isoX = gsap.quickTo(heroIso, 'x', { duration: 1.2, ease: 'power3.out' }), isoY = gsap.quickTo(heroIso, 'y', { duration: 1.2, ease: 'power3.out' });
+  const pX = gsap.quickTo('[data-person]', 'x', { duration: 1.2, ease: 'power3.out' });
+  hero.addEventListener('pointermove', e => { const nx = e.clientX / innerWidth - 0.5, ny = e.clientY / innerHeight - 0.5; isoX(nx * 18); isoY(ny * 12); pX(-nx * 30); });
+  gsap.to(heroIso, { yPercent: 10, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 } });
+
+  const mm = gsap.matchMedia();
+
+  /* 03 Drawing → reality (pinned): an aperture opens from the drawing into the real frame */
+  const rIso = $('[data-iso="reality"]'); const rPaths = $$('path', rIso);
+  mm.add('(min-width: 761px)', () => {
+    prepDraw(rPaths);
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '[data-reality]', start: 'top top+=40', end: '+=140%', pin: true, scrub: 1, anticipatePin: 1 } });
+    tl.to(rPaths, { strokeDashoffset: 0, duration: 0.35, stagger: 0.04, ease: 'none' }, 0)
+      .to('[data-reality-photo]', { clipPath: 'circle(120% at 68% 52%)', duration: 0.5, ease: 'power2.inOut' }, 0.3)
+      .to(rPaths, { stroke: '#ffffff', opacity: 0.4, duration: 0.2 }, 0.45)
+      .from($$('[data-reality-statement] .ln'), { yPercent: 60, opacity: 0, stagger: 0.05, duration: 0.2 }, 0.62)
+      .from('[data-machine]', { y: 40, opacity: 0, duration: 0.15 }, 0.65);
+    $$('[data-tick]').forEach((t, i) => tl.add(() => t.classList.add('is-done'), 0.75 + i * 0.06).add(() => {}, 0.75 + i * 0.06));
+    tl.to({}, { duration: 0.15 });
+  });
+  mm.add('(max-width: 760px)', () => { gsap.set('[data-reality-photo]', { clipPath: 'circle(120% at 50% 50%)' }); $$('[data-tick]').forEach(t => t.classList.add('is-done')); });
+
+  /* Section statements + notes */
+  $$('.sec [data-statement]').forEach(el => statement(el, { scrollTrigger: { trigger: el, start: 'top 85%' } }));
+  $$('[data-note]').forEach(el => gsap.from(el, { y: 20, opacity: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: el, start: 'top 88%' } }));
+
+  /* 04 Network map: grey dots sweep in, ECOLIT dots light up, pins pulse, partners pop */
+  const mates = $$('[data-mate]'), pins = $$('[data-pin]'), leaders = $$('line', lead);
+  gsap.set(mates, { opacity: 0, scale: 0.9, y: 10 }); gsap.set(pins, { scale: 0 });
+  leaders.forEach(l => { const L = Math.hypot(l.x2.baseVal.value - l.x1.baseVal.value, l.y2.baseVal.value - l.y1.baseVal.value); l.style.strokeDasharray = L; l.style.strokeDashoffset = L; });
+  const mtl = gsap.timeline({ scrollTrigger: { trigger: map, start: 'top 75%' }, onUpdate: drawMap });
+  mtl.to(dots, { a: 1, duration: 0.6, ease: 'power2.out', stagger: { each: 0.0004, from: 'start' } }, 0);
+  mtl.to(dots.filter(d => d.eco), { g: 1, duration: 0.5, ease: 'back.out(2)', stagger: { each: 0.0015, from: 'random' } }, 0.6);
+  mtl.to(pins, { scale: 1, duration: 0.5, ease: 'back.out(2)', stagger: 0.06, onComplete() { pins.forEach((p, i) => setTimeout(() => p.classList.add('is-pulse'), i * 120)); } }, 1.4)
+     .to(leaders, { strokeDashoffset: 0, duration: 0.6, stagger: 0.06, ease: 'power2.out' }, 1.6)
+     .to(mates, { opacity: 1, scale: 1, y: 0, duration: 0.7, stagger: 0.06, ease: 'back.out(1.6)' }, 1.7);
+
+  /* 05 Partner portal: the device rises, then the demo runs itself (scrubbed) */
+  const segMove = (seg, idx) => { const opts = $$('span', seg), pill = $('i', seg); const t = opts[idx]; opts.forEach((o, i) => o.classList.toggle('is-on', i === idx)); gsap.to(pill, { x: t.offsetLeft - 4, width: t.offsetWidth, duration: 0.5, ease: 'power3.out' }); };
+  $$('[data-seg]').forEach(s => { const o = $$('span', s)[0]; gsap.set($('i', s), { width: o.offsetWidth }); o.classList.add('is-on'); });
+  const pIso = $('[data-iso="preview"]'); const pPaths = $$('path', pIso);
+  prepDraw(pPaths);
+  gsap.from('[data-device]', { y: 120, rotateX: 10, opacity: 0, transformPerspective: 1600, duration: 1.4, ease: EASE, scrollTrigger: { trigger: '[data-device]', start: 'top 85%' } });
+  const area = $('[data-area]'), A = { v: 60 };
+  const ptl = gsap.timeline({ scrollTrigger: { trigger: '[data-device]', start: 'top 60%', end: 'bottom 70%', scrub: 1 } });
+  ptl.add(() => segMove($('[data-seg="storeys"]'), 1), 0.05).add(() => segMove($('[data-seg="storeys"]'), 0), 0.04)
+     .to(pPaths, { strokeDashoffset: 0, duration: 0.4, stagger: 0.03 }, 0.05)
+     .add(() => segMove($('[data-seg="seismic"]'), 2), 0.3).add(() => segMove($('[data-seg="seismic"]'), 0), 0.29)
+     .fromTo('[data-slider] i', { width: '10%' }, { width: '45%', duration: 0.2 }, 0.35)
+     .fromTo('[data-slider] b', { left: '10%' }, { left: '45%', duration: 0.2 }, 0.35)
+     .to(A, { v: 96, duration: 0.2, onUpdate: () => area.textContent = Math.round(A.v) + ' m²' }, 0.35)
+     .to('[data-kit] i', { scale: 1, duration: 0.06, stagger: 0.05, ease: 'back.out(2)' }, 0.55)
+     .from('[data-toast]', { y: 30, opacity: 0, duration: 0.12 }, 0.88);
+
+  /* 06 Profile draws, holes after; spec hairlines scale in */
+  const prof = $('[data-profile] svg'); const pr = $$('path', prof);
+  prepDraw(pr); gsap.set(prof.querySelectorAll('text'), { opacity: 0 });
+  gsap.timeline({ scrollTrigger: { trigger: prof, start: 'top 70%' } })
+    .to(pr[0], { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' })
+    .to(pr[1], { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, '-=0.3')
+    .to(pr[2], { strokeDashoffset: 0, duration: 0.6 }, '-=0.4')
+    .to(prof.querySelectorAll('text'), { opacity: 1, duration: 0.5 }, '-=0.2');
+  $$('[data-specs] .row').forEach((r, i) => gsap.timeline({ scrollTrigger: { trigger: r, start: 'top 90%' } })
+    .from($('.hr', r), { scaleX: 0, duration: 1, ease: 'expo.inOut' }).from($$('.lab, p', r), { y: 14, opacity: 0, stagger: 0.06, duration: 0.7, ease: EASE }, '-=0.6'));
+
+  /* 07 Energy: 280 counts down to 15; lines draw, ECOLIT last */
+  const big = $('[data-big15]'); const E = { v: 280 };
+  gsap.timeline({ scrollTrigger: { trigger: big, start: 'top 75%' } })
+    .fromTo(E, { v: 280 }, { v: 15, duration: 2, ease: 'power3.inOut', onUpdate: () => big.textContent = Math.round(E.v) })
+    .fromTo(big, { color: '#0F1210' }, { color: '#00CB14', duration: 0.6 }, 1.5);
+  gsap.set('.bar__line i', { scaleX: 0 });
+  const btl = gsap.timeline({ scrollTrigger: { trigger: '[data-chart]', start: 'top 75%' } });
+  $$('[data-bar]').forEach((b, i) => btl.to($('.bar__line i', b), { scaleX: 1, duration: 1, ease: 'power3.out' }, i * 0.15).add(() => countUp($('[data-count]', b), 1), i * 0.15));
+
+  /* 08 Approvals: one stack fans into a scattered depth layout (scrub) */
+  const docs = $$('[data-doc]');
+  docs.forEach(d => { d.style.left = d.dataset.x; d.style.top = d.dataset.y; });
+  mm.add('(min-width: 1101px)', () => {
+    gsap.fromTo(docs, { x: (i, el) => (el.parentElement.clientWidth * 0.36) - el.offsetLeft, y: (i, el) => 120 - el.offsetTop + i * 4, rotate: (i) => (i - 3) * 3, filter: 'blur(0px)' },
+      { x: 0, y: 0, rotate: (i, el) => +el.dataset.r, filter: (i, el) => `blur(${el.dataset.blur}px)`, ease: 'power2.inOut',
+        scrollTrigger: { trigger: '[data-docs]', start: 'top 85%', end: 'center 50%', scrub: 1, invalidateOnRefresh: true } });
+  });
+  mm.add('(max-width: 1100px)', () => docs.forEach(d => gsap.set(d, { rotate: +d.dataset.r, filter: `blur(${d.dataset.blur}px)` })));
+  $$('[data-list] .row').forEach(r => gsap.from(r, { y: 16, opacity: 0, duration: 0.8, ease: EASE, scrollTrigger: { trigger: r, start: 'top 92%' } }));
+
+  /* 09 Partnership: photo parallax + partner card slides in, steps reveal, neon bar wipes in */
+  gsap.fromTo('[data-pship-img]', { yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: { trigger: '[data-pship-photo]', start: 'top bottom', end: 'bottom top', scrub: true } });
+  gsap.from('[data-pship-photo]', { clipPath: 'inset(12% 0% 0% 0% round 8px)', duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: '[data-pship-photo]', start: 'top 80%' } });
+  gsap.from('[data-pship-card]', { x: -40, opacity: 0, duration: 1, ease: EASE, scrollTrigger: { trigger: '[data-pship-photo]', start: 'top 45%' } });
+  $$('[data-s4]').forEach(r => gsap.timeline({ scrollTrigger: { trigger: r, start: 'top 90%' } })
+    .from($('.hr', r), { scaleX: 0, duration: 1, ease: 'expo.inOut' }).from($$('.num, h4, p', r), { y: 16, opacity: 0, stagger: 0.06, duration: 0.7, ease: EASE }, '-=0.6'));
+  gsap.timeline({ scrollTrigger: { trigger: '[data-ctabar]', start: 'top 88%' } })
+    .from('[data-ctabar]', { clipPath: 'inset(0 100% 0 0 round 8px)', duration: 1.3, ease: 'expo.inOut' })
+    .from('[data-faces] img', { x: -20, opacity: 0, stagger: 0.05, duration: 0.6, ease: EASE }, 0.6)
+    .from(SplitText.create('[data-ctabar-text]', { type: 'words,chars' }).chars, { yPercent: 100, opacity: 0, stagger: 0.015, duration: 0.6, ease: EASE }, 0.7)
+    .from('[data-ctabar-arrow]', { scale: 0, rotate: -90, duration: 0.8, ease: 'back.out(1.8)' }, 0.9);
+  (() => { const bar = $('[data-ctabar]'), arr = $('[data-ctabar-arrow]'); const ax = gsap.quickTo(arr, 'x', { duration: 0.8, ease: 'power3.out' }), ay = gsap.quickTo(arr, 'y', { duration: 0.8, ease: 'power3.out' });
+    bar.addEventListener('pointermove', e => { const r = arr.getBoundingClientRect(); ax((e.clientX - r.left - r.width / 2) * 0.18); ay((e.clientY - r.top - r.height / 2) * 0.18); });
+    bar.addEventListener('pointerleave', () => { ax(0); ay(0); }); })();
+
+  /* 10 Footer: construction lines draw, then the wordmark fills in */
+  gsap.timeline({ scrollTrigger: { trigger: '[data-mark]', start: 'top 85%' } })
+    .from('[data-c].c--v', { scaleY: 0, duration: 1, ease: 'expo.inOut', stagger: 0.1 })
+    .from('[data-c].c--h', { scaleX: 0, duration: 1.2, ease: 'expo.inOut', stagger: 0.1 }, 0.2)
+    .from('[data-mark-img]', { clipPath: 'inset(0 100% 0 0)', duration: 1.4, ease: 'expo.inOut' }, 0.6)
+    .from('[data-mark] .num', { opacity: 0, duration: 0.6 }, 0.8);
+  gsap.from('.badge', { y: 80, opacity: 0, duration: 1, ease: EASE, delay: 3 });
+
+  addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
