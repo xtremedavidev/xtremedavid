@@ -273,8 +273,16 @@ export function initEcolitMotion(root: HTMLElement, s: Record<string, string>): 
       tl.to({}, { duration: 0.15 });
     });
     mm.add("(max-width: 760px)", () => {
-      gsap.set("[data-reality-photo]", { clipPath: "circle(120% at 50% 50%)" });
-      $$("[data-tick]").forEach((t) => t.classList.add(k("is-done")));
+      // Mobile: no pin — the drawing draws as the stage scrolls in, then the aperture opens into the photo.
+      prepDraw(rPaths);
+      gsap.set("[data-reality-photo]", { clipPath: "circle(0% at 50% 30%)" });
+      const tl = gsap.timeline({ scrollTrigger: { trigger: "[data-reality]", start: "top 85%", end: "bottom 75%", scrub: 1 } });
+      tl.to(rPaths, { strokeDashoffset: 0, duration: 0.4, stagger: 0.03, ease: "none" }, 0)
+        .to("[data-reality-photo]", { clipPath: "circle(130% at 50% 30%)", duration: 0.4, ease: "power2.inOut" }, 0.38)
+        .to(rPaths, { stroke: "#ffffff", opacity: 0.4, duration: 0.15 }, 0.5)
+        .from($$("[data-reality-statement] .ln"), { yPercent: 60, opacity: 0, stagger: 0.04, duration: 0.15 }, 0.62)
+        .from("[data-machine]", { y: 30, opacity: 0, duration: 0.12 }, 0.7)
+        .to("[data-tick]", { opacity: 1, stagger: 0.05, duration: 0.05 }, 0.8);
     });
 
     /* ---- Section statements + notes ---- */
@@ -382,9 +390,20 @@ export function initEcolitMotion(root: HTMLElement, s: Record<string, string>): 
         { x: 0, y: 0, rotate: (_i: number, el: HTMLElement) => +el.dataset.r!, filter: (_i: number, el: HTMLElement) => `blur(${el.dataset.blur}px)`, ease: "power2.inOut", scrollTrigger: { trigger: "[data-docs]", start: "top 85%", end: "center 50%", scrub: 1, invalidateOnRefresh: true } }
       );
     });
-    mm.add("(max-width: 1100px)", () =>
+    mm.add("(min-width: 761px) and (max-width: 1100px)", () =>
       docs.forEach((d) => gsap.set(d, { rotate: +d.dataset.r!, filter: `blur(${d.dataset.blur}px)` }))
     );
+    mm.add("(max-width: 760px)", () => {
+      // Mobile: a fanned deck. Cards start stacked in the centre and spread as you scroll.
+      const FAN = [[0, 6, -8], [11, 1, -4], [22, 7, -1], [34, 2, 3], [45, 8, 6], [56, 3, 9]]; // left %, top %, rotate
+      docs.forEach((d, i) => { d.style.left = FAN[i][0] + "%"; d.style.top = FAN[i][1] + "%"; });
+      gsap.fromTo(
+        docs,
+        { x: (_i: number, el: HTMLElement) => el.parentElement!.clientWidth * 0.28 - el.offsetLeft, y: (i: number) => 14 - i * 2, rotate: (i: number) => (i - 2.5) * 1.5, filter: "blur(0px)" },
+        { x: 0, y: 0, rotate: (i: number) => FAN[i][2], filter: "blur(0px)", ease: "power2.inOut", stagger: 0.04, scrollTrigger: { trigger: "[data-docs]", start: "top 85%", end: "bottom 60%", scrub: 1, invalidateOnRefresh: true } }
+      );
+      return () => docs.forEach((d) => { d.style.left = d.dataset.x!; d.style.top = d.dataset.y!; });
+    });
     $$("[data-list] .row").forEach((r) =>
       gsap.from(r, { y: 16, opacity: 0, duration: 0.8, ease: EASE, scrollTrigger: { trigger: r, start: "top 92%" } })
     );
@@ -426,7 +445,7 @@ export function initEcolitMotion(root: HTMLElement, s: Record<string, string>): 
     })();
 
     /* ---- 10 Footer: construction lines draw, then wordmark fills in ---- */
-    gsap.timeline({ scrollTrigger: { trigger: "[data-mark]", start: "top 85%" } })
+    gsap.timeline({ scrollTrigger: { trigger: "[data-mark]", start: "top 80%" } })
       .from(q("[data-c].c--v"), { scaleY: 0, duration: 1, ease: "expo.inOut", stagger: 0.1 })
       .from(q("[data-c].c--h"), { scaleX: 0, duration: 1.2, ease: "expo.inOut", stagger: 0.1 }, 0.2)
       .from("[data-mark-img]", { clipPath: "inset(0 100% 0 0)", duration: 1.4, ease: "expo.inOut" }, 0.6)
@@ -438,11 +457,15 @@ export function initEcolitMotion(root: HTMLElement, s: Record<string, string>): 
 
   const onLoad = () => ScrollTrigger.refresh();
   window.addEventListener("load", onLoad);
+  let refreshT: ReturnType<typeof setTimeout> | undefined;
+  const queueRefresh = () => { clearTimeout(refreshT); refreshT = setTimeout(() => ScrollTrigger.refresh(), 150); };
+  $$<HTMLImageElement>("img").forEach((img) => { if (!img.complete) on(img, "load", queueRefresh); });
 
   return () => {
     listeners.forEach(([el, ev, fn]) => el.removeEventListener(ev, fn));
     window.removeEventListener("load", onLoad);
     timers.forEach((t) => clearTimeout(t));
+    clearTimeout(refreshT);
     splits.forEach((sp) => sp.revert());
     mm.revert();
     ctx.revert();

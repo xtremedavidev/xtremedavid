@@ -319,7 +319,7 @@ export default function Ecolit() {
           <i className={`${s.c} ${s["c--h"]}`} style={{ top: 0 }} data-c="" />
           <i className={`${s.c} ${s["c--h"]}`} style={{ top: "38%" }} data-c="" />
           <span className={s.num}>1200</span>
-          <img src="/concepts/ecolit/logo-ink.svg" alt="ECOLIT" data-mark-img="" loading="lazy" />
+          <img src="/concepts/ecolit/logo-ink.svg" alt="ECOLIT" data-mark-img="" loading="eager" />
         </div>
         <div className={s.foot__bottom}><span className={s.lab}>© 2026 ECOLIT</span><span className={s.lab}>Unsolicited concept by David Adebayo — not affiliated with ECOLIT</span></div>
       </footer>
