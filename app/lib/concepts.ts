@@ -32,6 +32,17 @@ export const concepts: Concept[] = [
       themeColor: "#ECEDEA",
     },
   },
+  {
+    id: "arbe",
+    name: "Arbe",
+    meta: {
+      title: "Arbe — Radar Revolution. Delivered. · Concept by David Adebayo",
+      description:
+        "An unsolicited homepage concept for Arbe: ride along with 4D imaging radar, look inside Phoenix, and see what 2,304 channels see.",
+      ogImage: "/og/arbe.png",
+      themeColor: "#F3F5F9",
+    },
+  },
 ];
 
 export function getConcept(id: string): Concept | undefined {
