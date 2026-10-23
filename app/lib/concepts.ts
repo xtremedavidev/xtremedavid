@@ -43,6 +43,17 @@ export const concepts: Concept[] = [
       themeColor: "#F3F5F9",
     },
   },
+  {
+    id: "unum",
+    name: "UNUM.CLINIC",
+    meta: {
+      title: "UNUM.CLINIC — Говорите. Карта заполнится сама. · Concept by David Adebayo",
+      description:
+        "An unsolicited homepage concept for UNUM.CLINIC: one dental appointment, 09:00 to 09:30, told through voice-to-chart AI, treatment plans signed with a tap and secure patient history.",
+      ogImage: "/og/unum.png",
+      themeColor: "#F6F8F7",
+    },
+  },
 ];
 
 export function getConcept(id: string): Concept | undefined {
