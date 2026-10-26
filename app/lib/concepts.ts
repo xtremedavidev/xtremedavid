@@ -54,6 +54,28 @@ export const concepts: Concept[] = [
       themeColor: "#F6F8F7",
     },
   },
+  {
+    id: "truerights",
+    name: "TrueRights",
+    meta: {
+      title: "TrueRights — Own your likeness. · Concept by David Adebayo",
+      description:
+        "An unsolicited homepage concept for TrueRights: a cinematic, glass-and-particle story of registering your face, voice and style, licensing them on your terms and getting paid every time AI uses you.",
+      ogImage: "/og/truerights.png",
+      themeColor: "#020B06",
+    },
+  },
+  {
+    id: "truerights-light",
+    name: "TrueRights (light)",
+    meta: {
+      title: "TrueRights — Own the rights to you. · Concept by David Adebayo",
+      description:
+        "A clean, light homepage concept for TrueRights: one verified rights record, live consent controls, deepfake detection and a consent API for AI platforms.",
+      ogImage: "/og/truerights-light.png",
+      themeColor: "#F3F5EF",
+    },
+  },
 ];
 
 export function getConcept(id: string): Concept | undefined {
