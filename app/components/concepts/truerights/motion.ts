@@ -23,8 +23,8 @@ function coverDraw(ctx: CanvasRenderingContext2D, img: HTMLImageElement, w: numb
 }
 const ready = (img: HTMLImageElement) => (img.complete && img.naturalWidth ? Promise.resolve() : new Promise<void>((r) => { img.addEventListener("load", () => r(), { once: true }); img.addEventListener("error", () => r(), { once: true }); }));
 
-/** SplitText masks clip descenders (g, y, p) on tight line-heights — give each mask room below without moving layout. */
-const unclip = (sp: SplitText) => { for (const m of ((sp as unknown as { masks?: HTMLElement[] }).masks || [])) { m.style.paddingBottom = "0.16em"; m.style.marginBottom = "-0.16em"; } return sp; };
+/** SplitText masks clip glyphs on tight tracking/line-height (sliced right edges, cut descenders) — give each mask room on the sides and below without moving layout. */
+const unclip = (sp: SplitText) => { for (const m of ((sp as unknown as { masks?: HTMLElement[] }).masks || [])) { m.style.padding = "0 0.14em 0.16em"; m.style.margin = "0 -0.14em -0.16em"; } return sp; };
 
 export function initTrueRightsMotion(root: HTMLElement): () => void {
   const $ = <T extends Element = HTMLElement>(sel: string, r: ParentNode = root) => r.querySelector<T>(sel)!;
@@ -69,13 +69,14 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
 
   if (reduce) {
     halftone();
+    { const img = $("[data-hero-img]"), hero = $("[data-hero]"); if (img && hero) { const w = hero.clientWidth, e0 = w * (isDesk() ? 0.5 : 0.25), edge = e0 + (w - e0 + 120) * (isDesk() ? 0.1 : 0.16) * 1.15, m = `linear-gradient(90deg, transparent ${edge - 60}px, #000 ${edge + 40}px)`; img.style.setProperty("-webkit-mask-image", m); img.style.setProperty("mask-image", m); } }
     { const st = $$("[data-ostep]"), stage = $("[data-seal] [data-tilt]");
       if (stage && st.length) { const w = stage.clientWidth, h = stage.clientHeight, widest = Math.max(...st.map((el) => el.offsetWidth)), rx = Math.min(w * 0.79, innerWidth / 2 - widest / 2 - 12), ry = h * 0.275;
         const ring = $("[data-orbit]"); if (ring) ring.style.width = `${((rx * 2) / w) * 100}%`;
         st.forEach((el, i) => { const a = Math.PI / 2 + (i / 7) * Math.PI * 2; el.style.transform = `translate(${Math.cos(a) * rx - el.offsetWidth / 2}px, ${Math.sin(a) * ry - el.offsetHeight / 2}px)`; }); } }
     $$("[data-ostep]")[0]?.setAttribute("data-on", ""); $$("[data-sbar]")[0]?.setAttribute("data-on", ""); $$("[data-sui]")[0]?.setAttribute("data-on", "");
     $("[data-intro]")?.remove();
-    return () => { alive = false; };
+    return () => { alive = false; const img = root.querySelector<HTMLElement>("[data-hero-img]"); img?.style.removeProperty("mask-image"); img?.style.removeProperty("-webkit-mask-image"); };
   }
 
   const lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
@@ -133,6 +134,11 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     /* ---------- B01 · particle dissolve ---------- */
     const hero = $("[data-hero]"), heroImg = $<HTMLImageElement>("[data-hero-img]"), canvas = $<HTMLCanvasElement>("[data-particles]");
     const P = { p: 0, mx: -9999, my: -9999, vis: true };
+    // the portrait is never shown whole: it starts part-dissolved and scroll carries it the rest of the way
+    const BASE = isDesk() ? 0.1 : 0.16;
+    const edgeAt = (p: number, w: number, e0: number) => e0 + (w - e0 + 120) * (BASE + p * (1 - BASE)) * 1.15;
+    const setMask = (edge: number) => { const m = `linear-gradient(90deg, transparent ${edge - 60}px, #000 ${edge + 40}px)`; heroImg.style.setProperty("-webkit-mask-image", m); heroImg.style.setProperty("mask-image", m); };
+    setMask(edgeAt(0, hero.clientWidth, hero.clientWidth * (isDesk() ? 0.5 : 0.25)));
     type Pt = { x: number; y: number; c: string; s: number; t: number };
     let pts: Pt[] = [], amb: { x: number; y: number; vx: number; vy: number; r: number; a: number }[] = [], W = 0, H = 0, edge0 = 0;
     const g = canvas.getContext("2d")!;
@@ -157,9 +163,8 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       const id = requestAnimationFrame(draw); rafs.clear(); rafs.add(id);
       if (!P.vis || !W) return;
       g.clearRect(0, 0, W, H);
-      const edge = edge0 + (W - edge0 + 120) * P.p * 1.15;
-      heroImg.style.setProperty("-webkit-mask-image", P.p > 0.002 ? `linear-gradient(90deg, transparent ${edge - 60}px, #000 ${edge + 40}px)` : "none");
-      heroImg.style.setProperty("mask-image", P.p > 0.002 ? `linear-gradient(90deg, transparent ${edge - 60}px, #000 ${edge + 40}px)` : "none");
+      const edge = edgeAt(P.p, W, edge0), T = performance.now() / 1000;
+      setMask(edge);
       // ambient stream
       g.fillStyle = "#57EF9D";
       for (const a of amb) {
@@ -169,11 +174,12 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
         g.globalAlpha = a.a; g.fillRect(a.x, a.y, a.r, a.r);
       }
       // released face particles
-      if (P.p > 0.002) {
+      {
         for (const q of pts) {
           if (q.x > edge + 40) continue;
           const k = Math.min(1, Math.max(0, (edge - q.x) / (W * 0.55)));
-          let x = q.x - k * W * (0.25 + q.s * 0.5), y = q.y + Math.sin(q.t * 12 + k * 6) * k * 90 - k * 40;
+          // released particles keep drifting on their own, so the dissolve feels alive before any scroll
+          let x = q.x - k * W * (0.25 + q.s * 0.5) + Math.sin(q.t * 20 + T * 0.9) * k * 10, y = q.y + Math.sin(q.t * 12 + k * 6 + T * 0.7) * k * 90 - k * 40;
           const dx = x - P.mx, dy = y - P.my, dd = dx * dx + dy * dy;
           if (dd < 14400) { const f = (1 - Math.sqrt(dd) / 120) * 40; x += (dx / 120) * f; y += (dy / 120) * f; }
           g.globalAlpha = Math.max(0, 1 - k * 1.1);

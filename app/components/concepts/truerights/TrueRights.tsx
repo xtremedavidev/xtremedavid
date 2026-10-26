@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import s from "./truerights.module.css";
-import ConceptBadge from "../ConceptBadge";
 import { Logo } from "./logo";
 import { MobileMenu } from "./menu";
 import { initTrueRightsMotion } from "./motion";
@@ -380,8 +379,6 @@ export default function TrueRights() {
         <div className={s.wordmark} data-wordmark="" aria-hidden="true">TrueRights</div>
         <div className={s.footer__bot}><span>© 2026 TrueRights</span><span>Privacy · Terms · Cookies</span></div>
       </footer>
-
-      <ConceptBadge company="TrueRights" className={s.badge} />
     </div>
   );
 }

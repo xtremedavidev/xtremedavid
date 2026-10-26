@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import s from "./light.module.css";
-import ConceptBadge from "../ConceptBadge";
 import { Logo } from "./logo";
 import { MobileMenu } from "./menu";
 import { initTrueRightsLightMotion } from "./motion";
@@ -167,9 +166,10 @@ export default function TrueRightsLight() {
             <div className={s.split}><div><Eyebrow>How it works · 7 steps, 1 platform</Eyebrow><h2 className={s.h2}><span>From dealmaking to</span><span>enforcement. <span className={s.muted}>One platform.</span></span></h2></div>
               <p className={s.sub}>Historically fragmented across lawyers, spreadsheets, manual searches and goodwill — every step now runs on a single API-addressable platform.</p></div>
             <div className={s.steps__grid}>
-              <ol className={s.steps__list}><i className={s.steps__track}><b data-strack="" /></i>
-                {STEPS.map(([t, d], i) => <li key={t} data-step={i}><span className={s.mono}>{String(i + 1).padStart(2, "0")}</span><b>{t}</b><p>{d}</p></li>)}
+              <ol className={s.steps__list} data-slist=""><i className={s.steps__track}><b data-strack="" /></i>
+                {STEPS.map(([t, d, ui], i) => <li key={t} data-step={i}><span className={s.mono}>{String(i + 1).padStart(2, "0")}</span><b>{t}</b><p>{d}</p><img className={s.step__img} src={`${A}${ui}.jpg`} alt="" loading="lazy" /></li>)}
               </ol>
+              <div className={s.steps__mprog} aria-hidden="true"><b data-smprog="" /></div>
               <div className={s.steps__stage}>
                 <div className={s.steps__top}><b data-stitle="">Step 01 — Register</b><span className={s.mono} data-snum="">01 / 07</span></div>
                 <div className={s.steps__ui}>{STEPS.map(([, , ui], i) => <img key={i} src={`${A}${ui}.jpg`} alt="" data-sui={i} />)}</div>
@@ -348,7 +348,6 @@ export default function TrueRightsLight() {
         <div className={s.wordmark} data-wordmark="" aria-hidden="true">TrueRights</div>
         <div className={s.footer__bot}><span>© 2026 TrueRights</span><span>Privacy · Terms · Cookies</span></div>
       </footer>
-      <ConceptBadge company="TrueRights" className={s.badge} />
     </div>
   );
 }

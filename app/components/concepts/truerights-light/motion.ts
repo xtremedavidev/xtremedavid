@@ -5,10 +5,14 @@ import Lenis from "lenis";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+/** Where the steps become swipeable cards instead of the pinned stage (keep in sync with light.module.css). */
+const STEP_CARDS = "(max-width: 1024px), (pointer: coarse), (max-height: 700px)";
+const STEP_PIN = "(min-width: 1025px) and (min-height: 701px) and (pointer: fine)";
+
 const STEP_NAMES = ["Register", "Value", "Deal", "Licence", "Monitor", "Enforce", "Earn"];
 
-/** SplitText masks clip descenders (g, y, p) on tight line-heights — give each mask room below without moving layout. */
-const unclip = (sp: SplitText) => { for (const m of ((sp as unknown as { masks?: HTMLElement[] }).masks || [])) { m.style.paddingBottom = "0.16em"; m.style.marginBottom = "-0.16em"; } return sp; };
+/** SplitText masks clip glyphs on tight tracking/line-height (sliced right edges, cut descenders) — give each mask room on the sides and below without moving layout. */
+const unclip = (sp: SplitText) => { for (const m of ((sp as unknown as { masks?: HTMLElement[] }).masks || [])) { m.style.padding = "0 0.14em 0.16em"; m.style.margin = "0 -0.14em -0.16em"; } return sp; };
 
 export function initTrueRightsLightMotion(root: HTMLElement): () => void {
   const $ = <T extends Element = HTMLElement>(sel: string, r: ParentNode = root) => r.querySelector<T>(sel);
@@ -191,21 +195,25 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
     /* ---------- A04 · steps ---------- */
     setStep(0);
     const strack = $("[data-strack]");
-    mm.add("(min-width: 761px)", () => {
+    mm.add(STEP_PIN, () => {
       const n = STEP_NAMES.length;
       ScrollTrigger.create({
-        trigger: "[data-steps-pin]", start: "top top", end: () => `+=${window.innerHeight * 3.2}`, pin: true, scrub: true,
+        trigger: "[data-steps-pin]", start: "top top", end: () => `+=${window.innerHeight * 2.4}`, pin: true, scrub: true,
         onUpdate: (st) => { setStep(Math.min(n - 1, Math.floor(st.progress * n))); if (strack) gsap.set(strack, { scaleY: 1 / n + st.progress * (1 - 1 / n) }); },
       });
       return () => setStep(0);
     });
-    mm.add("(max-width: 760px)", () => {
-      let i = 0, id: ReturnType<typeof setInterval> | undefined;
-      const st = ScrollTrigger.create({
-        trigger: "[data-steps]", start: "top 60%", end: "bottom 40%",
-        onToggle: (s) => { clearInterval(id); if (s.isActive) id = setInterval(() => { i = (i + 1) % STEP_NAMES.length; setStep(i); }, 2600); },
-      });
-      return () => { clearInterval(id); st.kill(); setStep(0); };
+    mm.add(STEP_CARDS, () => {
+      // touch / narrow / short screens: swipeable step cards — no pin, progress follows the swipe
+      const list = $("[data-slist]"), bar = $("[data-smprog]");
+      if (!list || !bar) return;
+      const n = STEP_NAMES.length;
+      const sync = () => { const max = list.scrollWidth - list.clientWidth, p = max > 0 ? list.scrollLeft / max : 0;
+        bar.style.transform = `translateX(${p * (n - 1) * 100}%)`; setStep(Math.round(p * (n - 1))); };
+      list.addEventListener("scroll", sync, { passive: true }); sync();
+      const cards = $$("[data-step]", list);
+      const tw = gsap.fromTo(cards, { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 1.1, stagger: 0.08, ease: "expo.out", scrollTrigger: { trigger: list, start: "top 85%" } });
+      return () => { list.removeEventListener("scroll", sync); bar.style.removeProperty("transform"); tw.scrollTrigger?.kill(); tw.kill(); gsap.set(cards, { clearProps: "transform,opacity" }); setStep(0); };
     });
     gsap.from("[data-steps] [data-sui]", { scale: 1.04, duration: 1.6, ease: EASE, scrollTrigger: { trigger: "[data-steps]", start: "top 60%" } });
 

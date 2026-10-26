@@ -420,7 +420,7 @@
 .footer__col { display: grid; gap: 14px; align-content: start; font-size: 14.5px; color: var(--muted); }
 .footer__col b { font-weight: 500; font-size: 14px; color: var(--ink); }
 .footer__col a:hover { color: var(--green2); }
-.wordmark { margin-top: 50px; font-weight: 500; font-size: clamp(80px, 20.6vw, 296px); letter-spacing: -.075em; line-height: 1; text-align: center; color: var(--forest); white-space: nowrap; }
+.wordmark { margin-top: 50px; padding-bottom: .16em; font-weight: 500; font-size: clamp(64px, 19.4vw, 280px); letter-spacing: -.075em; line-height: 1; text-align: center; color: var(--forest); white-space: nowrap; }
 .footer__bot { display: flex; justify-content: space-between; padding: 24px 0 50px; margin-top: 30px; border-top: 1px solid var(--line); font: 400 12px var(--font-gmono), monospace; color: var(--muted); }
 
 .badge { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 70; display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 16px; border-radius: 999px; background: var(--forest); color: #fff; font-size: 12px; white-space: nowrap; }
@@ -428,12 +428,13 @@
 .badge a { background: var(--neon); color: var(--ink); border-radius: 999px; padding: 6px 12px; font-weight: 500; }
 
 /* ---------- responsive ---------- */
+.step__img, .steps__mprog { display: none; }
 /* tablet/mobile menu (hidden on desktop) */
 .menuBtn { display: none; flex: none; width: 44px; height: 44px; border-radius: 50%; place-content: center; gap: 5px; background: #fff; border: 1px solid var(--line); }
 .menuBtn i { display: block; width: 16px; height: 1.5px; border-radius: 1px; background: var(--ink); transition: transform .35s cubic-bezier(.2,.8,.2,1); }
 .menuBtn[data-open] i:first-child { transform: translateY(3.25px) rotate(45deg); }
 .menuBtn[data-open] i:last-child { transform: translateY(-3.25px) rotate(-45deg); }
-.menu { position: fixed; inset: 0; z-index: 55; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: 108px 20px calc(84px + env(safe-area-inset-bottom)); background: #F3F5EF; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; overflow-y: auto; }
+.menu { position: fixed; inset: 0; z-index: 55; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: 108px 20px max(28px, env(safe-area-inset-bottom)); background: #F3F5EF; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; overflow-y: auto; }
 .menu[data-open] { opacity: 1; visibility: visible; }
 .menu__links { display: grid; }
 .menu__links a { padding: 12px 0; border-bottom: 1px solid var(--line); font-weight: 500; font-size: clamp(30px, 9vw, 44px); letter-spacing: -.05em; line-height: 1.1; color: var(--ink); opacity: 0; transform: translateY(16px); transition: opacity .45s, transform .6s cubic-bezier(.2,.8,.2,1); }
@@ -521,8 +522,31 @@
   .tabs button { white-space: normal; line-height: 1.2; min-height: 48px; padding: 8px 6px; border-radius: 15px; font-size: 12.5px; }
   .console__row { height: auto; min-height: 58px; padding: 10px 0; } .console__row .mono { font-size: 12px; }
   .fcard__k { font-size: 10.5px; }
-  .steps__pin { min-height: 0; padding-top: 56px; }
+  .steps__pin { padding-top: 56px; }
   .code__req, .code__res { overflow-x: auto; }
   .footer__col { gap: 0; } .footer__col b { margin-bottom: 6px; } .footer__col a { padding: 10px 0; }
   .nav > a:first-child { padding: 8px 0; } .tagOk, .tagNo { font-size: 11px; }
+  /* graphs sit top-right beside the figure, never over the copy */
+  .bars { top: 24px; bottom: auto; right: 20px; transform: scale(.42); transform-origin: top right; }
+  .curve { top: 30px; bottom: auto; right: 20px; width: 96px; }
+  /* CTA: two clean lines — "Your likeness." / "Your terms." + face pill */
+  .cta__h { font-size: 11.2vw; }
+  .cta__row img { width: 1.5em; }
+}
+
+/* Steps as swipeable cards on phones, tablets, any touch screen and short viewports —
+   the pinned scroll stage is reserved for real desktops (keep in sync with STEP_CARDS in motion.ts). */
+@media (max-width: 1024px), (pointer: coarse), (max-height: 700px) {
+  .steps__pin { min-height: 0; }
+  .steps__grid { display: block; margin-top: 32px; }
+  .steps__stage, .steps__track { display: none; }
+  .steps__list { display: flex; gap: 12px; padding: 0 var(--pad) 4px; margin: 0 calc(-1 * var(--pad)); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-left: var(--pad); scrollbar-width: none; }
+  .steps__list::-webkit-scrollbar { display: none; }
+  .steps__list li, .steps__list li:not([data-on]) { display: grid !important; flex: 0 0 min(84%, 380px); scroll-snap-align: start; grid-template-columns: 34px 1fr; align-content: start; padding: 20px; border-radius: 24px; background: #fff; border: 1px solid var(--line); opacity: 1; }
+  .steps__list li .mono, .steps__list li[data-on] .mono { padding-top: 7px; color: var(--green2); }
+  .steps__list li b, .steps__list li[data-on] b { font-size: 26px; }
+  .steps__list li p, .steps__list li[data-on] p { max-height: none; opacity: 1; margin-top: 6px; font-size: 15px; max-width: none; }
+  .step__img { display: block; grid-column: 1 / -1; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; margin-top: 18px; border-radius: 14px; background: var(--mint); }
+  .steps__mprog { display: block; height: 3px; margin-top: 22px; border-radius: 2px; background: var(--line); overflow: hidden; }
+  .steps__mprog b { display: block; width: calc(100% / 7); height: 100%; border-radius: 2px; background: var(--green2); }
 }
