@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
+import "@/app/lib/firebase";
 
 export default function PortfolioShell({
   children,

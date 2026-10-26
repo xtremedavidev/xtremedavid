@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-page-custom-font */
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import PortfolioShell from "./components/PortfolioShell";
 
@@ -88,6 +88,24 @@ export default function RootLayout({
           src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"
           defer
         ></script>
+
+        {/* Google tag (gtag.js) */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-B3KD5PK4LE"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-B3KD5PK4LE');
+            `,
+          }}
+        />
       </head>
       <PortfolioShell>
         {children}
