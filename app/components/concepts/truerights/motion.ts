@@ -34,6 +34,8 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
   const rafs = new Set<number>();
   const listeners: Array<[EventTarget, string, EventListener, AddEventListenerOptions?]> = [];
   const on = (el: EventTarget, ev: string, fn: EventListener, o?: AddEventListenerOptions) => { el.addEventListener(ev, fn, o); listeners.push([el, ev, fn, o]); };
+  // Reduced motion (e.g. Samsung "Remove animations") = calmer, not frozen: scroll-driven storytelling still runs,
+  // but smooth-scroll hijacking, the intro sequence, cursor/magnetic effects and parallax drift are switched off.
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isDesk = () => window.innerWidth > 760;
   let alive = true;
@@ -67,21 +69,10 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     });
   };
 
-  if (reduce) {
-    halftone();
-    { const img = $("[data-hero-img]"), hero = $("[data-hero]"); if (img && hero) { const w = hero.clientWidth, e0 = w * (isDesk() ? 0.5 : 0.25), edge = e0 + (w - e0 + 120) * (isDesk() ? 0.1 : 0.16) * 1.15, m = `linear-gradient(90deg, transparent ${edge - 60}px, #000 ${edge + 40}px)`; img.style.setProperty("-webkit-mask-image", m); img.style.setProperty("mask-image", m); } }
-    { const st = $$("[data-ostep]"), stage = $("[data-seal] [data-tilt]");
-      if (stage && st.length) { const w = stage.clientWidth, h = stage.clientHeight, widest = Math.max(...st.map((el) => el.offsetWidth)), rx = Math.min(w * 0.79, innerWidth / 2 - widest / 2 - 12), ry = h * 0.275;
-        const ring = $("[data-orbit]"); if (ring) ring.style.width = `${((rx * 2) / w) * 100}%`;
-        st.forEach((el, i) => { const a = Math.PI / 2 + (i / 7) * Math.PI * 2; el.style.transform = `translate(${Math.cos(a) * rx - el.offsetWidth / 2}px, ${Math.sin(a) * ry - el.offsetHeight / 2}px)`; }); } }
-    $$("[data-ostep]")[0]?.setAttribute("data-on", ""); $$("[data-sbar]")[0]?.setAttribute("data-on", ""); $$("[data-sui]")[0]?.setAttribute("data-on", "");
-    $("[data-intro]")?.remove();
-    return () => { alive = false; const img = root.querySelector<HTMLElement>("[data-hero-img]"); img?.style.removeProperty("mask-image"); img?.style.removeProperty("-webkit-mask-image"); };
-  }
 
-  const lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
-  const tick = (t: number) => lenis.raf(t * 1000);
-  lenis.on("scroll", ScrollTrigger.update);
+  const lenis = reduce ? null : new Lenis({ lerp: 0.085, smoothWheel: true });
+  const tick = (t: number) => lenis?.raf(t * 1000);
+  lenis?.on("scroll", ScrollTrigger.update);
   gsap.ticker.add(tick);
   gsap.ticker.lagSmoothing(0);
 
@@ -96,17 +87,17 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
 
     /* ---------- global: cursor, magnetic, nav, anchors ---------- */
     const cur = $("[data-cursor]");
-    if (matchMedia("(hover: hover)").matches) {
+    if (!reduce && matchMedia("(hover: hover)").matches) {
       const xTo = gsap.quickTo(cur, "x", { duration: 0.45, ease: "power3.out" }), yTo = gsap.quickTo(cur, "y", { duration: 0.45, ease: "power3.out" });
       on(window, "pointermove", (e) => { const p = e as PointerEvent; xTo(p.clientX); yTo(p.clientY); cur.style.opacity = "1"; });
       $$("a, button, [data-flow], [data-compare]").forEach((el) => { on(el, "pointerenter", () => cur.setAttribute("data-big", "")); on(el, "pointerleave", () => cur.removeAttribute("data-big")); });
     }
-    $$("[data-magnetic]").forEach((el) => {
+    if (!reduce) $$("[data-magnetic]").forEach((el) => {
       const xTo = gsap.quickTo(el, "x", { duration: 0.6, ease: "power3.out" }), yTo = gsap.quickTo(el, "y", { duration: 0.6, ease: "power3.out" });
       on(el, "pointermove", (e) => { const r = el.getBoundingClientRect(), p = e as PointerEvent; xTo((p.clientX - r.left - r.width / 2) * 0.25); yTo((p.clientY - r.top - r.height / 2) * 0.35); });
       on(el, "pointerleave", () => { xTo(0); yTo(0); });
     });
-    $$<HTMLAnchorElement>('a[href^="#"]').forEach((a) => on(a, "click", (e) => { const id = a.getAttribute("href"); if (!id || id.length < 2) return; const t = root.querySelector<HTMLElement>(id); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { offset: -40, duration: 1.8 }); }));
+    $$<HTMLAnchorElement>('a[href^="#"]').forEach((a) => on(a, "click", (e) => { const id = a.getAttribute("href"); if (!id || id.length < 2) return; const t = root.querySelector<HTMLElement>(id); if (!t) return; e.preventDefault(); if (lenis) lenis.scrollTo(t, { offset: -40, duration: 1.8 }); else window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 40 }); }));
     ScrollTrigger.create({ start: "top -80", end: "max", onUpdate(self) { gsap.to(nav, { yPercent: self.direction === 1 && self.scroll() > 900 ? -160 : 0, duration: 0.6, ease: "power3.out", overwrite: "auto" }); } });
 
     /* ---------- generic reveals ---------- */
@@ -130,6 +121,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       .from("[data-hero] [data-rise]", { y: 26, opacity: 0, duration: 1, stagger: 0.08, ease: EASE }, 1.9)
       .from("[data-brackets] i", { scale: 1.8, opacity: 0, duration: 0.8, stagger: 0.06, ease: "back.out(2)" }, 2.1)
       .from("[data-hero] [data-float]", { y: 40, opacity: 0, duration: 1.1, stagger: 0.12, ease: EASE }, 2.2);
+    if (reduce) tl.progress(1);
 
     /* ---------- B01 · particle dissolve ---------- */
     const hero = $("[data-hero]"), heroImg = $<HTMLImageElement>("[data-hero-img]"), canvas = $<HTMLCanvasElement>("[data-particles]");
@@ -198,8 +190,8 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     gsap.to($("[data-h1]"), { yPercent: -30, opacity: 0.2, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
     // pointer parallax on floating glass
     const floats = $$("[data-hero] [data-float]").map((el) => ({ el, d: +(el.dataset.depth || 1), x: gsap.quickTo(el, "x", { duration: 1, ease: "power3.out" }), y: gsap.quickTo(el, "y", { duration: 1, ease: "power3.out" }) }));
-    on(hero, "pointermove", (e) => { const p = e as PointerEvent, nx = p.clientX / innerWidth - 0.5, ny = p.clientY / innerHeight - 0.5; floats.forEach((f) => { f.x(nx * -40 * f.d); f.y(ny * -30 * f.d); }); });
-    gsap.to("[data-hero] [data-float]", { y: (i) => -120 - i * 60, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
+    if (!reduce) on(hero, "pointermove", (e) => { const p = e as PointerEvent, nx = p.clientX / innerWidth - 0.5, ny = p.clientY / innerHeight - 0.5; floats.forEach((f) => { f.x(nx * -40 * f.d); f.y(ny * -30 * f.d); }); });
+    if (!reduce) gsap.to("[data-hero] [data-float]", { y: (i) => -120 - i * 60, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
 
     /* ---------- B02 · manifesto word scrub ---------- */
     const man = $("[data-manifesto]");
@@ -344,7 +336,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     listeners.forEach(([el, ev, fn, o]) => el.removeEventListener(ev, fn, o));
     splits.forEach((s) => s.revert());
     mm.revert(); ctx.revert();
-    gsap.ticker.remove(tick); lenis.destroy();
+    gsap.ticker.remove(tick); lenis?.destroy();
     root.querySelector<HTMLElement>("[data-orbit]")?.style.removeProperty("width");
     root.querySelector<HTMLElement>("[data-hero-img]")?.style.removeProperty("mask-image");
     root.querySelector<HTMLElement>("[data-hero-img]")?.style.removeProperty("-webkit-mask-image");

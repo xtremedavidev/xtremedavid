@@ -22,6 +22,7 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
   const ctxCleanups: Array<() => void> = [];
   const listeners: Array<[EventTarget, string, EventListener, AddEventListenerOptions?]> = [];
   const on = (el: EventTarget | null, ev: string, fn: EventListener, o?: AddEventListenerOptions) => { if (!el) return; el.addEventListener(ev, fn, o); listeners.push([el, ev, fn, o]); };
+  // Reduced motion = calmer, not frozen: scroll-driven storytelling still runs; smooth-scroll, intro, magnetic and parallax are off.
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -83,14 +84,10 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
   on(window, "resize", railProgress);
   railProgress();
 
-  if (reduce) {
-    setStep(0); setMode(false, true);
-    return () => { listeners.forEach(([el, ev, fn, o]) => el.removeEventListener(ev, fn, o)); gsap.killTweensOf(["[data-mknob]", "[data-cwo]", "[data-cwi]"]); gsap.set("[data-mknob], [data-cwo], [data-cwi]", { clearProps: "all" }); modeBtn?.removeAttribute("data-ready"); };
-  }
 
-  const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
-  const tick = (t: number) => lenis.raf(t * 1000);
-  lenis.on("scroll", ScrollTrigger.update);
+  const lenis = reduce ? null : new Lenis({ lerp: 0.09, smoothWheel: true });
+  const tick = (t: number) => lenis?.raf(t * 1000);
+  lenis?.on("scroll", ScrollTrigger.update);
   gsap.ticker.add(tick);
   gsap.ticker.lagSmoothing(0);
 
@@ -108,10 +105,10 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
     ScrollTrigger.create({ start: 40, end: "max", onToggle: (st) => nav?.toggleAttribute("data-scrolled", st.isActive) });
     $$<HTMLAnchorElement>("a[href^='#']").forEach((a) => on(a, "click", (e) => {
       const t = root.querySelector(a.getAttribute("href")!); if (!t) return;
-      e.preventDefault(); lenis.scrollTo(t as HTMLElement, { offset: -20, duration: 1.4 });
+      e.preventDefault(); if (lenis) lenis.scrollTo(t as HTMLElement, { offset: -20, duration: 1.4 }); else window.scrollTo({ top: (t as HTMLElement).getBoundingClientRect().top + scrollY - 20 });
       $$("[data-nav] a[data-on]").forEach((x) => x.removeAttribute("data-on")); if (a.closest("[data-nav]")) a.setAttribute("data-on", "");
     }));
-    $$("[data-magnetic]").forEach((el) => {
+    if (!reduce) $$("[data-magnetic]").forEach((el) => {
       const xTo = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3.out" }), yTo = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3.out" });
       on(el, "pointermove", (e) => { const ev = e as PointerEvent, r = el.getBoundingClientRect(); xTo((ev.clientX - r.left - r.width / 2) * 0.25); yTo((ev.clientY - r.top - r.height / 2) * 0.35); });
       on(el, "pointerleave", () => { xTo(0); yTo(0); });
@@ -149,13 +146,14 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
       .from("[data-arow]", { x: -20, opacity: 0, duration: 0.8, stagger: 0.07 }, 1.15)
       .from("[data-ebar]", { scaleY: 0, duration: 0.9, stagger: 0.035, ease: "power3.out" }, 1.3)
       .from("[data-hero] [data-float]", { y: 60, opacity: 0, scale: 0.9, duration: 1.2, stagger: 0.12 }, 1.2);
+    if (reduce) intro.progress(1);
     const earn = $("[data-earn]");
     if (earn) { const o = { v: 0 }; intro.to(o, { v: 1780.4, duration: 2.2, ease: "power3.out", onUpdate: () => { earn.textContent = "£" + o.v.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); } }, 1.2); }
     $$("[data-hero] [data-count]").forEach((el) => { const o = { v: 0 }, end = +el.dataset.count!; fmt(el, 0); intro.to(o, { v: end, duration: 2.2, ease: "power3.out", onUpdate: () => fmt(el, o.v) }, 1.4); });
 
     mm.add("(min-width: 761px)", () => {
       gsap.fromTo("[data-stage]", { scale: 0.9, borderRadius: 56 }, { scale: 1, borderRadius: 40, ease: "none", scrollTrigger: { trigger: "[data-stage]", start: "top bottom", end: "top 20%", scrub: 0.6 } });
-      $$("[data-float]").forEach((el) => gsap.to(el, { y: () => -90 * +(el.dataset.depth || 1), ease: "none", scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: 0.8 } }));
+      if (!reduce) $$("[data-float]").forEach((el) => gsap.to(el, { y: () => -90 * +(el.dataset.depth || 1), ease: "none", scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: 0.8 } }));
       // idle bob + pointer tilt on hero floats
       const stage = $("[data-stage]");
       const fl = $$("[data-hero] [data-float]");
@@ -346,7 +344,7 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
     ctxCleanups.forEach((f) => f());
     $$("[data-marquee] [data-clone]").forEach((n) => n.remove());
     root.querySelector("[data-nav]")?.removeAttribute("data-scrolled");
-    gsap.ticker.remove(tick); lenis.destroy();
+    gsap.ticker.remove(tick); lenis?.destroy();
   };
 }
 
