@@ -111,8 +111,10 @@
 .stat8 span { font-size: 14px; line-height: 1.45; color: rgba(255,255,255,.7); }
 
 /* B03 seal */
-.seal { position: relative; }
-.seal__pin { position: relative; height: 100svh; min-height: 780px; padding: 110px var(--pad) 40px; overflow: hidden; }
+/* pinned natively with position: sticky — the section is the scroll runway (pin height + 3 screens of spin).
+   JS fixed-pinning breaks on real phones (async touch scroll + address-bar resizes); sticky is handled by the browser. */
+.seal { position: relative; height: 400vh; height: calc(max(100svh, 780px) + 300svh); }
+.seal__pin { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 780px; padding: 110px var(--pad) 40px; overflow: hidden; }
 .seal__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; position: relative; z-index: 2; }
 .seal__head .sub { margin-top: 70px; }
 .seal__stage { position: absolute; left: 50%; top: 58%; width: min(62vw, 760px); aspect-ratio: 1; translate: -50% -50%; perspective: 1200px; }
@@ -374,7 +376,8 @@
   .manifesto { padding: 110px 20px 90px; min-height: 0; }
   .manifesto__text { font-size: 44px; line-height: 1.12; }
   .stat8 { margin-top: 50px; } .stat8 strong { font-size: 48px; }
-  .seal__pin { padding: 90px 20px 30px; min-height: 0; height: 100svh; }
+  .seal { height: 340vh; height: 340svh; }
+  .seal__pin { padding: 90px 20px 30px; min-height: 0; }
   .seal__head { display: block; } .seal__head .sub { display: none; }
   .seal__stage { width: 92vw; top: 50%; }
   .orbit { width: 112%; height: 46%; }

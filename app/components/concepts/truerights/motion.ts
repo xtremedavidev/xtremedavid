@@ -227,7 +227,8 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       }
     };
     place(0);
-    gsap.timeline({ scrollTrigger: { trigger: sealPin, start: "top top", end: () => `+=${innerHeight * (isDesk() ? 3 : 2.4)}`, pin: true, scrub: 0.8, onUpdate: (s) => place(s.progress), invalidateOnRefresh: true } })
+    // the pin itself is CSS position: sticky (see .seal) — GSAP only scrubs the spin across the section's sticky range
+    gsap.timeline({ scrollTrigger: { trigger: $("[data-seal]"), start: "top top", end: "bottom bottom", scrub: 0.8, onUpdate: (s) => place(s.progress), invalidateOnRefresh: true } })
       .fromTo(disc, { rotate: -40 }, { rotate: 320, ease: "none" }, 0);
     gsap.from(disc, { scale: 0.6, opacity: 0, rotateX: 50, duration: 1.6, ease: EASE, scrollTrigger: { trigger: sealPin, start: "top 70%" } });
 
