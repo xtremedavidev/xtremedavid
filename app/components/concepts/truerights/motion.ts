@@ -37,6 +37,10 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
   const on = (el: EventTarget, ev: string, fn: EventListener, o?: AddEventListenerOptions) => { el.addEventListener(ev, fn, o); listeners.push([el, ev, fn, o]); };
   // Reduced motion (e.g. Samsung "Remove animations") = calmer, not frozen: scroll-driven storytelling still runs,
   // but smooth-scroll hijacking, the intro sequence, cursor/magnetic effects and parallax drift are switched off.
+  const report = (where: string, e: unknown) => {
+    const w = window as unknown as { __trDebug?: string[] }; (w.__trDebug ||= []).push(`${where}: ${e instanceof Error ? e.message : String(e)}`);
+    console.error(`[TrueRights motion] ${where}`, e);
+  };
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   const isDesk = () => window.innerWidth > 760;
@@ -126,6 +130,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     if (reduce) tl.progress(1);
 
     /* ---------- B01 · particle dissolve ---------- */
+    try {
     const hero = $("[data-hero]"), heroImg = $<HTMLImageElement>("[data-hero-img]"), canvas = $<HTMLCanvasElement>("[data-particles]");
     const P = { p: 0, mx: -9999, my: -9999, vis: true };
     // the portrait is never shown whole: it starts part-dissolved and scroll carries it the rest of the way
@@ -184,7 +189,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       }
       g.globalAlpha = 1;
     };
-    ready(heroImg).then(() => { if (!alive) return; build(); draw(); });
+    ready(heroImg).then(() => { if (!alive) return; build(); draw(); }).catch((e) => report("B01 · particle build", e));
     on(window, "resize", () => { build(); halftone(); });
     on(hero, "pointermove", (e) => { const r = hero.getBoundingClientRect(), p = e as PointerEvent; P.mx = p.clientX - r.left; P.my = p.clientY - r.top; });
     on(hero, "pointerleave", () => { P.mx = P.my = -9999; });
@@ -195,7 +200,9 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     if (!reduce) on(hero, "pointermove", (e) => { const p = e as PointerEvent, nx = p.clientX / innerWidth - 0.5, ny = p.clientY / innerHeight - 0.5; floats.forEach((f) => { f.x(nx * -40 * f.d); f.y(ny * -30 * f.d); }); });
     if (!reduce) gsap.to("[data-hero] [data-float]", { y: (i) => -120 - i * 60, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
 
+    } catch (e) { report('B01 · particle dissolve', e); }
     /* ---------- B02 · manifesto word scrub ---------- */
+    try {
     const man = $("[data-manifesto]");
     const ms = SplitText.create($$("span", man).filter((s) => !s.hasAttribute("data-pill")), { type: "words", wordsClass: "w" }); splits.push(ms);
     const seq = $$(".w, [data-pill]", man);
@@ -203,7 +210,9 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     const mtl = gsap.timeline({ scrollTrigger: { trigger: man, start: "top 78%", end: "bottom 45%", scrub: 0.6 } });
     seq.forEach((el, i) => mtl.to(el, el.hasAttribute("data-pill") ? { scale: 1, opacity: 1, duration: 1, ease: "back.out(2)" } : { opacity: 1, duration: 1 }, i * 0.5));
 
+    } catch (e) { report('B02 · manifesto word scrub', e); }
     /* ---------- B03 · seal + orbit (pinned) ---------- */
+    try {
     const sealPin = $("[data-seal-pin]"), disc = $("[data-seal-disc]"), spin = $("[data-seal-spin]"), steps = $$("[data-ostep]"), bars = $$("[data-sbar]"), uis = $$("[data-sui]");
     const sNum = $("[data-snum]"), sTitle = $("[data-stitle]"), sDesc = $("[data-sdesc]");
     let active = -1;
@@ -232,7 +241,12 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     // from ScrollTrigger's cached start/end, which go stale on real phones (late image loads, address-bar resizes).
     // The spin is applied to the inner image, not the masked disc — iOS Safari often won't repaint a masked element's transform.
     const sealSec = $("[data-seal]"), S = { cur: -1 };
+    let sealFailed = false;
     const sealTick: gsap.TickerCallback = (_t, dt) => {
+      if (sealFailed) return;
+      try { sealStep(dt); } catch (e) { sealFailed = true; report("B03 · seal frame update", e); }
+    };
+    const sealStep = (dt: number) => {
       const r = sealSec.getBoundingClientRect(), run = r.height - sealPin.offsetHeight;
       const target = run > 0 ? Math.min(1, Math.max(0, -r.top / run)) : 0;
       if (S.cur < 0) S.cur = target;
@@ -244,7 +258,9 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     gsap.ticker.add(sealTick); tickers.push(sealTick);
     gsap.from(disc, { scale: 0.6, opacity: 0, rotateX: 50, duration: 1.6, ease: EASE, clearProps: "transform", scrollTrigger: { trigger: sealPin, start: "top 70%" } });
 
+    } catch (e) { report('B03 · seal + orbit (pinned)', e); }
     /* ---------- 3D tilt (seal + passport) ---------- */
+    try {
     if (canHover) $$("[data-tilt]").forEach((wrap) => {
       const tgt = (wrap.querySelector("[data-pass]") || wrap.querySelector("[data-seal-spin]")) as HTMLElement;
       const rx = gsap.quickTo(tgt, "rotateX", { duration: 0.8, ease: "power3.out" }), ry = gsap.quickTo(tgt, "rotateY", { duration: 0.8, ease: "power3.out" });
@@ -252,20 +268,26 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       on(wrap, "pointerleave", () => { rx(0); ry(0); });
     });
 
+    } catch (e) { report('3D tilt (seal + passport)', e); }
     /* ---------- B04 · landscape + passport ---------- */
+    try {
     gsap.fromTo("[data-land-img]", { scale: 1.22, yPercent: -6 }, { scale: 1, yPercent: 4, ease: "none", scrollTrigger: { trigger: "[data-land]", start: "top bottom", end: "bottom top", scrub: true } });
     gsap.from("[data-pass]", { y: 140, opacity: 0, rotateX: 28, duration: 1.6, ease: EASE, scrollTrigger: { trigger: "[data-pass]", start: "top 92%" } });
     gsap.to("[data-sheen]", { xPercent: 120, duration: 2.6, ease: "power2.inOut", repeat: -1, repeatDelay: 1.6 });
     gsap.from("[data-marker]", { scale: 0, opacity: 0, duration: 0.9, stagger: 0.2, ease: "back.out(1.8)", scrollTrigger: { trigger: "[data-land]", start: "top 40%" } });
 
+    } catch (e) { report('B04 · landscape + passport', e); }
     /* ---------- B05 · bento ---------- */
+    try {
     gsap.from("[data-bento] > *", { y: 80, opacity: 0, duration: 1.3, stagger: 0.1, ease: EASE, scrollTrigger: { trigger: "[data-bento]", start: "top 80%" } });
     gsap.from("[data-bar]", { scaleY: 0, transformOrigin: "bottom", duration: 1.2, stagger: 0.06, ease: EASE, scrollTrigger: { trigger: "[data-bento]", start: "top 70%" } });
     gsap.from("[data-fill]", { scaleX: 0, duration: 1.6, ease: EASE, scrollTrigger: { trigger: "[data-fill]", start: "top 85%" } });
     gsap.from("[data-reticle]", { scale: 1.4, opacity: 0, duration: 0.8, stagger: 0.18, ease: "back.out(2)", scrollTrigger: { trigger: "[data-bento]", start: "top 60%" } });
     $$<SVGPathElement>("[data-draw]").forEach((p) => { const L = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 2, ease: "power2.inOut", scrollTrigger: { trigger: p, start: "top 88%" } }); });
 
+    } catch (e) { report('B05 · bento', e); }
     /* ---------- B06 · consent ---------- */
+    try {
     const togs = $$("[data-mtog]");
     const ctl = gsap.timeline({ scrollTrigger: { trigger: "[data-consent]", start: "top 55%" } });
     togs.forEach((t) => t.removeAttribute("data-on"));
@@ -284,7 +306,9 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       gsap.fromTo([...logBox.children].slice(1), { y: -60 }, { y: 0, duration: 0.7, ease: EASE });
     }, 2400));
 
+    } catch (e) { report('B06 · consent', e); }
     /* ---------- B07 · compare sweep + drag ---------- */
+    try {
     halftone();
     const cmp = $("[data-compare]"), copy = $("[data-copy]"), line = $("[data-divider]");
     const setX = (pct: number) => { copy.style.clipPath = `inset(0 0 0 ${pct}%)`; line.style.left = `${pct}%`; };
@@ -297,7 +321,9 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     on(window, "pointermove", (e) => { if (dragging) dragTo(e); });
     on(window, "pointerup", () => { dragging = false; });
 
+    } catch (e) { report('B07 · compare sweep + drag', e); }
     /* ---------- B08 · case ---------- */
+    try {
     const big = $("[data-case] [data-count]"); const bo = { v: 0 }; fmt(big, 0);
     const caseTl = gsap.timeline({ scrollTrigger: { trigger: "[data-case]", start: "top 65%" } });
     caseTl.to(bo, { v: 340, duration: 2.4, ease: "power3.out", onUpdate: () => fmt(big, bo.v) })
@@ -305,7 +331,9 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       .from("[data-tdot]", { scale: 0, duration: 0.6, stagger: 0.5, ease: "back.out(3)" }, 0.6)
       .from("[data-event]", { y: 40, opacity: 0, duration: 0.9, stagger: 0.25, ease: EASE }, 0.6);
 
+    } catch (e) { report('B08 · case', e); }
     /* ---------- B09 · coverflow ---------- */
+    try {
     const flow = $("[data-flow]"), cards = $$("[data-card]"), fIdx = $("[data-findex]"); const F = { pos: 2 };
     const layout = () => {
       const gap = isDesk() ? 270 : 170;
@@ -324,7 +352,9 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     on($("[data-next]"), "click", () => snap(Math.round(F.pos) + 1));
     gsap.from(F, { pos: -1.2, duration: 2, ease: "expo.out", onUpdate: layout, scrollTrigger: { trigger: flow, start: "top 80%" } });
 
+    } catch (e) { report('B09 · coverflow', e); }
     /* ---------- B10 · chaos → control ---------- */
+    try {
     const knob = $("[data-knob]");
     gsap.set(knob, { x: 0 }); gsap.set("[data-crow]", { opacity: 0.12, x: -20 });
     mm.add("(min-width: 761px)", () => {
@@ -344,16 +374,49 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
         .to("[data-crow]", { opacity: 1, x: 0, duration: 0.8, stagger: 0.14, ease: "power2.out" }, 0.6);
     });
 
+    } catch (e) { report('B10 · chaos → control', e); }
     /* ---------- B11 · CTA ---------- */
+    try {
     gsap.fromTo("[data-cta-seal]", { rotate: -120, scale: 0.55, opacity: 0, rotateX: 60 }, { rotate: 0, scale: 1, opacity: 1, rotateX: 0, ease: "none", scrollTrigger: { trigger: "[data-cta]", start: "top bottom", end: "center center", scrub: 0.8 } });
     $$("[data-cta] [data-from]").forEach((el) => gsap.fromTo(el, { xPercent: +el.dataset.from! * 40, opacity: 0 }, { xPercent: 0, opacity: 1, ease: "none", scrollTrigger: { trigger: "[data-cta]", start: "top 85%", end: "center 60%", scrub: 0.6 } }));
 
+    } catch (e) { report('B11 · CTA', e); }
     /* ---------- B12 · wordmark ---------- */
+    try {
     gsap.fromTo("[data-wordmark]", { clipPath: "inset(0% 0% 100% 0%)", yPercent: 40, filter: "blur(10px)" }, { clipPath: "inset(-10% -2% -10% -2%)", yPercent: 0, filter: "blur(0px)", duration: 1.6, ease: EASE, clearProps: "clipPath,filter", scrollTrigger: { trigger: "[data-wordmark]", start: "top 98%" } });
+    } catch (e) { report('B12 · wordmark', e); }
   }, root);
+
+  /* ---------- ?debug: on-device diagnostics (add ?debug to the URL) ---------- */
+  let dbg: HTMLElement | null = null;
+  if (/[?&]debug\b/.test(location.search)) {
+    const w = window as unknown as { __trDebug?: string[] };
+    const onErr = (e: Event) => { const ev = e as ErrorEvent & PromiseRejectionEvent; (w.__trDebug ||= []).push(`window: ${ev.message || ev.reason || "error"}`); };
+    on(window, "error", onErr); on(window, "unhandledrejection", onErr);
+    dbg = document.createElement("pre");
+    dbg.style.cssText = "position:fixed;left:8px;right:8px;bottom:8px;z-index:9999;margin:0;padding:10px;max-height:46vh;overflow:auto;font:11px/1.45 ui-monospace,monospace;color:#57EF9D;background:rgba(0,0,0,.86);border:1px solid #57EF9D;border-radius:10px;white-space:pre-wrap;pointer-events:none";
+    root.appendChild(dbg);
+    const panel = dbg;
+    timers.push(setInterval(() => {
+      const sec = root.querySelector<HTMLElement>("[data-seal]"), pin = root.querySelector<HTMLElement>("[data-seal-pin]"), spinEl = root.querySelector<HTMLElement>("[data-seal-spin]");
+      const knobEl = root.querySelector<HTMLElement>("[data-knob]"), note = root.querySelector<HTMLElement>("[data-note]");
+      const r = sec?.getBoundingClientRect(), run = r && pin ? r.height - pin.offsetHeight : 0;
+      panel.textContent = [
+        `UA ${navigator.userAgent.replace(/^[^(]*\(([^)]*)\).*$/, "$1").slice(0, 60)}`,
+        `vw ${innerWidth}x${innerHeight} dpr ${devicePixelRatio} reduce ${reduce} hover ${canHover} lenis ${!!lenis}`,
+        `scrollY ${Math.round(scrollY)} | seal top ${r ? Math.round(r.top) : "-"} run ${Math.round(run)} progress ${r && run > 0 ? Math.min(1, Math.max(0, -r.top / run)).toFixed(3) : "-"}`,
+        `pin position ${pin ? getComputedStyle(pin).position : "-"} top ${pin ? Math.round(pin.getBoundingClientRect().top) : "-"}`,
+        `spin ${spinEl ? getComputedStyle(spinEl).transform.slice(0, 48) : "missing"}`,
+        `knob ${knobEl ? getComputedStyle(knobEl).transform.slice(0, 40) : "-"} | note opacity ${note ? getComputedStyle(note).opacity : "-"}`,
+        `ticker ~${Math.round(60 / Math.max(0.01, gsap.ticker.deltaRatio()))}fps frame ${gsap.ticker.frame}`,
+        `errors (${(w.__trDebug || []).length}):`, ...(w.__trDebug || []).slice(-8),
+      ].join("\n");
+    }, 300));
+  }
 
   return () => {
     alive = false;
+    dbg?.remove();
     rafs.forEach((id) => cancelAnimationFrame(id));
     timers.forEach(clearInterval); clearTimeout(refreshT);
     listeners.forEach(([el, ev, fn, o]) => el.removeEventListener(ev, fn, o));
