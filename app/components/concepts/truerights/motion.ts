@@ -32,6 +32,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
   const splits: SplitText[] = [];
   const timers: ReturnType<typeof setInterval>[] = [];
   const rafs = new Set<number>();
+  const tickers: gsap.TickerCallback[] = [];
   const listeners: Array<[EventTarget, string, EventListener, AddEventListenerOptions?]> = [];
   const on = (el: EventTarget, ev: string, fn: EventListener, o?: AddEventListenerOptions) => { el.addEventListener(ev, fn, o); listeners.push([el, ev, fn, o]); };
   // Reduced motion (e.g. Samsung "Remove animations") = calmer, not frozen: scroll-driven storytelling still runs,
@@ -203,7 +204,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     seq.forEach((el, i) => mtl.to(el, el.hasAttribute("data-pill") ? { scale: 1, opacity: 1, duration: 1, ease: "back.out(2)" } : { opacity: 1, duration: 1 }, i * 0.5));
 
     /* ---------- B03 · seal + orbit (pinned) ---------- */
-    const sealPin = $("[data-seal-pin]"), disc = $("[data-seal-disc]"), steps = $$("[data-ostep]"), bars = $$("[data-sbar]"), uis = $$("[data-sui]");
+    const sealPin = $("[data-seal-pin]"), disc = $("[data-seal-disc]"), spin = $("[data-seal-spin]"), steps = $$("[data-ostep]"), bars = $$("[data-sbar]"), uis = $$("[data-sui]");
     const sNum = $("[data-snum]"), sTitle = $("[data-stitle]"), sDesc = $("[data-sdesc]");
     let active = -1;
     const place = (p: number) => {
@@ -213,7 +214,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       const ring = $("[data-orbit]"); if (ring) ring.style.width = `${((rx * 2) / w) * 100}%`;
       // touch screens have no pointer tilt, and a flat spin of a ring-shaped seal reads as static —
       // so scroll also tilts it in 3D, making the turn unmistakable
-      if (!canHover && disc) gsap.set(disc, { rotateX: Math.sin(p * Math.PI * 2) * 26, rotateY: Math.sin(p * Math.PI * 3 + 0.6) * 34 });
+      if (!canHover && spin) gsap.set(spin, { rotateX: Math.sin(p * Math.PI * 2) * 26, rotateY: Math.sin(p * Math.PI * 3 + 0.6) * 34 });
       steps.forEach((el, i) => {
         const a = Math.PI / 2 + (i / 7) * Math.PI * 2 - p * (6 / 7) * Math.PI * 2, sn = Math.sin(a), depth = (sn + 1) / 2;
         gsap.set(el, { x: Math.cos(a) * rx - el.offsetWidth / 2, y: sn * ry - el.offsetHeight / 2, scale: 0.78 + depth * 0.32, zIndex: Math.round(depth * 10), opacity: 0.45 + depth * 0.55 });
@@ -227,14 +228,25 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       }
     };
     place(0);
-    // the pin itself is CSS position: sticky (see .seal) — GSAP only scrubs the spin across the section's sticky range
-    gsap.timeline({ scrollTrigger: { trigger: $("[data-seal]"), start: "top top", end: "bottom bottom", scrub: 0.8, onUpdate: (s) => place(s.progress), invalidateOnRefresh: true } })
-      .fromTo(disc, { rotate: -40 }, { rotate: 320, ease: "none" }, 0);
-    gsap.from(disc, { scale: 0.6, opacity: 0, rotateX: 50, duration: 1.6, ease: EASE, scrollTrigger: { trigger: sealPin, start: "top 70%" } });
+    // The pin is CSS position: sticky (see .seal). Progress is read every frame from the section's live position rather than
+    // from ScrollTrigger's cached start/end, which go stale on real phones (late image loads, address-bar resizes).
+    // The spin is applied to the inner image, not the masked disc — iOS Safari often won't repaint a masked element's transform.
+    const sealSec = $("[data-seal]"), S = { cur: -1 };
+    const sealTick: gsap.TickerCallback = (_t, dt) => {
+      const r = sealSec.getBoundingClientRect(), run = r.height - sealPin.offsetHeight;
+      const target = run > 0 ? Math.min(1, Math.max(0, -r.top / run)) : 0;
+      if (S.cur < 0) S.cur = target;
+      else if (Math.abs(target - S.cur) < 0.0004) { if (S.cur === target) return; S.cur = target; }
+      else S.cur += (target - S.cur) * (1 - Math.exp(-dt / 160));
+      gsap.set(spin, { rotate: -40 + 360 * S.cur });
+      place(S.cur);
+    };
+    gsap.ticker.add(sealTick); tickers.push(sealTick);
+    gsap.from(disc, { scale: 0.6, opacity: 0, rotateX: 50, duration: 1.6, ease: EASE, clearProps: "transform", scrollTrigger: { trigger: sealPin, start: "top 70%" } });
 
     /* ---------- 3D tilt (seal + passport) ---------- */
     if (canHover) $$("[data-tilt]").forEach((wrap) => {
-      const tgt = (wrap.querySelector("[data-pass]") || wrap.querySelector("[data-seal-disc]")) as HTMLElement;
+      const tgt = (wrap.querySelector("[data-pass]") || wrap.querySelector("[data-seal-spin]")) as HTMLElement;
       const rx = gsap.quickTo(tgt, "rotateX", { duration: 0.8, ease: "power3.out" }), ry = gsap.quickTo(tgt, "rotateY", { duration: 0.8, ease: "power3.out" });
       on(wrap, "pointermove", (e) => { const r = wrap.getBoundingClientRect(), p = e as PointerEvent; ry(((p.clientX - r.left) / r.width - 0.5) * 18); rx(-((p.clientY - r.top) / r.height - 0.5) * 14); });
       on(wrap, "pointerleave", () => { rx(0); ry(0); });
@@ -347,7 +359,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     listeners.forEach(([el, ev, fn, o]) => el.removeEventListener(ev, fn, o));
     splits.forEach((s) => s.revert());
     mm.revert(); ctx.revert();
-    gsap.ticker.remove(tick); lenis?.destroy();
+    gsap.ticker.remove(tick); tickers.forEach((t) => gsap.ticker.remove(t)); lenis?.destroy();
     root.querySelector<HTMLElement>("[data-orbit]")?.style.removeProperty("width");
     root.querySelector<HTMLElement>("[data-hero-img]")?.style.removeProperty("mask-image");
     root.querySelector<HTMLElement>("[data-hero-img]")?.style.removeProperty("-webkit-mask-image");

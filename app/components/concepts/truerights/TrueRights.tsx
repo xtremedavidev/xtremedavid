@@ -153,7 +153,7 @@ export default function TrueRights() {
             </div>
             <div className={s.seal__stage} data-tilt="">
               <div className={s.seal__glow} />
-              <div className={s.seal__disc} data-seal-disc=""><img src={`${A}gen-seal.jpg`} alt="" /></div>
+              <div className={s.seal__disc} data-seal-disc=""><img src={`${A}gen-seal.jpg`} alt="" data-seal-spin="" /></div>
               <Logo mark className={s.seal__mark} />
               <div className={s.orbit} data-orbit="" aria-hidden="true" />
               {STEPS.map((st, i) => (
