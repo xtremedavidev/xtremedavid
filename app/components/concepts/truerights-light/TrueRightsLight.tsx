@@ -4,8 +4,9 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import s from "./light.module.css";
-// import ConceptBadge from "../ConceptBadge";
+import ConceptBadge from "../ConceptBadge";
 import { Logo } from "./logo";
+import { MobileMenu } from "./menu";
 import { initTrueRightsLightMotion } from "./motion";
 
 const geist = Geist({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-geist" });
@@ -64,6 +65,9 @@ export default function TrueRightsLight() {
         </nav>
         <a href="https://truerights.com" className={s.nav__in}>Sign in</a>
         <a href="https://truerights.com" className={cx("btn", "btn--forest", "btn--sm")} data-magnetic="">Get started</a>
+        <MobileMenu host={root} bp={1240} links={[["Platform", "#steps"], ["Talent", "#switch"], ["Brands", "#detect"], ["AI Platforms", "#api"], ["Company", "#cta"]]}
+          cls={{ btn: s.menuBtn, panel: s.menu, links: s.menu__links, foot: s.menu__foot }}
+          cta={<><a href="https://truerights.com" className={cx("btn", "btn--forest")}>Register your likeness</a><a href="https://truerights.com" className={cx("btn", "btn--line")}>Sign in</a></>} />
       </header>
 
       <main id="top">
@@ -344,7 +348,7 @@ export default function TrueRightsLight() {
         <div className={s.wordmark} data-wordmark="" aria-hidden="true">TrueRights</div>
         <div className={s.footer__bot}><span>© 2026 TrueRights</span><span>Privacy · Terms · Cookies</span></div>
       </footer>
-      {/* <ConceptBadge company="TrueRights" className={s.badge} /> */}
+      <ConceptBadge company="TrueRights" className={s.badge} />
     </div>
   );
 }

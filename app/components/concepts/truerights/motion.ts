@@ -23,6 +23,9 @@ function coverDraw(ctx: CanvasRenderingContext2D, img: HTMLImageElement, w: numb
 }
 const ready = (img: HTMLImageElement) => (img.complete && img.naturalWidth ? Promise.resolve() : new Promise<void>((r) => { img.addEventListener("load", () => r(), { once: true }); img.addEventListener("error", () => r(), { once: true }); }));
 
+/** SplitText masks clip descenders (g, y, p) on tight line-heights — give each mask room below without moving layout. */
+const unclip = (sp: SplitText) => { for (const m of ((sp as unknown as { masks?: HTMLElement[] }).masks || [])) { m.style.paddingBottom = "0.16em"; m.style.marginBottom = "-0.16em"; } return sp; };
+
 export function initTrueRightsMotion(root: HTMLElement): () => void {
   const $ = <T extends Element = HTMLElement>(sel: string, r: ParentNode = root) => r.querySelector<T>(sel)!;
   const $$ = <T extends Element = HTMLElement>(sel: string, r: ParentNode = root) => [...r.querySelectorAll<T>(sel)];
@@ -66,7 +69,10 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
 
   if (reduce) {
     halftone();
-    $$("[data-ostep]").forEach((el, i) => { const a = Math.PI / 2 + (i / 7) * Math.PI * 2; el.style.transform = `translate(-50%,-50%) translate(${Math.cos(a) * 79}%, 0)`; el.style.left = `${50 + Math.cos(a) * 50}%`; el.style.top = `${50 + Math.sin(a) * 27.5}%`; });
+    { const st = $$("[data-ostep]"), stage = $("[data-seal] [data-tilt]");
+      if (stage && st.length) { const w = stage.clientWidth, h = stage.clientHeight, widest = Math.max(...st.map((el) => el.offsetWidth)), rx = Math.min(w * 0.79, innerWidth / 2 - widest / 2 - 12), ry = h * 0.275;
+        const ring = $("[data-orbit]"); if (ring) ring.style.width = `${((rx * 2) / w) * 100}%`;
+        st.forEach((el, i) => { const a = Math.PI / 2 + (i / 7) * Math.PI * 2; el.style.transform = `translate(${Math.cos(a) * rx - el.offsetWidth / 2}px, ${Math.sin(a) * ry - el.offsetHeight / 2}px)`; }); } }
     $$("[data-ostep]")[0]?.setAttribute("data-on", ""); $$("[data-sbar]")[0]?.setAttribute("data-on", ""); $$("[data-sui]")[0]?.setAttribute("data-on", "");
     $("[data-intro]")?.remove();
     return () => { alive = false; };
@@ -103,7 +109,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     ScrollTrigger.create({ start: "top -80", end: "max", onUpdate(self) { gsap.to(nav, { yPercent: self.direction === 1 && self.scroll() > 900 ? -160 : 0, duration: 0.6, ease: "power3.out", overwrite: "auto" }); } });
 
     /* ---------- generic reveals ---------- */
-    const lines = (el: Element, vars: gsap.TweenVars) => { const sp = SplitText.create([...el.children] as HTMLElement[], { type: "lines", mask: "lines" }); splits.push(sp); return gsap.from(sp.lines, { yPercent: 110, duration: 1.3, stagger: 0.09, ease: EASE, ...vars }); };
+    const lines = (el: Element, vars: gsap.TweenVars) => { const sp = unclip(SplitText.create([...el.children] as HTMLElement[], { type: "lines", mask: "lines" })); splits.push(sp); return gsap.from(sp.lines, { yPercent: 110, duration: 1.3, stagger: 0.09, ease: EASE, ...vars }); };
     $$("[data-lines]").forEach((el) => lines(el, { scrollTrigger: { trigger: el, start: "top 86%" } }));
     $$("[data-rise]").forEach((el) => { if (el.closest("[data-hero]")) return; gsap.from(el, { y: 30, opacity: 0, duration: 1.1, ease: EASE, scrollTrigger: { trigger: el, start: "top 90%" } }); });
     $$("[data-count]").forEach((el) => { if (el.closest("[data-case]")) return; const to = +el.dataset.count!; const o = { v: 0 }; fmt(el, 0);
@@ -111,7 +117,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
 
     /* ---------- intro ---------- */
     const intro = $("[data-intro]");
-    const h1 = SplitText.create($$("[data-h1] > span:not([data-grad])"), { type: "chars", mask: "chars" }); splits.push(h1);
+    const h1 = unclip(SplitText.create($$("[data-h1] > span:not([data-grad])"), { type: "chars", mask: "chars" })); splits.push(h1);
     const tl = gsap.timeline({ delay: 0.15 });
     tl.fromTo($("svg", intro), { scale: 0.6, opacity: 0, rotate: -90 }, { scale: 1, opacity: 1, rotate: 0, duration: 0.9, ease: "back.out(1.6)" }, 0)
       .to($("svg", intro), { scale: 14, opacity: 0, duration: 0.9, ease: "expo.in" }, 0.95)
@@ -202,7 +208,10 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     const sNum = $("[data-snum]"), sTitle = $("[data-stitle]"), sDesc = $("[data-sdesc]");
     let active = -1;
     const place = (p: number) => {
-      const stage = $("[data-seal] [data-tilt]"), w = stage.clientWidth, h = stage.clientHeight, rx = w * 0.79, ry = h * 0.275;
+      const stage = $("[data-seal] [data-tilt]"), w = stage.clientWidth, h = stage.clientHeight, ry = h * 0.275;
+      // keep every orbit label inside the viewport on narrow screens
+      const widest = Math.max(...steps.map((el) => el.offsetWidth)), rx = Math.min(w * 0.79, innerWidth / 2 - widest / 2 - 12);
+      const ring = $("[data-orbit]"); if (ring) ring.style.width = `${((rx * 2) / w) * 100}%`;
       steps.forEach((el, i) => {
         const a = Math.PI / 2 + (i / 7) * Math.PI * 2 - p * (6 / 7) * Math.PI * 2, sn = Math.sin(a), depth = (sn + 1) / 2;
         gsap.set(el, { x: Math.cos(a) * rx - el.offsetWidth / 2, y: sn * ry - el.offsetHeight / 2, scale: 0.78 + depth * 0.32, zIndex: Math.round(depth * 10), opacity: 0.45 + depth * 0.55 });
@@ -330,6 +339,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     splits.forEach((s) => s.revert());
     mm.revert(); ctx.revert();
     gsap.ticker.remove(tick); lenis.destroy();
+    root.querySelector<HTMLElement>("[data-orbit]")?.style.removeProperty("width");
     root.querySelector<HTMLElement>("[data-hero-img]")?.style.removeProperty("mask-image");
     root.querySelector<HTMLElement>("[data-hero-img]")?.style.removeProperty("-webkit-mask-image");
   };

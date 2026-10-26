@@ -7,6 +7,9 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const STEP_NAMES = ["Register", "Value", "Deal", "Licence", "Monitor", "Enforce", "Earn"];
 
+/** SplitText masks clip descenders (g, y, p) on tight line-heights — give each mask room below without moving layout. */
+const unclip = (sp: SplitText) => { for (const m of ((sp as unknown as { masks?: HTMLElement[] }).masks || [])) { m.style.paddingBottom = "0.16em"; m.style.marginBottom = "-0.16em"; } return sp; };
+
 export function initTrueRightsLightMotion(root: HTMLElement): () => void {
   const $ = <T extends Element = HTMLElement>(sel: string, r: ParentNode = root) => r.querySelector<T>(sel);
   const $$ = <T extends Element = HTMLElement>(sel: string, r: ParentNode = root) => [...r.querySelectorAll<T>(sel)];
@@ -115,7 +118,7 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
     $$("[data-rise]").filter((el) => !heroRise.has(el)).forEach((el) =>
       gsap.from(el, { y: 36, opacity: 0, duration: 1.1, ease: EASE, scrollTrigger: { trigger: el, start: "top 88%" } }));
     $$("[data-lines]").forEach((el) => {
-      const sp = SplitText.create(el, { type: "lines", mask: "lines", linesClass: "tr-line" }); splits.push(sp);
+      const sp = unclip(SplitText.create(el, { type: "lines", mask: "lines", linesClass: "tr-line" })); splits.push(sp);
       gsap.from(sp.lines, { yPercent: 110, duration: 1.2, stagger: 0.09, ease: EASE, scrollTrigger: { trigger: el, start: "top 85%" } });
     });
     $$("[data-count]").filter((el) => !el.closest("[data-hero]")).forEach((el) => {
@@ -131,7 +134,7 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
     const h1 = $("[data-h1]");
     const intro = gsap.timeline({ defaults: { ease: EASE } });
     if (h1) {
-      const sp = SplitText.create(h1, { type: "words", mask: "words" }); splits.push(sp);
+      const sp = unclip(SplitText.create(h1, { type: "words", mask: "words" })); splits.push(sp);
       intro.from(sp.words, { yPercent: 115, duration: 1.3, stagger: 0.06 }, 0.15);
     }
     intro.from("[data-facepill]", { scale: 0, rotate: -12, duration: 1.2, ease: "back.out(1.6)" }, 0.55)
@@ -322,7 +325,7 @@ export function initTrueRightsLightMotion(root: HTMLElement): () => void {
     /* ---------- A15 · wordmark ---------- */
     const wmEl = $("[data-wordmark]");
     if (wmEl) {
-      const wm = SplitText.create(wmEl, { type: "chars", mask: "chars" }); splits.push(wm);
+      const wm = unclip(SplitText.create(wmEl, { type: "chars", mask: "chars" })); splits.push(wm);
       gsap.from(wm.chars, { yPercent: 105, duration: 1.4, stagger: 0.05, ease: EASE, scrollTrigger: { trigger: wmEl, start: "top 95%" } });
     }
   }, root);

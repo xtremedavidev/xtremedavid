@@ -4,8 +4,9 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import s from "./truerights.module.css";
-// import ConceptBadge from "../ConceptBadge";
+import ConceptBadge from "../ConceptBadge";
 import { Logo } from "./logo";
+import { MobileMenu } from "./menu";
 import { initTrueRightsMotion } from "./motion";
 
 const geist = Geist({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-geist" });
@@ -90,6 +91,9 @@ export default function TrueRights() {
         </nav>
         <a href="https://truerights.com" className={s.nav__in}>Sign in</a>
         <a href="https://truerights.com" className={cx("btn", "btn--neon", "btn--sm")} data-magnetic="">Get started</a>
+        <MobileMenu host={root} bp={1100} links={[["Platform", "#steps"], ["Talent", "#consent"], ["Brands", "#detect"], ["AI Platforms", "#why"], ["Company", "#cta"]]}
+          cls={{ btn: s.menuBtn, panel: s.menu, links: s.menu__links, foot: s.menu__foot }}
+          cta={<><a href="https://truerights.com" className={cx("btn", "btn--neon")}>Register your likeness</a><a href="https://truerights.com" className={cx("btn", "btn--glass")}>Sign in</a></>} />
       </header>
 
       <main id="top">
@@ -152,7 +156,7 @@ export default function TrueRights() {
               <div className={s.seal__glow} />
               <div className={s.seal__disc} data-seal-disc=""><img src={`${A}gen-seal.jpg`} alt="" /></div>
               <Logo mark className={s.seal__mark} />
-              <div className={s.orbit} aria-hidden="true" />
+              <div className={s.orbit} data-orbit="" aria-hidden="true" />
               {STEPS.map((st, i) => (
                 <span key={st.t} className={s.orbitStep} data-ostep={i}><b>{String(i + 1).padStart(2, "0")}</b>{st.t}</span>
               ))}
@@ -241,6 +245,7 @@ export default function TrueRights() {
           <h2 className={s.h2} data-lines=""><span>You decide who</span><span className={s.neon}>gets to be you.</span></h2>
           <div className={s.consent__grid}>
             <div className={s.hand}>
+              <div className={s.hand__zoom}>
               <img src={`${A}gen-hands.jpg`} alt="" className={s.hand__img} />
               <div className={s.screen} data-screen="">
                 <div className={s.screen__top}><img src={`${A}likeness.jpg`} alt="" /><div><b>Elena Marsh</b><span>● Verified</span></div></div>
@@ -248,6 +253,7 @@ export default function TrueRights() {
                 {RULES.map(([a, b, , on], i) => (
                   <div key={i} className={s.screen__row}><div><b>{a}</b><span>{b}</span></div><i className={s.mtog} data-mtog={on ? "1" : "0"} data-on={on ? "" : undefined} /></div>
                 ))}
+              </div>
               </div>
               <div className={cx("glass", "req")} data-req=""><i className={s.dotNeon} /><b>studio_gen asked to use</b><span className={s.mono}>likeness / commercial</span><em className={cx("tag", "tag--allow")}>ALLOWED · $0.12</em></div>
             </div>
@@ -317,7 +323,7 @@ export default function TrueRights() {
         {/* B09 · CREATORS (coverflow) */}
         <section className={s.creators} data-creators="">
           <div className={s.glow} style={{ left: "50%", top: "60%" }} />
-          <div className={s.center}><Eyebrow>Real creators. Real impact.</Eyebrow><h2 className={cx("h2", "center")} data-lines=""><span>Creators who chose to</span><span>own their likeness.</span></h2></div>
+          <div className={s.center}><Eyebrow>Real creators. Real impact.</Eyebrow><h2 className={cx("h2", "center")} data-lines=""><span>Creators who chose</span><span>to own their likeness.</span></h2></div>
           <div className={s.flow} data-flow="">
             {CREATORS.map((c, i) => (
               <a key={c} href="https://truerights.com" className={s.flow__card} data-card={i}>
@@ -375,7 +381,7 @@ export default function TrueRights() {
         <div className={s.footer__bot}><span>© 2026 TrueRights</span><span>Privacy · Terms · Cookies</span></div>
       </footer>
 
-      {/* <ConceptBadge company="TrueRights" className={s.badge} /> */}
+      <ConceptBadge company="TrueRights" className={s.badge} />
     </div>
   );
 }
