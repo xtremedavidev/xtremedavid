@@ -37,6 +37,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
   // Reduced motion (e.g. Samsung "Remove animations") = calmer, not frozen: scroll-driven storytelling still runs,
   // but smooth-scroll hijacking, the intro sequence, cursor/magnetic effects and parallax drift are switched off.
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   const isDesk = () => window.innerWidth > 760;
   let alive = true;
 
@@ -210,6 +211,9 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
       // keep every orbit label inside the viewport on narrow screens
       const widest = Math.max(...steps.map((el) => el.offsetWidth)), rx = Math.min(w * 0.79, innerWidth / 2 - widest / 2 - 12);
       const ring = $("[data-orbit]"); if (ring) ring.style.width = `${((rx * 2) / w) * 100}%`;
+      // touch screens have no pointer tilt, and a flat spin of a ring-shaped seal reads as static —
+      // so scroll also tilts it in 3D, making the turn unmistakable
+      if (!canHover && disc) gsap.set(disc, { rotateX: Math.sin(p * Math.PI * 2) * 26, rotateY: Math.sin(p * Math.PI * 3 + 0.6) * 34 });
       steps.forEach((el, i) => {
         const a = Math.PI / 2 + (i / 7) * Math.PI * 2 - p * (6 / 7) * Math.PI * 2, sn = Math.sin(a), depth = (sn + 1) / 2;
         gsap.set(el, { x: Math.cos(a) * rx - el.offsetWidth / 2, y: sn * ry - el.offsetHeight / 2, scale: 0.78 + depth * 0.32, zIndex: Math.round(depth * 10), opacity: 0.45 + depth * 0.55 });
@@ -228,7 +232,7 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
     gsap.from(disc, { scale: 0.6, opacity: 0, rotateX: 50, duration: 1.6, ease: EASE, scrollTrigger: { trigger: sealPin, start: "top 70%" } });
 
     /* ---------- 3D tilt (seal + passport) ---------- */
-    $$("[data-tilt]").forEach((wrap) => {
+    if (canHover) $$("[data-tilt]").forEach((wrap) => {
       const tgt = (wrap.querySelector("[data-pass]") || wrap.querySelector("[data-seal-disc]")) as HTMLElement;
       const rx = gsap.quickTo(tgt, "rotateX", { duration: 0.8, ease: "power3.out" }), ry = gsap.quickTo(tgt, "rotateY", { duration: 0.8, ease: "power3.out" });
       on(wrap, "pointermove", (e) => { const r = wrap.getBoundingClientRect(), p = e as PointerEvent; ry(((p.clientX - r.left) / r.width - 0.5) * 18); rx(-((p.clientY - r.top) / r.height - 0.5) * 14); });
@@ -317,8 +321,14 @@ export function initTrueRightsMotion(root: HTMLElement): () => void {
         .to("[data-crow]", { opacity: 1, x: 0, duration: 0.8, stagger: 0.18, ease: "power2.out" }, 0.8);
     });
     mm.add("(max-width: 760px)", () => {
-      gsap.to("[data-note]", { y: 260, rotate: (i) => (i % 2 ? 30 : -30), opacity: 0, filter: "blur(6px)", stagger: 0.1, ease: "power2.in", scrollTrigger: { trigger: "[data-cc]", start: "top 30%", end: "center 20%", scrub: 0.6 } });
-      gsap.to("[data-crow]", { opacity: 1, x: 0, stagger: 0.12, ease: "power2.out", scrollTrigger: { trigger: "[data-crow]", start: "top 85%", end: "top 30%", scrub: 0.6 } });
+      // phones: no pin — the switch flips from Without to With, each problem straightens, greys out and is struck through,
+      // and the With TrueRights list lights up. Nothing disappears, so the section never reads as an empty box.
+      const travel = () => { const sw = knob.parentElement!; return sw.clientWidth - knob.offsetWidth - 12; };
+      const t = gsap.timeline({ scrollTrigger: { trigger: "[data-cc]", start: "top 45%", end: "bottom 75%", scrub: 0.6, invalidateOnRefresh: true } });
+      t.to(knob, { x: travel, duration: 1, ease: "power2.inOut" }, 0)
+        .to("[data-note]", { rotate: 0, opacity: 0.42, filter: "grayscale(1)", scale: 0.97, duration: 1, stagger: 0.15, ease: "power2.out" }, 0.1)
+        .to("[data-note] b", { backgroundSize: "100% 1.5px", duration: 0.8, stagger: 0.15, ease: "power2.inOut" }, 0.2)
+        .to("[data-crow]", { opacity: 1, x: 0, duration: 0.8, stagger: 0.14, ease: "power2.out" }, 0.6);
     });
 
     /* ---------- B11 · CTA ---------- */

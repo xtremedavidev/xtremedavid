@@ -291,7 +291,7 @@
 .chaos { background: #1A1D1B; overflow: hidden; }
 .chaos::before { content: ""; position: absolute; left: -10%; bottom: -20%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(229,72,77,.18), transparent); }
 .note { position: absolute; width: 300px; padding: 16px 18px; display: grid; gap: 10px; }
-.note b { display: flex; gap: 10px; align-items: center; font-weight: 500; font-size: 14.5px; }
+.note b { display: flex; gap: 10px; align-items: center; font-weight: 500; font-size: 14.5px; background: linear-gradient(currentColor, currentColor) 0 58% / 0% 1.5px no-repeat; }
 .note:nth-of-type(1) { left: 5%; top: 6%; rotate: -4deg; } .note:nth-of-type(2) { left: 46%; top: 13%; rotate: 5deg; }
 .note:nth-of-type(3) { left: 8%; top: 32%; rotate: 3deg; } .note:nth-of-type(4) { left: 47%; top: 39%; rotate: -6deg; }
 .note:nth-of-type(5) { left: 6%; top: 59%; rotate: -2deg; } .note:nth-of-type(6) { left: 46%; top: 67%; rotate: 4deg; }
@@ -454,4 +454,9 @@
   .curve { top: 30px; bottom: auto; right: 20px; width: 100px; }
   .cta .btns { margin-top: 40px; }
   .hero__copy .btns { margin-top: 28px; }
+  /* chaos -> control on phones: switch sits between the two panels */
+  .cc__grid { display: flex; flex-direction: column; gap: 0; }
+  .chaos { order: 1; } .switch { order: 2; } .control { order: 3; }
+  .switch { display: block; position: relative; left: auto; top: auto; translate: none; width: 120px; height: 64px; border-radius: 32px; margin: -14px auto; flex: none; }
+  .switch i { width: 52px; height: 52px; transform: none; }
 }
