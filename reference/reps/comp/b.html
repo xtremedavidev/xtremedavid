@@ -1,0 +1,343 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.page{background:#F2F3F1;color:#1D1E1C;font-family:"Instrument Sans",sans-serif;position:relative;overflow:hidden}
+.d{width:1440px}.m{width:390px}
+.mono{font-family:"Geist Mono",monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.mu{color:#6B6E68}.gd{color:#3E7A28}
+.ser{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.px{padding:0 48px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 48px;border-bottom:1px solid #D9DBD5}
+.logo{width:92px;color:#1D1E1C;display:block}.logo svg{display:block;width:100%;height:auto}
+.links{display:flex;gap:30px;font-size:15px}
+.links span{color:#4A4D47}
+.btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 22px;border-radius:999px;font-size:15px;font-weight:500;white-space:nowrap}
+.bk{background:#1D1E1C;color:#F2F3F1}.gr{background:#8DD270;color:#10140E}.ol{border:1px solid #1D1E1C}
+.bk i{width:22px;height:22px;border-radius:50%;background:#8DD270;display:inline-block;position:relative}
+.h1{font-weight:500;font-size:148px;line-height:.88;letter-spacing:-.055em}
+.h2{font-weight:500;font-size:76px;line-height:.95;letter-spacing:-.045em}
+.h3{font-weight:500;font-size:30px;line-height:1.1;letter-spacing:-.025em}
+.lead{font-size:19px;line-height:1.5;color:#4A4D47}
+.body{font-size:16px;line-height:1.55;color:#4A4D47}
+.rule{border-top:1px solid #1D1E1C}
+.hair{border-top:1px solid #D9DBD5}
+/* hero */
+.hero{padding:44px 48px 0}
+.hero .top{display:flex;justify-content:space-between;align-items:flex-start}
+.ledger{width:300px;border:1px solid #1D1E1C;border-radius:14px;padding:14px 16px;background:#F7F8F6}
+.ledger .n{font-size:40px;letter-spacing:-.04em;font-weight:500;margin-top:8px}
+.ledger .n small{font-size:14px;color:#6B6E68;margin-left:4px;font-weight:400}
+.ledger .bar{height:6px;border-radius:3px;background:#E3E5E0;margin-top:10px;overflow:hidden}.ledger .bar i{display:block;height:100%;width:38%;background:#8DD270}
+.draw{margin-top:30px;border-top:1px solid #1D1E1C;border-bottom:1px solid #1D1E1C;position:relative;background:#F7F8F6}
+.draw svg{display:block;width:100%;height:auto}
+.hero .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;padding:30px 0 44px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid #C9CCC5;border-radius:999px;padding:7px 12px;font-family:"Geist Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#4A4D47}
+/* ticker */
+.tick{background:#1D1E1C;color:#F2F3F1;display:flex;gap:64px;padding:26px 48px;white-space:nowrap;overflow:hidden;font-size:44px;letter-spacing:-.035em;font-weight:500}
+.tick span b{color:#8DD270;font-weight:500}
+.tick em{font-family:"Instrument Serif",serif;color:#8DD270}
+/* steps */
+.sec{padding:150px 48px 0}
+.shead{display:grid;grid-template-columns:300px 1fr 360px;gap:40px;align-items:end;margin-bottom:64px}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #1D1E1C;border-left:1px solid #D9DBD5}
+.stp{border-right:1px solid #D9DBD5;border-bottom:1px solid #D9DBD5;padding:22px 20px 26px;background:#F2F3F1}
+.stp.on{background:#1D1E1C;color:#F2F3F1}
+.stp.on .body{color:#BFC2BB}.stp.on .mu{color:#9A9D96}
+.stp .fig{height:200px;margin:18px -4px 18px;display:flex;align-items:center;justify-content:center}
+.stp .fig svg{width:100%;height:100%}
+.stp .h3{font-size:24px;margin-bottom:10px}
+.stp .kv{display:flex;justify-content:space-between;padding-top:12px;margin-top:16px;border-top:1px dashed #C9CCC5}
+.stp.on .kv{border-color:#4A4D47}
+/* case file */
+.case{display:grid;grid-template-columns:1.25fr 1fr;gap:0;border:1px solid #1D1E1C;border-radius:4px;overflow:hidden;margin-top:0}
+.case .ph{position:relative;min-height:720px}
+.case .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stamp{position:absolute;left:22px;top:22px;background:#F2F3F1;border:1px solid #1D1E1C;padding:8px 12px;border-radius:999px}
+.case .tbl{padding:30px 30px 26px;background:#F7F8F6;display:flex;flex-direction:column}
+.tr{display:grid;grid-template-columns:1fr auto;padding:16px 0;border-bottom:1px solid #D9DBD5;align-items:baseline}
+.tr b{font-weight:500;font-size:40px;letter-spacing:-.04em}
+.tr b small{font-size:15px;color:#6B6E68;font-weight:400;margin-left:4px}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:auto;padding-top:26px}
+.thumbs img{width:100%;height:96px;object-fit:cover;border-radius:3px}
+/* esg */
+.esg{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #1D1E1C}
+.esg>div{padding:26px 28px 34px 0}
+.esg>div+div{padding-left:28px;border-left:1px solid #D9DBD5}
+.esg .L{font-size:150px;font-weight:500;letter-spacing:-.06em;line-height:.85}
+.esg ul{list-style:none;margin-top:24px}
+.esg li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid #D9DBD5;font-size:15px}
+.esg li span:last-child{font-family:"Geist Mono",monospace;font-size:13px;text-align:right}
+/* brake */
+.brake{margin-top:150px;background:#1D1E1C;color:#F2F3F1;padding:80px 48px;display:grid;grid-template-columns:1fr 1.25fr;gap:60px;align-items:center}
+.brake .h2{color:#F2F3F1}
+.brake .body{color:#BFC2BB;margin-top:22px;width:440px}
+.gauge{border:1px solid #3A3C38;border-radius:20px;padding:26px;background:#232522}
+.gauge svg{display:block;width:100%;height:auto}
+.gauge .row{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px;border-top:1px solid #3A3C38}
+.gauge .row>div{padding:14px 14px 0 0}
+.gauge .row b{display:block;font-size:34px;font-weight:500;letter-spacing:-.04em;margin-top:6px}
+.holdb{display:flex;align-items:center;gap:16px;margin-top:34px}
+.holdb .c{width:92px;height:92px;border-radius:50%;background:#8DD270;color:#10140E;display:flex;align-items:center;justify-content:center;font-weight:500;font-size:14px;box-shadow:0 0 0 10px rgba(141,210,112,.18),0 0 0 22px rgba(141,210,112,.07)}
+/* map */
+.mapw{display:grid;grid-template-columns:1fr 520px;gap:60px;align-items:start}
+.mapbox{position:relative;border:1px solid #1D1E1C;border-radius:4px;background:#F7F8F6;height:760px;overflow:hidden}
+.mapbox img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:92%;opacity:.9}
+.pin{position:absolute;display:flex;align-items:center;gap:8px}
+.pin i{width:12px;height:12px;border-radius:50%;background:#8DD270;border:2px solid #1D1E1C}
+.pin.big i{width:18px;height:18px;box-shadow:0 0 0 8px rgba(141,210,112,.35)}
+.pin span{background:#1D1E1C;color:#F2F3F1;padding:5px 9px;border-radius:999px}
+.dotp{position:absolute;width:7px;height:7px;border-radius:50%;background:#1D1E1C;opacity:.5}
+.loc{border-top:1px solid #1D1E1C}
+.loc>div{display:grid;grid-template-columns:40px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid #D9DBD5}
+.loc h4{font-weight:500;font-size:30px;letter-spacing:-.03em;margin-bottom:6px}
+/* team */
+.tg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:12px}
+.tg img{width:100%;height:440px;object-fit:cover;border-radius:4px}
+.tg b{display:block;font-weight:500;font-size:18px;margin-top:12px}
+/* form cta */
+.cta{margin-top:150px;padding:110px 48px 90px;background:#8DD270;color:#10140E;display:grid;grid-template-columns:1.1fr 1fr;gap:60px}
+.cta .h1{font-size:132px}
+.form{background:#F2F3F1;border-radius:20px;padding:28px;border:1px solid #10140E}
+.fld{border-bottom:1px solid #C9CCC5;padding:16px 0 12px}
+.fld .v{font-size:22px;letter-spacing:-.02em;margin-top:8px;display:flex;justify-content:space-between}
+.seg{display:flex;gap:6px;margin-top:10px}
+.seg span{padding:8px 12px;border-radius:999px;border:1px solid #C9CCC5;font-size:14px}
+.seg span.on{background:#1D1E1C;color:#F2F3F1;border-color:#1D1E1C}
+.foot{padding:56px 48px 28px;background:#F2F3F1}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;padding-bottom:40px;border-bottom:1px solid #D9DBD5}
+.fgrid a{display:block;color:#4A4D47;padding:4px 0;font-size:15px}
+.fbig{font-size:300px;font-weight:500;letter-spacing:-.07em;line-height:.8;margin-top:40px;color:#1D1E1C}
+.fbig .ser{color:#3E7A28;letter-spacing:-.03em}
+.fbase{display:flex;justify-content:space-between;padding-top:20px}
+/* mobile */
+.m .nav{padding:16px 20px}.m .logo{width:72px}
+.m .px{padding:0 20px}
+.m .h1{font-size:58px}.m .h2{font-size:42px}
+</style>
+
+<!-- ======================= DESKTOP ======================= -->
+<div class="page d">
+  <header class="nav"><span class="logo" data-logo></span>
+    <div class="links"><span>Technology</span><span>Impact</span><span>ESG</span><span>Locations</span><span>Team</span><span>News</span></div>
+    <div style="display:flex;gap:12px;align-items:center"><span class="mono mu">EN · DE</span><span class="btn bk">REPS on my roads <i></i></span></div></header>
+
+  <section class="hero">
+    <div class="top">
+      <div><div class="mono gd">● Road Energy Plate System · Est. Austria</div>
+        <h1 class="h1" style="margin-top:22px">Every brake<br>is a <span class="ser" style="font-size:168px;color:#3E7A28">power plant.</span></h1></div>
+      <div class="ledger"><div class="mono mu" style="display:flex;justify-content:space-between"><span>Ledger · since you arrived</span><span class="gd">● live</span></div>
+        <div class="n">0.418<small>kWh</small></div><div class="mono mu" style="margin-top:4px">recovered by 1 plate at HCS Hamburg*</div>
+        <div class="bar"><i></i></div><div class="mono mu" style="margin-top:8px;display:flex;justify-content:space-between"><span>≈ 2.3 km of EV driving</span><span>Scroll ↓</span></div></div>
+    </div>
+
+    <div class="draw">
+      <svg viewBox="0 0 1344 430" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="Geist Mono" font-size="11" letter-spacing=".5">
+        <!-- grid -->
+        <g stroke="#E3E5E0" stroke-width="1">
+          <path d="M0 40H1344M0 80H1344M0 120H1344M0 160H1344M0 200H1344M0 240H1344M0 280H1344M0 320H1344M0 360H1344M0 400H1344"/>
+          <path d="M80 0V430M160 0V430M240 0V430M320 0V430M400 0V430M480 0V430M560 0V430M640 0V430M720 0V430M800 0V430M880 0V430M960 0V430M1040 0V430M1120 0V430M1200 0V430M1280 0V430"/>
+        </g>
+        <!-- ground + road build-up -->
+        <path d="M0 300H1344" stroke="#1D1E1C" stroke-width="2"/>
+        <path d="M0 312H360M880 312H1344" stroke="#1D1E1C" stroke-width="1" stroke-dasharray="2 4"/>
+        <path d="M0 338H1344" stroke="#C9CCC5" stroke-width="1"/>
+        <!-- plate foundation -->
+        <rect x="360" y="300" width="520" height="22" fill="#E3E5E0" stroke="#1D1E1C" stroke-width="1.5"/>
+        <path d="M360 311H880" stroke="#1D1E1C" stroke-width=".75" stroke-dasharray="1 3"/>
+        <!-- triggers: 27 domes -->
+        <g fill="#F7F8F6" stroke="#1D1E1C" stroke-width="1.5">
+          <path d="M370 300a7 7 0 0 1 14 0M389 300a7 7 0 0 1 14 0M408 300a7 7 0 0 1 14 0M427 300a7 7 0 0 1 14 0M446 300a7 7 0 0 1 14 0M465 300a7 7 0 0 1 14 0M484 300a7 7 0 0 1 14 0M503 300a7 7 0 0 1 14 0M522 300a7 7 0 0 1 14 0M541 300a7 7 0 0 1 14 0M560 300a7 7 0 0 1 14 0M579 300a7 7 0 0 1 14 0M598 300a7 7 0 0 1 14 0M617 300a7 7 0 0 1 14 0M636 300a7 7 0 0 1 14 0M655 300a7 7 0 0 1 14 0M674 300a7 7 0 0 1 14 0M693 300a7 7 0 0 1 14 0M712 300a7 7 0 0 1 14 0M731 300a7 7 0 0 1 14 0M750 300a7 7 0 0 1 14 0M769 300a7 7 0 0 1 14 0M788 300a7 7 0 0 1 14 0M807 300a7 7 0 0 1 14 0M826 300a7 7 0 0 1 14 0M845 300a7 7 0 0 1 14 0M864 300a7 7 0 0 1 14 0"/>
+        </g>
+        <!-- pressed triggers under wheels (green) -->
+        <g fill="#8DD270" stroke="#1D1E1C" stroke-width="1.5"><path d="M541 300a7 3 0 0 1 14 0M560 300a7 3 0 0 1 14 0M769 300a7 3 0 0 1 14 0M788 300a7 3 0 0 1 14 0"/></g>
+        <!-- hydraulic cylinders under slabs -->
+        <g stroke="#1D1E1C" stroke-width="1.2" fill="#F2F3F1">
+          <rect x="545" y="322" width="10" height="16"/><rect x="773" y="322" width="10" height="16"/><rect x="430" y="322" width="10" height="16"/><rect x="660" y="322" width="10" height="16"/>
+        </g>
+        <!-- hydraulic lines (energy) -->
+        <path d="M435 338V360H1000V296" stroke="#C9CCC5" stroke-width="3"/>
+        <path d="M550 338V360M665 338V360M778 338V360" stroke="#C9CCC5" stroke-width="3"/>
+        <path d="M550 338V360H1000V296" stroke="#8DD270" stroke-width="3" stroke-linecap="round"/>
+        <path d="M778 338V360" stroke="#8DD270" stroke-width="3"/>
+        <circle cx="880" cy="360" r="6" fill="#8DD270" stroke="#1D1E1C" stroke-width="1.5"/>
+        <!-- truck (side elevation) braking on the plate -->
+        <g stroke="#1D1E1C" stroke-width="1.6" fill="#F7F8F6">
+          <rect x="250" y="168" width="440" height="100" rx="3"/>
+          <path d="M700 268V176c0-8 6-14 14-14h46c10 0 16 4 20 12l20 42c2 4 3 8 3 13v39z"/>
+          <path d="M716 180h40c6 0 10 3 12 8l14 30h-66z" fill="#E3E5E0"/>
+          <rect x="250" y="268" width="555" height="10" fill="#1D1E1C"/>
+        </g>
+        <g stroke="#1D1E1C" stroke-width="1.6" fill="#F2F3F1">
+          <circle cx="300" cy="280" r="20"/><circle cx="345" cy="280" r="20"/><circle cx="548" cy="280" r="20"/><circle cx="592" cy="280" r="20"/><circle cx="776" cy="280" r="20"/>
+        </g>
+        <g fill="#1D1E1C"><circle cx="300" cy="280" r="6"/><circle cx="345" cy="280" r="6"/><circle cx="548" cy="280" r="6"/><circle cx="592" cy="280" r="6"/><circle cx="776" cy="280" r="6"/></g>
+        <path d="M250 240h-6" stroke="#E5484D" stroke-width="5"/>
+        <text x="262" y="196" fill="#1D1E1C" font-family="Instrument Sans" font-size="15" font-weight="500" letter-spacing="0">40 t · braking</text>
+        <path d="M150 222h80" stroke="#1D1E1C" stroke-width="1.2"/><path d="M150 216l-10 6 10 6" stroke="#1D1E1C" stroke-width="1.2"/>
+        <text x="96" y="214" fill="#6B6E68">−v</text>
+        <!-- converter module -->
+        <g stroke="#1D1E1C" stroke-width="1.5">
+          <rect x="960" y="190" width="120" height="110" fill="#F7F8F6"/>
+          <path d="M972 245H1068" stroke-width="3"/>
+          <ellipse cx="992" cy="245" rx="6" ry="22" fill="#8DD270"/><ellipse cx="1012" cy="245" rx="6" ry="26" fill="#8DD270"/><ellipse cx="1032" cy="245" rx="6" ry="26" fill="#8DD270"/><ellipse cx="1052" cy="245" rx="6" ry="22" fill="#8DD270"/>
+        </g>
+        <!-- storage -->
+        <g stroke="#1D1E1C" stroke-width="1.5" fill="#F7F8F6">
+          <rect x="1110" y="220" width="30" height="80"/><rect x="1146" y="220" width="30" height="80"/><rect x="1182" y="220" width="30" height="80"/>
+        </g>
+        <g fill="#8DD270"><rect x="1113" y="252" width="24" height="45"/><rect x="1149" y="238" width="24" height="59"/><rect x="1185" y="266" width="24" height="31"/></g>
+        <path d="M1080 270H1110" stroke="#8DD270" stroke-width="3"/>
+        <!-- outputs -->
+        <path d="M1212 290H1240V150h40M1240 270H1300" stroke="#8DD270" stroke-width="3"/>
+        <g stroke="#1D1E1C" stroke-width="1.5" fill="#F7F8F6">
+          <path d="M1280 300V140h28"/><rect x="1300" y="134" width="26" height="8" fill="#8DD270"/>
+          <rect x="1296" y="220" width="30" height="80" rx="6"/><rect x="1304" y="232" width="14" height="20" fill="#8DD270"/>
+        </g>
+        <!-- dimensions -->
+        <g stroke="#1D1E1C" stroke-width="1"><path d="M360 110V140M880 110V140M360 122H880"/><path d="M366 118l-6 4 6 4M874 118l6 4-6 4"/></g>
+        <rect x="586" y="113" width="68" height="18" fill="#F7F8F6"/>
+        <text x="620" y="126" text-anchor="middle" fill="#1D1E1C">12.00 M</text>
+        <!-- callouts -->
+        <g font-family="Geist Mono" font-size="11" fill="#1D1E1C">
+          <circle cx="470" cy="392" r="12" fill="#1D1E1C"/><text x="470" y="396" text-anchor="middle" fill="#F2F3F1">1</text><text x="490" y="396">27 TRIGGER PAIRS</text>
+          <circle cx="700" cy="392" r="12" fill="#1D1E1C"/><text x="700" y="396" text-anchor="middle" fill="#F2F3F1">2</text><text x="720" y="396">SEALED HYDRAULICS</text>
+          <circle cx="1020" cy="160" r="12" fill="#1D1E1C"/><text x="1020" y="164" text-anchor="middle" fill="#F2F3F1">3</text><text x="966" y="178" fill="#6B6E68">MAGLEV CONVERTER</text>
+          <circle cx="1160" cy="196" r="12" fill="#1D1E1C"/><text x="1160" y="200" text-anchor="middle" fill="#F2F3F1">4</text>
+          <circle cx="1240" cy="116" r="12" fill="#1D1E1C"/><text x="1240" y="120" text-anchor="middle" fill="#F2F3F1">5</text>
+          <text x="24" y="28" fill="#6B6E68">FIG. 01 — SECTION A-A · ROAD POWER PLANT · SCALE 1:100</text>
+          <text x="1320" y="28" text-anchor="end" fill="#6B6E68">REPS / HCS HAMBURG</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="row">
+      <p class="lead">Trucks waste energy every time they slow down. REPS plates sit inside the road, catch that energy and return it as clean electricity — <b style="color:#1D1E1C;font-weight:500">on land you already own.</b></p>
+      <div class="chips" style="align-content:flex-start"><span class="chip">0 m² extra land</span><span class="chip">90%+ efficiency</span><span class="chip">Day &amp; night</span><span class="chip">Any weather</span><span class="chip">20+ yr life</span></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;align-items:flex-start"><span class="btn bk">Free potential analysis <i></i></span><span class="btn ol">How it works</span></div>
+    </div>
+  </section>
+
+  <div class="tick"><span><b>~10 GWh</b> a year at one port</span><span>·</span><span><em>13,000×</em> piezo</span><span>·</span><span><b>229</b> plates at HCS</span><span>·</span><span>payback <b>&lt; 4 yrs</b></span><span>·</span><span><b>$23.6M</b> raised</span></div>
+
+  <section class="sec">
+    <div class="shead"><div class="mono gd">(01) How it works</div><h2 class="h2">From a <span class="ser">brake</span><br>to a battery in five moves.</h2><p class="body">Scroll pins this row. Each drawing animates as it becomes active — lines draw in, triggers press, the shaft spins up.</p></div>
+    <div class="steps">
+      <div class="stp"><div class="mono mu">01</div><div class="fig"><svg viewBox="0 0 220 200" fill="none" stroke="#1D1E1C" stroke-width="1.5"><path d="M10 120H210"/><path d="M30 120a14 14 0 0 1 28 0M70 120a14 14 0 0 1 28 0M110 120a14 6 0 0 1 28 0M150 120a14 14 0 0 1 28 0"/><path d="M110 120a14 6 0 0 1 28 0" fill="#8DD270"/><circle cx="124" cy="80" r="32"/><circle cx="124" cy="80" r="10" fill="#1D1E1C"/><path d="M124 126v30M116 136h16M116 146h16" /><rect x="116" y="130" width="16" height="30" fill="#F2F3F1"/><path d="M124 30V14M118 20l6-6 6 6" stroke="#E5484D"/></svg></div><h3 class="h3">Impulse capture</h3><p class="body">Axles press 27 trigger pairs on a 12 × 3 m plate.</p><div class="kv mono"><span class="mu">Scales with</span><span>axle load</span></div></div>
+      <div class="stp on"><div class="mono mu">02 · active</div><div class="fig"><svg viewBox="0 0 220 200" fill="none" stroke="#F2F3F1" stroke-width="1.5"><path d="M10 70H120"/><rect x="40" y="70" width="14" height="30"/><rect x="80" y="70" width="14" height="30"/><path d="M47 100V140H200V60" stroke="#8DD270" stroke-width="4"/><path d="M87 100V140" stroke="#8DD270" stroke-width="4"/><rect x="170" y="30" width="50" height="40" fill="#232522"/><circle cx="140" cy="140" r="6" fill="#8DD270" stroke="none"/><path d="M110 156h60" stroke-dasharray="3 4" stroke="#9A9D96"/><text x="110" y="176" fill="#9A9D96" stroke="none" font-family="Geist Mono" font-size="10">CLOSED LOOP</text></svg></div><h3 class="h3">Hydraulic transmission</h3><p class="body">Sealed lines carry each impulse to a module off the road.</p><div class="kv mono"><span class="mu">Under traffic</span><span>no electronics</span></div></div>
+      <div class="stp"><div class="mono mu">03</div><div class="fig"><svg viewBox="0 0 220 200" fill="none" stroke="#1D1E1C" stroke-width="1.5"><path d="M20 100H200" stroke-width="3"/><rect x="14" y="84" width="16" height="32" fill="#E3E5E0"/><rect x="190" y="84" width="16" height="32" fill="#E3E5E0"/><ellipse cx="70" cy="100" rx="8" ry="34" fill="#8DD270"/><ellipse cx="100" cy="100" rx="8" ry="42" fill="#8DD270"/><ellipse cx="130" cy="100" rx="8" ry="42" fill="#8DD270"/><ellipse cx="160" cy="100" rx="8" ry="34" fill="#8DD270"/><path d="M22 70v-8M22 138v8M198 70v-8M198 138v8" stroke-dasharray="2 3"/><text x="40" y="180" fill="#6B6E68" stroke="none" font-family="Geist Mono" font-size="10">0 MM CONTACT</text></svg></div><h3 class="h3">Frictionless conversion</h3><p class="body">Magnetic bearings levitate the shaft. No wear, 90%+ efficiency.</p><div class="kv mono"><span class="mu">vs dynamo</span><span>254×</span></div></div>
+      <div class="stp"><div class="mono mu">04</div><div class="fig"><svg viewBox="0 0 220 200" fill="none" stroke="#1D1E1C" stroke-width="1.5"><rect x="30" y="50" width="40" height="110"/><rect x="90" y="50" width="40" height="110"/><rect x="150" y="50" width="40" height="110"/><rect x="34" y="96" width="32" height="60" fill="#8DD270" stroke="none"/><rect x="94" y="70" width="32" height="86" fill="#8DD270" stroke="none"/><rect x="154" y="120" width="32" height="36" fill="#8DD270" stroke="none"/><path d="M42 50v-8h16v8M102 50v-8h16v8M162 50v-8h16v8"/></svg></div><h3 class="h3">Energy storage</h3><p class="body">Batteries smooth rush hour and quiet nights.</p><div class="kv mono"><span class="mu">Weather</span><span>independent</span></div></div>
+      <div class="stp"><div class="mono mu">05</div><div class="fig"><svg viewBox="0 0 220 200" fill="none" stroke="#1D1E1C" stroke-width="1.5"><path d="M10 170H210"/><path d="M50 170V50h34"/><rect x="78" y="44" width="34" height="10" fill="#8DD270"/><rect x="120" y="100" width="34" height="70" rx="6"/><rect x="128" y="112" width="18" height="22" fill="#8DD270"/><path d="M180 170l14-90 14 90M184 140h20M188 110h12" /><path d="M10 160H180" stroke="#8DD270" stroke-width="3"/></svg></div><h3 class="h3">On-demand usage</h3><p class="body">EV charging, lighting, machinery — or the grid.</p><div class="kv mono"><span class="mu">Result</span><span>revenue / offset</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="shead"><div class="mono gd">(02) Case file · HCS Hamburg</div><h2 class="h2">Not a pilot render.<br><span class="ser">A working</span> power plant.</h2><p class="body">Hamburg Container Service runs a 125,000 m² terminal with ~1,000 truck movements a day — and the world’s first REPS Road Power Plant.</p></div>
+    <div class="case">
+      <div class="ph"><img data-src="C:69b12a9b451310a84fa57606_20251124-REPS-Strassenkraftwerk-patricklux.de-164.avif" alt=""><span class="stamp mono">Live since Nov 2025 · HCS gate</span></div>
+      <div class="tbl">
+        <div class="mono mu" style="display:flex;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid #1D1E1C"><span>Metric</span><span>Full rollout · projected</span></div>
+        <div class="tr"><span class="body">Plates</span><b>229</b></div>
+        <div class="tr"><span class="body">Clean electricity</span><b>~10<small>GWh/yr</small></b></div>
+        <div class="tr"><span class="body">Port-traffic CO₂</span><b>−10<small>%</small></b></div>
+        <div class="tr"><span class="body">Payback</span><b>&lt;4<small>years</small></b></div>
+        <div class="tr"><span class="body">Client target</span><b style="font-size:28px">Climate-neutral 2040</b></div>
+        <div class="thumbs"><img data-src="C:69b12a9bddc13be989f0a868_20251124-REPS-Strassenkraftwerk-patricklux.de-173.avif" alt=""><img data-src="C:69b12a9a441b77eb26720f49_20251124-REPS-Strassenkraftwerk-patricklux.de-64.avif" alt=""><img data-src="C:69b12a9d31bfb371adaf3d0a_20251124-REPS-Strassenkraftwerk-patricklux.de-57.avif" alt=""><img data-src="C:69b12a9a7c60105155764ab7_20251124-REPS-Strassenkraftwerk-patricklux.de-38.avif" alt=""></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="shead"><div class="mono gd">(03) ESG, in numbers</div><h2 class="h2">Impact your auditors<br>can <span class="ser">actually</span> check.</h2><p class="body">Built for sustainability reports: metered output, documented lifetime, no land use, no new sealed surface.</p></div>
+    <div class="esg">
+      <div><div class="L">E</div><div class="mono gd" style="margin-top:14px">Environmental</div><ul><li><span>Extra land required</span><span>0 m²</span></li><li><span>Port-traffic CO₂ (HCS)</span><span>−10%</span></li><li><span>Works at night, in rain</span><span>yes</span></li><li><span>Conversion efficiency</span><span>90%+</span></li></ul></div>
+      <div><div class="L">S</div><div class="mono gd" style="margin-top:14px">Social</div><ul><li><span>Charging for e-trucks on site</span><span>yes</span></li><li><span>Lighting for gates &amp; yards</span><span>yes</span></li><li><span>Charta der Vielfalt</span><span>member</span></li><li><span>Engineered in</span><span>Austria</span></li></ul></div>
+      <div><div class="L">G</div><div class="mono gd" style="margin-top:14px">Governance</div><ul><li><span>Every kWh metered</span><span>yes</span></li><li><span>Design life</span><span>20–25 yrs</span></li><li><span>Inspection</span><span>annual</span></li><li><span>Payback (HCS)</span><span>&lt; 4 yrs</span></li></ul></div>
+    </div>
+  </section>
+
+  <section class="brake">
+    <div><div class="mono" style="color:#8DD270">(04) Try it</div><h2 class="h2" style="margin-top:22px">Hold to brake.<br><span class="ser" style="color:#8DD270">Watch it pay back.</span></h2>
+      <p class="body">Press and hold. A 40-tonne truck decelerates across one plate — the triggers fire, the shaft spins up and the meter fills in real time.</p>
+      <div class="holdb"><span class="c">HOLD</span><span class="mono" style="color:#9A9D96">Space bar works too</span></div></div>
+    <div class="gauge">
+      <svg viewBox="0 0 640 260" fill="none" font-family="Geist Mono" font-size="11">
+        <path d="M40 220a280 280 0 0 1 560 0" stroke="#3A3C38" stroke-width="22" stroke-linecap="round"/>
+        <path d="M40 220a280 280 0 0 1 418 -238" stroke="#8DD270" stroke-width="22" stroke-linecap="round" transform="translate(0 0)"/>
+        <g stroke="#6B6E68"><path d="M40 238v10M180 70l-6-8M320 22v-10M460 70l6-8M600 238v10"/></g>
+        <text x="320" y="180" text-anchor="middle" fill="#F2F3F1" font-family="Instrument Sans" font-size="72" font-weight="500" letter-spacing="-3">6.84</text>
+        <text x="320" y="210" text-anchor="middle" fill="#9A9D96">KWH THIS SESSION</text>
+        <text x="40" y="258" text-anchor="middle" fill="#6B6E68">0</text><text x="600" y="258" text-anchor="middle" fill="#6B6E68">10 KWH</text>
+      </svg>
+      <div class="row mono" style="color:#9A9D96"><div>Speed<b style="color:#F2F3F1;font-family:'Instrument Sans'">12<small style="font-size:13px"> km/h</small></b></div><div>Impulses<b style="color:#F2F3F1;font-family:'Instrument Sans'">216</b></div><div>CO₂ avoided<b style="color:#8DD270;font-family:'Instrument Sans'">2.6<small style="font-size:13px"> kg</small></b></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="mapw">
+      <div class="mapbox"><img data-src="SVG:69a59a0ebf3391420be4857b_map__ger.svg" alt="">
+        <div class="pin big" style="left:44%;top:16%"><i></i><span class="mono">HCS Hamburg · live</span></div>
+        <div class="dotp" style="left:30%;top:36%"></div><div class="dotp" style="left:58%;top:30%"></div><div class="dotp" style="left:36%;top:58%"></div><div class="dotp" style="left:62%;top:52%"></div><div class="dotp" style="left:48%;top:70%"></div><div class="dotp" style="left:54%;top:84%"></div><div class="dotp" style="left:24%;top:48%"></div><div class="dotp" style="left:70%;top:66%"></div><div class="dotp" style="left:40%;top:44%"></div>
+        <div class="mono mu" style="position:absolute;left:20px;bottom:18px">● Live · ● Potential sites (illustrative)</div></div>
+      <div><div class="mono gd">(05) Where it works</div><h2 class="h2" style="margin:22px 0 40px">Wherever heavy traffic <span class="ser">slows down.</span></h2>
+        <div class="loc">
+          <div><span class="mono">01</span><div><h4>Ports &amp; terminals</h4><p class="body">Gates, ramps, weigh stations — heavy trucks, repeated braking.</p></div></div>
+          <div><span class="mono">02</span><div><h4>Highways</h4><p class="body">Toll plazas, exit ramps, service areas and interchanges.</p></div></div>
+          <div><span class="mono">03</span><div><h4>Logistics hubs</h4><p class="body">Entrance lanes, yard roads, loading and staging zones.</p></div></div>
+        </div>
+        <p class="mono mu" style="margin-top:22px">1,000+ potential sites worldwide</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="shead"><div class="mono gd">(06) Team</div><h2 class="h2">Engineers, not <span class="ser">slideware.</span></h2><p class="body">Backed by a $23.6M round in May 2026 and partners from Climate-KIC to EWOR.</p></div>
+    <div class="tg">
+      <div><img data-src="C:6a15c9c5876beb93bf3458a8_Team_picture.jpeg" alt="" style="object-position:50% 70%"><b>The REPS team</b><span class="mono mu">Austria</span></div>
+      <div><img data-src="C9:69b198e08b9f915f85b75eb5_IMG_6621.JPG" alt=""><b>Alfons Huber</b><span class="mono mu">Founder &amp; CEO</span></div>
+      <div><img data-src="C9:6a33d9953b99fca6b6885de8_Laurabearbeitet.png" alt=""><b>Laura Wiedmann</b><span class="mono mu">COO</span></div>
+      <div><img data-src="C9:69b1762a081ece215160dded_A6700881-2.jpg" alt=""><b>Sai Kumar Konduru</b><span class="mono mu">CTO</span></div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div><div class="mono">(07) Free potential analysis</div><h2 class="h1" style="margin-top:22px">REPS on<br>my <span class="ser">roads.</span></h2><p class="lead" style="color:#10140E;margin-top:28px;width:440px">Tell us where traffic slows. We’ll come back with plates, kWh and payback for your site.</p></div>
+    <div class="form">
+      <div class="fld"><div class="mono mu">Site type</div><div class="seg"><span class="on">Port / terminal</span><span>Highway</span><span>Logistics hub</span><span>Other</span></div></div>
+      <div class="fld"><div class="mono mu">Heavy vehicles per day</div><div class="v"><span>~1,000</span><span class="mono mu">est.</span></div></div>
+      <div class="fld"><div class="mono mu">Where do they slow down?</div><div class="v"><span style="color:#9A9D96">Gate, ramp, weighbridge…</span></div></div>
+      <div class="fld"><div class="mono mu">Work email</div><div class="v"><span style="color:#9A9D96">name@company.com</span></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:22px"><span class="mono mu">Reply within 2 working days</span><span class="btn bk">Send request <i></i></span></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="fgrid">
+      <div><span class="logo" data-logo></span><p class="body" style="margin-top:16px;width:300px">Turning roads into power plants.</p></div>
+      <div><p class="mono gd">Company</p><a>Technology</a><a>Impact</a><a>Team</a><a>Career</a><a>News</a></div>
+      <div><p class="mono gd">Follow</p><a>LinkedIn</a><a>Instagram</a></div>
+      <div><p class="mono gd">Legal</p><a>Imprint</a><a>Privacy</a><a>Culture &amp; Quality Policy</a></div>
+    </div>
+    <div class="fbig">brake <span class="ser">→</span> power</div>
+    <div class="fbase mono mu"><span>© 2026 REPS GmbH</span><span>*Ledger is an on-page illustration · Concept for REPS by David Adebayo</span></div>
+  </footer>
+</div>
+
+<!-- ======================= MOBILE ======================= -->
+<div class="page m">
+  <header class="nav"><span class="logo" data-logo></span><span class="btn bk" style="height:40px;padding:0 14px;font-size:13px">Menu</span></header>
+  <section class="px" style="padding-top:30px">
+    <div class="mono gd">● Road Energy Plate System</div>
+    <h1 class="h1" style="margin-top:16px">Every brake is a <span class="ser" style="color:#3E7A28;font-size:66px">power plant.</span></h1>
+    <div class="ledger" style="width:auto;margin-top:22px"><div class="mono mu">Ledger · since you arrived</div><div class="n">0.418<small>kWh</small></div><div class="bar"><i></i></div></div>
+  </section>
+  <div class="draw" style="margin-top:22px"><svg viewBox="300 100 620 300" fill="none"><path d="M0 300H1344" stroke="#1D1E1C" stroke-width="2"/><rect x="360" y="300" width="520" height="22" fill="#E3E5E0" stroke="#1D1E1C" stroke-width="1.5"/><g stroke="#1D1E1C" stroke-width="1.6" fill="#F7F8F6"><rect x="250" y="168" width="440" height="100" rx="3"/><path d="M700 268V176c0-8 6-14 14-14h46c10 0 16 4 20 12l20 42c2 4 3 8 3 13v39z"/><rect x="250" y="268" width="555" height="10" fill="#1D1E1C"/></g><g stroke="#1D1E1C" stroke-width="1.6" fill="#F2F3F1"><circle cx="548" cy="280" r="20"/><circle cx="592" cy="280" r="20"/><circle cx="776" cy="280" r="20"/></g><path d="M550 338V360H900" stroke="#8DD270" stroke-width="4"/><g fill="#8DD270" stroke="#1D1E1C" stroke-width="1.5"><path d="M541 300a7 3 0 0 1 14 0M560 300a7 3 0 0 1 14 0M769 300a7 3 0 0 1 14 0"/></g></svg></div>
+  <section class="px" style="padding-top:22px">
+    <p class="lead" style="font-size:17px">REPS plates sit inside the road, catch the energy trucks waste when braking and return it as clean electricity.</p>
+    <span class="btn bk" style="margin-top:20px">Free potential analysis <i></i></span>
+  </section>
+  <div class="tick" style="font-size:28px;padding:18px 20px;margin-top:40px"><span><b>~10 GWh</b>/yr</span><span><em>13,000×</em> piezo</span></div>
+  <section class="px" style="padding-top:70px">
+    <div class="mono gd">(01) How it works</div><h2 class="h2" style="margin:16px 0 24px">From a <span class="ser">brake</span> to a battery.</h2>
+    <div class="steps" style="grid-template-columns:1fr"><div class="stp on"><div class="mono mu">02 / 05 · swipe</div><div class="fig"><svg viewBox="0 0 220 200" fill="none" stroke="#F2F3F1" stroke-width="1.5"><path d="M10 70H120"/><rect x="40" y="70" width="14" height="30"/><rect x="80" y="70" width="14" height="30"/><path d="M47 100V140H200V60" stroke="#8DD270" stroke-width="4"/><path d="M87 100V140" stroke="#8DD270" stroke-width="4"/><rect x="170" y="30" width="50" height="40" fill="#232522"/></svg></div><h3 class="h3">Hydraulic transmission</h3><p class="body">Sealed lines carry each impulse to a module off the road.</p></div></div>
+  </section>
+  <section class="cta" style="grid-template-columns:1fr;padding:70px 20px 60px;margin-top:70px"><h2 class="h1" style="font-size:72px">REPS on my <span class="ser">roads.</span></h2><span class="btn bk" style="margin-top:10px">Start my analysis <i></i></span></section>
+</div>

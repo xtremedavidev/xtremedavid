@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>REPS — The road is the power plant · Concept by David Adebayo</title>
+<meta name="theme-color" content="#070807" />
+<link rel="stylesheet" href="./a.css" />
+</head>
+<body>
+<div class="root" data-root>
+
+  <!-- preloader -->
+  <div class="loader" data-loader>
+    <div class="loader__mark">
+      <svg viewBox="0 0 24 42" aria-hidden="true"><path data-bolt d="M15 1 2 24h9l-3 17L22 16h-9l2-15z" /></svg>
+    </div>
+    <div class="loader__row"><span class="mono">REPS · Road Energy Plate System</span><span class="mono" data-pct>000</span></div>
+    <div class="loader__bar"><i data-bar></i></div>
+  </div>
+
+  <canvas class="gl" data-gl aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="nav" data-nav>
+    <a class="nav__logo" href="#top" aria-label="REPS home" data-logo></a>
+    <nav class="nav__links">
+      <a href="#technology">Technology</a><a href="#impact">Impact</a><a href="#locations">Locations</a><a href="#calculator">Potential</a><a href="#team">Team</a>
+    </nav>
+    <div class="nav__right">
+      <span class="lang mono"><b>EN</b> / DE</span>
+      <a class="btn btn--green btn--sm" href="#contact" data-magnetic>REPS on my roads <span class="arr">→</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 00 HERO -->
+    <section class="hero" data-hero>
+      <div class="hero__meta mono"><span>53.5398° N, 9.9381° E</span><span>HCS · Port of Hamburg</span></div>
+      <h1 class="h1" data-h1><span>The road is</span><span>the power plant.</span></h1>
+      <div class="hero__foot">
+        <p class="lead" data-rise>Every braking truck throws energy away as heat. REPS catches it inside the road you already have — and turns it into clean power on site.</p>
+        <div class="hero__ctas" data-rise>
+          <a class="btn btn--green" href="#contact" data-magnetic>Get a free potential analysis <span class="arr">→</span></a>
+          <a class="btn btn--ghost" href="#technology">See how it works</a>
+        </div>
+      </div>
+      <aside class="live glass" data-rise>
+        <div class="live__top mono"><i class="dot"></i>Live simulation · 1 truck · 1 plate</div>
+        <div class="live__row">
+          <div><div class="mono dim">Trigger impulses</div><div class="live__num" data-impulses>0</div></div>
+          <div><div class="mono dim">Harvested</div><div class="live__num"><span data-kwh>0.00</span><small>kWh</small></div></div>
+        </div>
+        <button class="hold" data-hold aria-label="Hold to brake">
+          <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" class="hold__bg"/><circle cx="22" cy="22" r="20" class="hold__ring" data-hold-ring/></svg>
+          <span>Hold to brake</span>
+        </button>
+      </aside>
+      <div class="scrollcue mono" data-rise><span>Scroll</span><i></i></div>
+    </section>
+
+    <!-- 01–06 JOURNEY (drives the WebGL camera) -->
+    <section class="journey" id="technology" data-journey>
+      <div class="journey__sticky">
+        <div class="rail" aria-hidden="true">
+          <i data-rail-fill></i>
+          <ol class="mono"><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>∞</li></ol>
+        </div>
+        <article class="step" data-step="1">
+          <div class="step__k mono">01 — Impulse capture</div>
+          <h2 class="h2">27 trigger pairs feel every axle.</h2>
+          <p class="body">As a vehicle brakes across the 12 × 3 m REPS plate, hydraulic cylinders under each trigger turn its momentum into vertical force. The heavier the axle, the more it gives back.</p>
+          <dl class="spec mono"><div><dt>Plate</dt><dd>12 m × 3 m</dd></div><div><dt>Road slabs</dt><dd>9 × 3 pairs</dd></div><div><dt>Output</dt><dd>scales with axle load</dd></div></dl>
+        </article>
+        <article class="step" data-step="2">
+          <div class="step__k mono">02 — Hydraulic transmission</div>
+          <h2 class="h2">Force travels. Fragile parts don’t.</h2>
+          <p class="body">Each impulse moves through sealed, closed-loop lines to a central Energy Converter Module beside the road — so the sensitive hardware never sits under traffic.</p>
+          <dl class="spec mono"><div><dt>Lines</dt><dd>closed loop, sealed</dd></div><div><dt>Maintenance</dt><dd>off the carriageway</dd></div></dl>
+        </article>
+        <article class="step" data-step="3">
+          <div class="step__k mono">03 — Frictionless conversion</div>
+          <h2 class="h2">A shaft that floats on magnets.</h2>
+          <p class="body">Permanent magnetic bearings levitate the generator shaft. No contact, no wear — and more than 90% of the captured energy converted to electricity.</p>
+          <dl class="spec mono"><div><dt>Efficiency</dt><dd>90%+</dd></div><div><dt>vs dynamo</dt><dd>254×</dd></div><div><dt>vs piezo</dt><dd>13,000×</dd></div></dl>
+        </article>
+        <article class="step" data-step="4">
+          <div class="step__k mono">04 — Energy storage</div>
+          <h2 class="h2">Traffic is spiky. Power shouldn’t be.</h2>
+          <p class="body">On-site battery banks buffer rush hours and quiet nights, then condition the power for local use or grid feed-in.</p>
+          <dl class="spec mono"><div><dt>Buffer</dt><dd>on-site battery bank</dd></div><div><dt>Weather</dt><dd>independent · day &amp; night</dd></div></dl>
+        </article>
+        <article class="step" data-step="5">
+          <div class="step__k mono">05 — On-demand usage</div>
+          <h2 class="h2">Light the gate. Charge the fleet.</h2>
+          <p class="body">Use it where it’s made — EV chargers, terminal lighting, machinery, facilities — or sell it to the grid. Either way it offsets cost or creates revenue.</p>
+          <dl class="spec mono"><div><dt>Land needed</dt><dd>0 m²</dd></div><div><dt>Lifetime</dt><dd>20–25 years</dd></div></dl>
+        </article>
+        <article class="step step--final" data-step="6">
+          <div class="step__k mono">One plate. Every road.</div>
+          <h2 class="h2 h2--xl">Every braking event is a power source.</h2>
+          <p class="body">Toll plazas, exit ramps, port gates, warehouse lanes. Wherever traffic slows, the energy is already there — 1,000+ sites are waiting.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTENT SHEET (slides over the canvas) -->
+    <div class="sheet" data-sheet>
+
+      <section class="impact" id="impact">
+        <div class="sec__head">
+          <div class="mono k">(01) Impact · Port of Hamburg</div>
+          <h2 class="h2" data-lines><span>The world’s first</span><span>Road Power Plant</span><span class="dim">is already working.</span></h2>
+          <p class="body">Installed at Hamburg Container Service (HCS): a 125,000 m² terminal with around 1,000 truck movements a day, aiming for climate neutrality by 2040.</p>
+        </div>
+        <figure class="impact__photo" data-clip>
+          <img src="/concepts/reps/plate-164.jpg" alt="An electric truck crossing the REPS plate at Hamburg Container Service" loading="lazy" data-parallax />
+          <figcaption class="mono"><span>HCS · November 2025</span><span>First REPS plate in live operation</span></figcaption>
+        </figure>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi__n"><span data-count="229">0</span></div><div class="mono dim">plates in the full HCS rollout</div></div>
+          <div class="kpi"><div class="kpi__n">~<span data-count="10">0</span><small>GWh/yr</small></div><div class="mono dim">projected clean electricity</div></div>
+          <div class="kpi"><div class="kpi__n">~<span data-count="10">0</span><small>%</small></div><div class="mono dim">less CO₂ from port traffic</div></div>
+          <div class="kpi"><div class="kpi__n">&lt;<span data-count="4">0</span><small>yrs</small></div><div class="mono dim">projected payback</div></div>
+        </div>
+        <div class="reel" data-reel>
+          <div class="reel__track" data-reel-track>
+            <figure><img src="/concepts/reps/plate-173.jpg" alt="Opening of the REPS plate at the HCS terminal" loading="lazy"/><figcaption class="mono">Opening day at HCS</figcaption></figure>
+            <figure><img src="/concepts/reps/plate-57.jpg" alt="Guests at the REPS launch event" loading="lazy"/><figcaption class="mono">Partners &amp; port authority</figcaption></figure>
+            <figure><img src="/concepts/reps/plate-64.jpg" alt="Alfons Huber speaking at the launch" loading="lazy"/><figcaption class="mono">Alfons Huber, Founder &amp; CEO</figcaption></figure>
+            <figure><img src="/concepts/reps/plate-38.jpg" alt="Guests at the launch with REPS bolt lamps" loading="lazy"/><figcaption class="mono">Hamburg, Nov 2025</figcaption></figure>
+            <figure><img src="/concepts/reps/hh.jpg" alt="Container cranes at the Port of Hamburg" loading="lazy"/><figcaption class="mono">Port of Hamburg</figcaption></figure>
+            <figure><img src="/concepts/reps/plate-20.jpg" alt="HCS team and guests in conversation" loading="lazy"/><figcaption class="mono">HCS × REPS</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="compare" id="glance">
+        <div class="sec__head">
+          <div class="mono k">(02) At a glance</div>
+          <h2 class="h2" data-lines><span>Not a little better.</span><span class="dim">Orders of magnitude.</span></h2>
+        </div>
+        <div class="bars" data-bars>
+          <div class="bar"><div class="bar__l"><b>REPS</b><span class="mono dim">hydraulic + magnetic levitation</span></div><div class="bar__t"><i data-w="1" class="is-green"></i></div><div class="bar__v mono">13,000×</div></div>
+          <div class="bar"><div class="bar__l"><b>Dynamo systems</b><span class="mono dim">mechanical contact</span></div><div class="bar__t"><i data-w="0.416"></i></div><div class="bar__v mono">51×</div></div>
+          <div class="bar"><div class="bar__l"><b>Piezo tiles</b><span class="mono dim">baseline</span></div><div class="bar__t"><i data-w="0.02"></i></div><div class="bar__v mono">1×</div></div>
+          <p class="mono dim bars__note">Relative energy recovered per event, log scale. Source: REPS (254× dynamo, 13,000× piezo).</p>
+        </div>
+        <div class="glance">
+          <div><div class="glance__n">90<small>%+</small></div><p>conversion efficiency</p></div>
+          <div><div class="glance__n">0<small>m²</small></div><p>extra land — it lives in the road</p></div>
+          <div><div class="glance__n">20<small>+ yrs</small></div><p>design life, annual inspection</p></div>
+          <div><div class="glance__n">1,000<small>+</small></div><p>potential sites worldwide</p></div>
+        </div>
+      </section>
+
+      <section class="locs" id="locations" data-locs>
+        <div class="sec__head">
+          <div class="mono k">(03) Where it works</div>
+          <h2 class="h2" data-lines><span>Wherever heavy traffic</span><span class="dim">slows down.</span></h2>
+        </div>
+        <ul class="locs__list">
+          <li data-loc="/concepts/reps/loc-ports.jpg"><span class="mono">01</span><h3>Ports &amp; terminals</h3><p>Gates, entry and exit lanes, ramps, weigh stations. Heavy trucks, repeated braking, predictable patterns.</p><span class="arr">↗</span></li>
+          <li data-loc="/concepts/reps/loc-highways.jpg"><span class="mono">02</span><h3>Highways</h3><p>Toll stations, exit ramps, service areas and interchanges — continuous flow with recurring deceleration.</p><span class="arr">↗</span></li>
+          <li data-loc="/concepts/reps/loc-hubs.jpg"><span class="mono">03</span><h3>Logistics hubs</h3><p>Entrance lanes, internal roads, loading and staging zones. Frequent trucks, constant stop-and-go.</p><span class="arr">↗</span></li>
+        </ul>
+        <div class="locs__float" data-loc-float><img alt="" data-loc-img /></div>
+      </section>
+
+      <section class="calc" id="calculator">
+        <div class="calc__copy">
+          <div class="mono k">(04) Potential</div>
+          <h2 class="h2" data-lines><span>What would</span><span>your road</span><span class="dim">give back?</span></h2>
+          <p class="body">Move the sliders. We scale from the Hamburg projection — 229 plates, ~1,000 trucks a day, ~10 GWh a year — so you can see the order of magnitude before we run a real analysis.</p>
+        </div>
+        <div class="calc__panel glass">
+          <label class="slider"><span class="mono">Heavy vehicles per day</span><output data-o-trucks>1,000</output><input type="range" min="100" max="5000" step="50" value="1000" data-in-trucks /></label>
+          <label class="slider"><span class="mono">REPS plates</span><output data-o-plates>24</output><input type="range" min="1" max="229" step="1" value="24" data-in-plates /></label>
+          <div class="calc__out">
+            <div><div class="mono dim">Clean electricity</div><div class="calc__n"><span data-r-mwh>0</span><small>MWh/yr</small></div></div>
+            <div><div class="mono dim">CO₂ avoided*</div><div class="calc__n"><span data-r-co2>0</span><small>t/yr</small></div></div>
+            <div><div class="mono dim">Truck charges (400 kWh)</div><div class="calc__n"><span data-r-ev>0</span><small>/yr</small></div></div>
+            <div><div class="mono dim">Households powered</div><div class="calc__n"><span data-r-home>0</span></div></div>
+          </div>
+          <a class="btn btn--green btn--wide" href="#contact" data-magnetic>Get the real numbers for my site <span class="arr">→</span></a>
+          <p class="mono dim fine">*Illustrative. Linear scale of the HCS projection; 380 g CO₂/kWh grid mix; 3,500 kWh per household.</p>
+        </div>
+      </section>
+
+      <section class="team" id="team">
+        <div class="sec__head">
+          <div class="mono k">(05) Team</div>
+          <h2 class="h2" data-lines><span>Engineers from Austria.</span><span class="dim">Proven in Hamburg.</span></h2>
+        </div>
+        <figure class="team__photo" data-clip><img src="/concepts/reps/team.jpg" alt="The REPS team on a rooftop in the Austrian Alps" loading="lazy" data-parallax /></figure>
+        <div class="people">
+          <div class="person"><img src="/concepts/reps/person-alfons-huber.jpg" alt="Alfons Huber" loading="lazy"/><b>Alfons Huber</b><span class="mono dim">Founder &amp; CEO</span></div>
+          <div class="person"><img src="/concepts/reps/person-laura-wiedmann.jpg" alt="Laura Wiedmann" loading="lazy"/><b>Laura Wiedmann</b><span class="mono dim">COO</span></div>
+          <div class="person"><img src="/concepts/reps/person-sai-kumar-konduru.jpg" alt="Sai Kumar Konduru" loading="lazy"/><b>Sai Kumar Konduru</b><span class="mono dim">CTO</span></div>
+          <div class="values">
+            <p class="mono k">What we believe</p>
+            <ol><li>Innovation through action</li><li>Ownership with purpose</li><li>Human, honest, driven</li><li>Team first, always</li></ol>
+            <a class="link" href="#">Join the team — open roles ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="press" id="news">
+        <div class="press__news">
+          <div class="mono k">(06) News · 22 May 2026</div>
+          <h3 class="h3">REPS raises <span class="green">$23.6M</span> to turn braking traffic into clean power at scale.</h3>
+          <a class="link" href="#">Read the announcement ↗</a>
+        </div>
+        <div class="marquee" aria-label="As featured in">
+          <div class="marquee__track" data-marquee>
+            <img src="/concepts/reps/press-forbes.png" alt="Forbes"/><img src="/concepts/reps/press-ap.png" alt="Associated Press"/><img src="/concepts/reps/press-bi.svg" alt="Business Insider"/><img src="/concepts/reps/press-techeu.svg" alt="Tech.eu"/><img src="/concepts/reps/press-climatekic.png" alt="Climate-KIC"/><img src="/concepts/reps/press-ntt.png" alt="NTT"/>
+            <img src="/concepts/reps/press-forbes.png" alt=""/><img src="/concepts/reps/press-ap.png" alt=""/><img src="/concepts/reps/press-bi.svg" alt=""/><img src="/concepts/reps/press-techeu.svg" alt=""/><img src="/concepts/reps/press-climatekic.png" alt=""/><img src="/concepts/reps/press-ntt.png" alt=""/>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="contact">
+        <div class="cta__glow" aria-hidden="true"></div>
+        <div class="mono k">(07) Free potential analysis</div>
+        <h2 class="cta__h" data-lines><span>REPS on</span><span>my roads.</span></h2>
+        <p class="body">Tell us where traffic slows on your site. We’ll map the plates, the energy and the payback — free.</p>
+        <a class="btn btn--green btn--xl" href="#" data-magnetic>Start my analysis <span class="arr">→</span></a>
+      </section>
+
+      <footer class="foot">
+        <div class="foot__mark" data-foot-mark></div>
+        <div class="foot__cols">
+          <div><p class="mono k">REPS GmbH</p><p class="dim">Turning roads into power plants.</p></div>
+          <div><p class="mono k">Company</p><a href="#technology">Technology</a><a href="#impact">Impact</a><a href="#team">Team</a><a href="#">Career</a><a href="#news">News</a></div>
+          <div><p class="mono k">Follow</p><a href="#">LinkedIn</a><a href="#">Instagram</a></div>
+          <div><p class="mono k">Legal</p><a href="#">Imprint</a><a href="#">Privacy</a><a href="#">Culture &amp; Quality Policy</a></div>
+        </div>
+        <div class="foot__base mono dim"><span>© 2026 REPS GmbH</span><span>Concept for REPS by David Adebayo — not the live site</span></div>
+      </footer>
+    </div>
+  </main>
+
+  <div class="cursor" data-cursor aria-hidden="true"></div>
+</div>
+<script src="./a.js"></script>
+</body>
+</html>

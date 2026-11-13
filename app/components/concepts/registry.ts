@@ -8,4 +8,6 @@ export const registry: Record<string, ComponentType> = {
   unum: dynamic(() => import("./unum/Unum")),
   truerights: dynamic(() => import("./truerights/TrueRights")),
   "truerights-light": dynamic(() => import("./truerights-light/TrueRightsLight")),
+  reps: dynamic(() => import("./reps/dark/RepsDark")),
+  "reps-light": dynamic(() => import("./reps/light/RepsLight")),
 };

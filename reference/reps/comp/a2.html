@@ -1,0 +1,480 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1a1a1a}
+.page{background:#070807;color:#EDEFEA;font-family:"Host Grotesk",sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;position:relative}
+.d{width:1440px}.m{width:390px}
+.mono{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.dim{color:rgba(237,239,234,.58)}.g{color:#8DD270}
+.btn{display:inline-flex;align-items:center;gap:12px;height:54px;padding:0 26px;border-radius:999px;font-size:15px;font-weight:500;letter-spacing:-.01em;white-space:nowrap}
+.btn-g{background:#8DD270;color:#0b0d0a}.btn-o{border:1px solid rgba(237,239,234,.16);color:#EDEFEA;background:rgba(14,16,14,.35)}
+.btn-sm{height:42px;padding:0 18px;font-size:14px}
+.glass{background:rgba(14,16,14,.55);border:1px solid rgba(237,239,234,.14)}
+.frame{position:relative;overflow:hidden}
+.bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.nav{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:22px 56px;z-index:5}
+.logo{width:96px;color:#EDEFEA;display:block}.logo svg{width:100%;height:auto;display:block}
+.pill{display:flex;gap:4px;padding:5px;border-radius:999px;background:rgba(14,16,14,.5);border:1px solid rgba(237,239,234,.12)}
+.pill span{padding:9px 16px;border-radius:999px;font-size:14px;color:rgba(237,239,234,.62)}
+.pill span.on{background:rgba(237,239,234,.09);color:#EDEFEA}
+.navr{display:flex;align-items:center;gap:22px}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,7,.6) 0%,rgba(7,8,7,0) 24%,rgba(7,8,7,0) 52%,rgba(7,8,7,.92) 100%)}
+.shadeL{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,8,7,.85) 0%,rgba(7,8,7,.35) 42%,rgba(7,8,7,0) 70%)}
+.h1{font-weight:400;font-size:148px;line-height:.9;letter-spacing:-.055em}
+.h2{font-weight:400;font-size:72px;line-height:.98;letter-spacing:-.045em}
+.h3{font-weight:400;font-size:44px;line-height:1.04;letter-spacing:-.035em}
+.body{font-size:17px;line-height:1.55;color:rgba(237,239,234,.62)}
+/* hero */
+.hero{height:900px}
+.hero .meta{position:absolute;left:56px;top:112px;display:flex;flex-direction:column;gap:6px}
+.hero .copy{position:absolute;left:56px;bottom:56px;z-index:3}
+.hero .h1 .l2{padding-left:132px;display:block}
+.hero .foot{display:flex;align-items:flex-end;gap:48px;margin-top:34px}
+.hero .foot .body{width:420px}
+.live{position:absolute;right:56px;bottom:56px;width:330px;border-radius:20px;padding:18px 18px 14px;z-index:3}
+.live .top{display:flex;align-items:center;gap:10px;margin-bottom:16px;color:rgba(237,239,234,.62)}
+.dot{width:7px;height:7px;border-radius:50%;background:#B6FF8E;box-shadow:0 0 12px #B6FF8E}
+.live .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-bottom:14px;border-bottom:1px solid rgba(237,239,234,.12)}
+.live .n{font-size:34px;letter-spacing:-.04em;margin-top:6px}.live .n small{font-size:13px;color:rgba(237,239,234,.6);margin-left:4px;letter-spacing:0}
+.hold{display:flex;align-items:center;gap:12px;padding-top:12px;font-size:14px}
+.ring{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(237,239,234,.15);background:rgba(141,210,112,.1);position:relative}
+.ring:after{content:"";position:absolute;inset:-1.5px;border-radius:50%;border:2px solid transparent;border-top-color:#B6FF8E;border-right-color:#B6FF8E;transform:rotate(-20deg)}
+.cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(237,239,234,.55);z-index:3}
+.cue i{width:1px;height:40px;background:linear-gradient(#8DD270,transparent)}
+/* journey */
+.st{height:900px}
+.card{position:absolute;bottom:96px;width:560px;z-index:3}
+.card.l{left:56px}.card.r{right:56px}
+.card .k{color:#8DD270;margin-bottom:20px}
+.card .body{margin-top:22px;width:470px}
+.spec{display:flex;margin-top:28px;border-top:1px solid rgba(237,239,234,.14)}
+.spec div{padding:14px 30px 0 0}
+.spec dt{color:rgba(237,239,234,.55);margin-bottom:6px}
+.spec dd{font-size:13px;font-family:"JetBrains Mono",monospace}
+.rail{position:absolute;left:56px;top:340px;width:1px;height:220px;background:rgba(237,239,234,.14);z-index:3}
+.rail i{position:absolute;left:0;top:0;width:1px;background:#8DD270;box-shadow:0 0 10px #8DD270}
+.rail ol{position:absolute;left:14px;top:-6px;height:232px;display:flex;flex-direction:column;justify-content:space-between;list-style:none;color:rgba(237,239,234,.45)}
+.rail li.on{color:#EDEFEA}
+.card.r ~ .rail{left:56px}
+.fin{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;z-index:3}
+.fin .h2{font-size:112px;line-height:.92;letter-spacing:-.06em}
+.fin .body{width:520px;margin:26px auto 0}
+.tag{position:absolute;padding:8px 12px;border-radius:10px;z-index:3;display:flex;gap:10px;align-items:center}
+/* sheet */
+.sheet{background:#070807;border-radius:28px 28px 0 0;margin-top:-28px;position:relative;z-index:4;padding:0 56px}
+.sec{padding-top:170px}
+.head{display:grid;grid-template-columns:1fr 1.6fr 1fr;gap:32px;margin-bottom:88px}
+.head .k{padding-top:12px;color:#8DD270}
+.head .body{align-self:end}
+.photo{position:relative;height:780px;border-radius:22px;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover}
+.cap{position:absolute;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(237,239,234,.12);margin-top:28px}
+.kpi{padding:26px 24px 0 0}.kpi+.kpi{padding-left:24px;border-left:1px solid rgba(237,239,234,.12)}
+.kn{font-size:84px;letter-spacing:-.055em;line-height:1;margin-bottom:14px}.kn small{font-size:26px;color:rgba(237,239,234,.58);margin-left:6px;letter-spacing:-.01em}
+.reel{display:flex;gap:16px;margin:110px -56px 0;padding-left:56px}
+.reel figure{width:440px;flex:none}.reel img{width:100%;height:330px;object-fit:cover;border-radius:14px}
+.reel figcaption{margin-top:12px;color:rgba(237,239,234,.55)}
+.bars{display:grid;gap:22px;width:1180px;margin-left:auto}
+.bar{display:grid;grid-template-columns:280px 1fr 110px;gap:24px;align-items:center}
+.bar b{display:block;font-weight:500;font-size:19px;letter-spacing:-.02em;margin-bottom:4px}
+.bt{height:56px;border-radius:12px;background:rgba(237,239,234,.04);border:1px solid rgba(237,239,234,.12);overflow:hidden}
+.bt i{display:block;height:100%;border-radius:11px;background:rgba(237,239,234,.22)}
+.bt i.gr{background:linear-gradient(90deg,#8DD270,#B6FF8E);box-shadow:0 0 40px rgba(182,255,142,.35)}
+.bv{font-family:"JetBrains Mono",monospace;font-size:16px;text-align:right}
+.glance{display:grid;grid-template-columns:repeat(4,1fr);margin-top:140px;border-top:1px solid rgba(237,239,234,.12)}
+.glance>div{padding:30px 24px 0 0}.glance>div+div{border-left:1px solid rgba(237,239,234,.12);padding-left:24px}
+.gn{font-size:112px;letter-spacing:-.06em;line-height:.95}.gn small{font-size:34px;color:#8DD270;margin-left:4px;letter-spacing:0}
+.glance p{color:rgba(237,239,234,.58);margin-top:14px;font-size:15px}
+.locs{position:relative}
+.li{display:grid;grid-template-columns:80px 1.3fr 1fr 40px;gap:24px;align-items:center;padding:34px 0;border-top:1px solid rgba(237,239,234,.12)}
+.li:last-child{border-bottom:1px solid rgba(237,239,234,.12)}
+.li h3{font-weight:400;font-size:80px;letter-spacing:-.05em;line-height:1}
+.li p{color:rgba(237,239,234,.58);font-size:16px;line-height:1.5;width:420px}
+.li .a{font-size:26px;color:rgba(237,239,234,.5)}
+.li.on h3,.li.on .a{color:#B6FF8E}.li.on h3{padding-left:14px}
+.float{position:absolute;width:320px;height:400px;border-radius:16px;overflow:hidden;right:420px;top:20px;box-shadow:0 40px 80px rgba(0,0,0,.6)}
+.float img{width:100%;height:100%;object-fit:cover}
+.calc{display:grid;grid-template-columns:1fr 620px;gap:96px}
+.calc .h2{margin:22px 0 28px}
+.panel{border-radius:24px;padding:30px}
+.sl{padding:6px 0 26px}.sl .t{display:flex;justify-content:space-between;align-items:baseline}
+.sl output{font-size:28px;letter-spacing:-.03em}
+.track{height:2px;margin-top:18px;background:rgba(237,239,234,.14);position:relative}
+.track i{position:absolute;left:0;top:0;height:2px;background:#8DD270}
+.track b{position:absolute;top:-11px;width:24px;height:24px;border-radius:50%;background:#EDEFEA;border:6px solid #8DD270;box-shadow:0 0 0 6px rgba(141,210,112,.14)}
+.out{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(237,239,234,.12);border-radius:16px;overflow:hidden;margin:8px 0 24px;border:1px solid rgba(237,239,234,.12)}
+.out>div{background:#0b0c0b;padding:18px 18px 20px}
+.cn{font-size:44px;letter-spacing:-.045em;margin-top:8px}.cn small{font-size:13px;color:rgba(237,239,234,.58);margin-left:6px;letter-spacing:0}
+.wide{width:100%;justify-content:space-between}
+.fine{margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:11px;line-height:1.6;color:rgba(237,239,234,.5)}
+.team{height:720px;border-radius:22px;overflow:hidden}.team img{width:100%;height:100%;object-fit:cover;object-position:50% 65%}
+.people{display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:16px;margin-top:16px}
+.per img{width:100%;height:420px;object-fit:cover;border-radius:14px;margin-bottom:14px;filter:grayscale(1)}
+.per.c img{filter:none}
+.per b{display:block;font-weight:500;font-size:18px;letter-spacing:-.02em;margin-bottom:4px}
+.vals{padding:26px;border-radius:14px;border:1px solid rgba(237,239,234,.12);display:flex;flex-direction:column}
+.vals ol{list-style:none;margin-top:22px}
+.vals li{font-size:27px;letter-spacing:-.03em;padding:12px 0;border-bottom:1px solid rgba(237,239,234,.12)}
+.vals li span{font-family:"JetBrains Mono",monospace;font-size:11px;color:#8DD270;margin-right:14px;vertical-align:middle}
+.link{display:inline-block;margin-top:22px;font-size:15px;border-bottom:1px solid rgba(237,239,234,.25);padding-bottom:4px}
+.news{width:820px}.news .h3{margin-top:22px}
+.mq{display:flex;align-items:center;gap:90px;margin:90px -56px 0;padding:36px 56px;border-top:1px solid rgba(237,239,234,.12);border-bottom:1px solid rgba(237,239,234,.12)}
+.mq img{height:30px;width:auto;filter:grayscale(1) brightness(0) invert(1);opacity:.62}
+.cta{position:relative;text-align:center;padding:180px 0 180px}
+.glow{position:absolute;left:50%;top:58%;width:1100px;height:700px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(141,210,112,.22),transparent)}
+.ctah{position:relative;font-weight:400;font-size:240px;line-height:.84;letter-spacing:-.065em;margin:30px 0 40px}
+.cta .body{position:relative;width:460px;margin:0 auto 40px}
+.btn-xl{height:72px;padding:0 38px;font-size:18px;position:relative}
+.foot{padding:20px 0 28px}
+.fmark{color:rgba(237,239,234,.9)}.fmark svg{width:100%;height:auto;display:block}
+.fcols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;padding:60px 0;border-bottom:1px solid rgba(237,239,234,.12);margin-top:40px}
+.fcols p{margin-bottom:6px}.fcols a{display:block;color:rgba(237,239,234,.58);padding:5px 0;font-size:15px}
+.fbase{display:flex;justify-content:space-between;padding-top:22px}
+
+.shadeR{position:absolute;inset:0;background:linear-gradient(270deg,rgba(7,8,7,.88) 0%,rgba(7,8,7,.4) 42%,rgba(7,8,7,0) 70%)}
+/* proof strip */
+.proof{background:#070807;padding:40px 56px 44px;border-bottom:1px solid rgba(237,239,234,.1)}
+.prow{display:grid;grid-template-columns:220px 1fr;align-items:center;gap:32px;padding:18px 0}
+.prow+.prow{border-top:1px solid rgba(237,239,234,.1)}
+.logos{display:flex;align-items:center;justify-content:space-between;gap:40px}
+.logos img{height:34px;width:auto;opacity:.78}
+.logos.sm img{height:28px;opacity:.6}
+/* tabs */
+.tabs{display:grid;grid-template-columns:380px 1fr;gap:56px}
+.tl .tb{display:flex;align-items:center;justify-content:space-between;padding:26px 0;border-top:1px solid rgba(237,239,234,.12);font-size:40px;letter-spacing:-.04em;color:rgba(237,239,234,.38)}
+.tl .tb:last-of-type{border-bottom:1px solid rgba(237,239,234,.12)}
+.tl .tb.on{color:#EDEFEA}.tl .tb .mono{color:inherit}
+.tl .tb.on .ix{color:#8DD270}
+.tl .prog{height:2px;background:rgba(237,239,234,.12);margin-top:-1px;position:relative}.tl .prog i{position:absolute;left:0;top:0;height:2px;width:62%;background:#8DD270;box-shadow:0 0 10px #8DD270}
+.tp{position:relative;border-radius:22px;overflow:hidden;height:720px}
+.tp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tp .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,7,.05) 30%,rgba(7,8,7,.92) 100%)}
+.tp .in{position:absolute;left:32px;right:32px;bottom:30px}
+.tp .in .h3{width:640px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(237,239,234,.14);border:1px solid rgba(237,239,234,.14);border-radius:16px;overflow:hidden;margin-top:26px}
+.cols>div{background:rgba(10,11,10,.72);padding:18px 18px 22px}
+.cols p{font-size:15px;line-height:1.5;color:#EDEFEA;margin-top:10px}
+.pin2{position:absolute;display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:rgba(7,8,7,.7);border:1px solid rgba(237,239,234,.2)}
+/* beliefs */
+.bel{position:relative;margin:170px -56px 0;height:1040px;overflow:hidden}
+.bel>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.55)}
+.bel .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,7,.85) 0%,rgba(7,8,7,.35) 40%,rgba(7,8,7,.9) 100%),linear-gradient(90deg,rgba(20,40,14,.35),rgba(7,8,7,0))}
+.bel .top{position:absolute;left:56px;right:56px;top:72px;display:flex;justify-content:space-between;align-items:flex-start}
+.bel .rows{position:absolute;left:56px;right:56px;bottom:64px}
+.br{display:grid;grid-template-columns:90px 1fr 380px;align-items:center;gap:24px;padding:20px 0;border-top:1px solid rgba(237,239,234,.16)}
+.br .w{font-size:68px;line-height:1;white-space:nowrap;letter-spacing:-.055em;color:rgba(237,239,234,.2)}
+.br.on .w{color:#EDEFEA}
+.br.on .w b{color:#8DD270;font-weight:400}
+.br p{font-size:16px;line-height:1.5;color:rgba(237,239,234,.5)}
+.br.on p{color:#EDEFEA}
+.br .n{font-family:"JetBrains Mono",monospace;font-size:12px;color:rgba(237,239,234,.45)}
+.br.on .n{color:#8DD270}
+.faces{display:flex;align-items:center}
+.faces img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #070807;margin-left:-10px}
+.faces img:first-child{margin-left:0}
+/* press */
+.press{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.art{border:1px solid rgba(237,239,234,.12);border-radius:20px;overflow:hidden;background:#0b0c0b}
+.art .ti{height:300px;position:relative;background:#111}
+.art .ti img{width:100%;height:100%;object-fit:cover}
+.art .ti .src{position:absolute;left:18px;top:18px;padding:6px 10px;border-radius:999px;background:#EDEFEA;color:#0b0d0a}
+.art .bd{padding:22px 24px 26px}
+.art .bd .h3{font-size:30px;margin:12px 0 12px}
+.art .bd .row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid rgba(237,239,234,.12)}
+.wall{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid rgba(237,239,234,.12);border-radius:16px;margin-top:16px;overflow:hidden}
+.wall>div{height:120px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(237,239,234,.12)}
+.wall>div:last-child{border-right:0}
+.wall img{max-width:62%;max-height:34px;opacity:.75}
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1.25fr;gap:80px}
+.q{border-top:1px solid rgba(237,239,234,.12);padding:24px 0}
+.q:last-child{border-bottom:1px solid rgba(237,239,234,.12)}
+.q .t{display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:24px;letter-spacing:-.025em}
+.q .pm{width:36px;height:36px;border-radius:50%;border:1px solid rgba(237,239,234,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;color:rgba(237,239,234,.7)}
+.q.on .pm{background:#8DD270;border-color:#8DD270;color:#0b0d0a}
+.q .a{font-size:16px;line-height:1.6;color:rgba(237,239,234,.62);margin-top:14px;width:600px}
+.q.on .t{color:#EDEFEA}
+
+/* mobile */
+.m .nav{padding:18px 20px}.m .logo{width:76px}
+.burger{width:42px;height:42px;border-radius:50%;border:1px solid rgba(237,239,234,.16);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:rgba(14,16,14,.5)}
+.burger i{width:16px;height:1.5px;background:#EDEFEA}
+.m .mh{height:844px}
+.m .h1{font-size:62px;line-height:.92}
+.m .px{padding:0 20px}
+.m .h2{font-size:40px}
+.m .mcard{position:absolute;left:16px;right:16px;bottom:24px;border-radius:18px;padding:20px;z-index:3;background:rgba(7,8,7,.66);border:1px solid rgba(237,239,234,.14)}
+.m .body{font-size:15px}
+.m .kn{font-size:52px}.m .kn small{font-size:18px}
+</style>
+
+
+<div class="page d" data-name="Desktop — REPS A · The road is the power plant">
+
+  <section class="frame hero" data-name="01 Hero">
+    <img class="bgimg" data-src="R:hero" alt="">
+    <div class="shade"></div><div class="shadeL"></div>
+    <div class="nav"><span class="logo" data-logo></span>
+      <div class="pill"><span class="on">Technology</span><span>Impact</span><span>Locations</span><span>Potential</span><span>Team</span></div>
+      <div class="navr"><span class="mono dim"><b style="color:#EDEFEA;font-weight:500">EN</b> / DE</span><span class="btn btn-g btn-sm">REPS on my roads →</span></div></div>
+    <div class="meta mono dim"><span>53.5398° N, 9.9381° E</span><span>HCS · Port of Hamburg</span></div>
+    <div class="copy">
+      <h1 class="h1"><span>The road is</span><span class="l2">the power plant.</span></h1>
+      <div class="foot">
+        <p class="body" style="font-size:19px">Every braking truck throws energy away as heat. REPS catches it inside the road you already have — and turns it into clean power on site.</p>
+        <div style="display:flex;gap:10px"><span class="btn btn-g">Get a free potential analysis →</span><span class="btn btn-o">See how it works</span></div>
+      </div>
+    </div>
+    <div class="live glass">
+      <div class="top mono"><i class="dot"></i>Live simulation · 1 truck · 1 plate</div>
+      <div class="row"><div><div class="mono dim">Trigger impulses</div><div class="n">1,284</div></div><div><div class="mono dim">Harvested</div><div class="n">38.52<small>kWh</small></div></div></div>
+      <div class="hold"><span class="ring"></span><span>Hold to brake</span></div>
+    </div>
+    <div class="cue mono"><span>Scroll</span><i></i></div>
+  </section>
+
+
+  <section class="proof" data-name="Proof strip · logos">
+    <div class="prow"><div class="mono dim">Deployed with</div><div class="logos"><img data-src="L:69a595cf409ad62b4c7f2d91_logo_hcs.avif" alt=""><img data-src="L:69a595c6010355e4fc350a80_logo_hpa.avif" alt=""><img data-src="L:69a595db963428c9303ac385_logo_hansa.avif" alt=""><img data-src="L:69a596082238a24f5ea454ff_logo_dollinger.avif" alt=""><img data-src="L:69a595eb62cdf43ad417ddf7_logo_econova.avif" alt=""><img data-src="L:69a595b49f7ff4b82b4e59eb_logo_mr.avif" alt=""><img data-src="L:69a595a445911d2f0dd34097_logo_tiwag.avif" alt=""></div></div>
+    <div class="prow"><div class="mono dim">Backed &amp; recognised by</div><div class="logos sm"><img data-src="L:69a57cecda5ae0286bdbdead_logo_climatekic.avif" alt=""><img data-src="L:69b127d2c44aeb10d3fd7e23_EWOR%20logo%20%E2%80%93%20dark.png" alt=""><img data-src="L:69a57cadf20c9403b4be56a1_logo_ntt.avif" alt=""><img data-src="L:69a57c9f86fad92d54e286de_logo_forbes.avif" alt=""><img data-src="L:69a57c3947641cceab601367_logo_wko.avif" alt=""><img data-src="L:69a57c21e3bdb9248d28094e_logo_arge.avif" alt=""><img data-src="L:69a57cbfa171fabe064acbdf_logo_io%CC%88b.avif" alt=""><img data-src="L:69a57c6b9bafad7ba3555cb3_logo_surprisingly.avif" alt=""><img data-src="L:6ae9e29e44ad176c4f802ea3_Charta%20der%20Vielfalt.png" alt=""></div></div>
+  </section>
+
+  <section class="frame st" data-name="02 Scroll state · 01 Impulse capture">
+    <img class="bgimg" data-src="R:s1" alt=""><div class="shade"></div><div class="shadeL"></div>
+    <div class="nav"><span class="logo" data-logo></span><div class="pill"><span class="on">Technology</span><span>Impact</span><span>Locations</span><span>Potential</span><span>Team</span></div><div class="navr"><span class="btn btn-g btn-sm">REPS on my roads →</span></div></div>
+    <div class="card l"><div class="k mono">01 — Impulse capture</div><h2 class="h2">27 trigger pairs feel every axle.</h2><p class="body">As a vehicle brakes across the 12 × 3 m REPS plate, hydraulic cylinders under each trigger turn its momentum into vertical force. The heavier the axle, the more it gives back.</p>
+      <dl class="spec mono"><div><dt>Plate</dt><dd>12 m × 3 m</dd></div><div><dt>Road slabs</dt><dd>9 × 3 pairs</dd></div><div><dt>Output</dt><dd>scales with axle load</dd></div></dl></div>
+    <div class="tag glass mono" style="right:300px;top:260px"><i class="dot"></i>Trigger 14 · 18.4 kN</div>
+  </section>
+
+  <section class="frame st" data-name="03 Scroll state · 02 Hydraulic transmission">
+    <img class="bgimg" data-src="R:s2" alt=""><div class="shade"></div><div class="shadeR"></div>
+    <div class="card r"><div class="k mono">02 — Hydraulic transmission</div><h2 class="h2">Force travels. Fragile parts don’t.</h2><p class="body">Each impulse moves through sealed, closed-loop lines to a central Energy Converter Module beside the road — so the sensitive hardware never sits under traffic.</p>
+      <dl class="spec mono"><div><dt>Lines</dt><dd>closed loop, sealed</dd></div><div><dt>Maintenance</dt><dd>off the carriageway</dd></div></dl></div>
+    <div class="rail"><i style="height:44px"></i><ol class="mono"><li>01</li><li class="on">02</li><li>03</li><li>04</li><li>05</li><li>∞</li></ol></div>
+  </section>
+
+  <section class="frame st" data-name="04 Scroll state · 03 Frictionless conversion">
+    <img class="bgimg" data-src="R:s3" alt=""><div class="shade"></div><div class="shadeL"></div>
+    <div class="card l" style="left:110px"><div class="k mono">03 — Frictionless conversion</div><h2 class="h2">A shaft that floats on magnets.</h2><p class="body">Permanent magnetic bearings levitate the generator shaft. No contact, no wear — and more than 90% of the captured energy converted to electricity.</p>
+      <dl class="spec mono"><div><dt>Efficiency</dt><dd>90%+</dd></div><div><dt>vs dynamo</dt><dd>254×</dd></div><div><dt>vs piezo</dt><dd>13,000×</dd></div></dl></div>
+    <div class="rail"><i style="height:88px"></i><ol class="mono"><li>01</li><li>02</li><li class="on">03</li><li>04</li><li>05</li><li>∞</li></ol></div>
+    <div class="tag glass mono" style="right:200px;top:200px"><i class="dot"></i>Shaft · levitating · 0 contact</div>
+  </section>
+
+  <section class="frame st" data-name="05 Scroll state · 04 Energy storage">
+    <img class="bgimg" data-src="R:s4" alt=""><div class="shade"></div><div class="shadeR"></div>
+    <div class="card r"><div class="k mono">04 — Energy storage</div><h2 class="h2">Traffic is spiky. Power shouldn’t be.</h2><p class="body">On-site battery banks buffer rush hours and quiet nights, then condition the power for local use or grid feed-in.</p>
+      <dl class="spec mono"><div><dt>Buffer</dt><dd>on-site battery bank</dd></div><div><dt>Weather</dt><dd>independent · day &amp; night</dd></div></dl></div>
+    <div class="rail"><i style="height:132px"></i><ol class="mono"><li>01</li><li>02</li><li>03</li><li class="on">04</li><li>05</li><li>∞</li></ol></div>
+  </section>
+
+  <section class="frame st" data-name="06 Scroll state · 05 On-demand usage">
+    <img class="bgimg" data-src="R:s5" alt=""><div class="shade"></div><div class="shadeL"></div>
+    <div class="card l" style="left:110px"><div class="k mono">05 — On-demand usage</div><h2 class="h2">Light the gate. Charge the fleet.</h2><p class="body">Use it where it’s made — EV chargers, terminal lighting, machinery, facilities — or sell it to the grid. Either way it offsets cost or creates revenue.</p>
+      <dl class="spec mono"><div><dt>Land needed</dt><dd>0 m²</dd></div><div><dt>Lifetime</dt><dd>20–25 years</dd></div></dl></div>
+    <div class="rail"><i style="height:176px"></i><ol class="mono"><li>01</li><li>02</li><li>03</li><li>04</li><li class="on">05</li><li>∞</li></ol></div>
+  </section>
+
+  <section class="frame st" data-name="07 Scroll state · One plate. Every road.">
+    <img class="bgimg" data-src="R:s6" alt=""><div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(7,8,7,.72) 0%,rgba(7,8,7,.25) 55%,rgba(7,8,7,.6) 100%)"></div>
+    <div class="fin"><div class="mono g">One plate. Every road.</div><h2 class="h2" style="margin-top:24px">Every braking event<br>is a power source.</h2><p class="body">Toll plazas, exit ramps, port gates, warehouse lanes. Wherever traffic slows, the energy is already there — 1,000+ sites are waiting.</p></div>
+  </section>
+
+  <div class="sheet" data-name="Content sheet">
+    <section class="sec" data-name="08 Impact">
+      <div class="head"><div class="mono k">(01) Impact · Port of Hamburg</div><h2 class="h2">The world’s first<br>Road Power Plant<br><span class="dim">is already working.</span></h2><p class="body">Installed at Hamburg Container Service (HCS): a 125,000 m² terminal with around 1,000 truck movements a day, aiming for climate neutrality by 2040.</p></div>
+      <div class="photo"><img data-src="C:69b12a9b451310a84fa57606_20251124-REPS-Strassenkraftwerk-patricklux.de-164.avif" alt=""><div class="cap mono"><span>HCS · November 2025</span><span>First REPS plate in live operation</span></div></div>
+      <div class="kpis">
+        <div class="kpi"><div class="kn">229</div><div class="mono dim">plates in the full HCS rollout</div></div>
+        <div class="kpi"><div class="kn">~10<small>GWh/yr</small></div><div class="mono dim">projected clean electricity</div></div>
+        <div class="kpi"><div class="kn">~10<small>%</small></div><div class="mono dim">less CO₂ from port traffic</div></div>
+        <div class="kpi"><div class="kn">&lt;4<small>yrs</small></div><div class="mono dim">projected payback</div></div>
+      </div>
+      <div class="reel">
+        <figure><img data-src="C:69b12a9bddc13be989f0a868_20251124-REPS-Strassenkraftwerk-patricklux.de-173.avif" alt=""><figcaption class="mono">Opening day at HCS</figcaption></figure>
+        <figure><img data-src="C:69b12a9a441b77eb26720f49_20251124-REPS-Strassenkraftwerk-patricklux.de-64.avif" alt=""><figcaption class="mono">Alfons Huber, Founder &amp; CEO</figcaption></figure>
+        <figure><img data-src="C:69b12a9a7c60105155764ab7_20251124-REPS-Strassenkraftwerk-patricklux.de-38.avif" alt=""><figcaption class="mono">Partners &amp; port authority</figcaption></figure>
+        <figure><img data-src="C:69b12ca4852270fa0f8c2c62_reps-hh.avif" alt=""><figcaption class="mono">Port of Hamburg</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="sec" data-name="09 At a glance">
+      <div class="head"><div class="mono k">(02) At a glance</div><h2 class="h2">Not a little better.<br><span class="dim">Orders of magnitude.</span></h2><div></div></div>
+      <div class="bars">
+        <div class="bar"><div><b>REPS</b><span class="mono dim">hydraulic + magnetic levitation</span></div><div class="bt"><i class="gr" style="width:100%"></i></div><div class="bv">13,000×</div></div>
+        <div class="bar"><div><b>Dynamo systems</b><span class="mono dim">mechanical contact</span></div><div class="bt"><i style="width:41.6%"></i></div><div class="bv">51×</div></div>
+        <div class="bar"><div><b>Piezo tiles</b><span class="mono dim">baseline</span></div><div class="bt"><i style="width:2%"></i></div><div class="bv">1×</div></div>
+        <p class="mono dim">Relative energy recovered per event, log scale. Source: REPS (254× dynamo, 13,000× piezo).</p>
+      </div>
+      <div class="glance">
+        <div><div class="gn">90<small>%+</small></div><p>conversion efficiency</p></div>
+        <div><div class="gn">0<small>m²</small></div><p>extra land — it lives in the road</p></div>
+        <div><div class="gn">20<small>+ yrs</small></div><p>design life, annual inspection</p></div>
+        <div><div class="gn">1,000<small>+</small></div><p>potential sites worldwide</p></div>
+      </div>
+    </section>
+
+    <section class="sec" data-name="10 Where it works · tabs">
+      <div class="head"><div class="mono k">(03) Where it works</div><h2 class="h2">Wherever heavy traffic<br><span class="dim">slows down anyway.</span></h2><p class="body">Three environments, one rule: high-frequency traffic that has to brake. Pick yours.</p></div>
+      <div class="tabs">
+        <div class="tl">
+          <div class="tb on"><span>Ports &amp; terminals</span><span class="mono ix">01</span></div><div class="prog"><i></i></div>
+          <div class="tb"><span>Highways</span><span class="mono ix">02</span></div>
+          <div class="tb"><span>Logistics hubs</span><span class="mono ix">03</span></div>
+          <p class="body" style="margin-top:28px">Tabs auto-advance every 6 s; the green line shows time left. Hover pauses.</p>
+          <span class="btn btn-o" style="margin-top:22px">Is my site suitable? →</span>
+        </div>
+        <div class="tp">
+          <img data-src="C:69a7150c264468fac910eefd_reps-energy-4.avif" alt=""><div class="ov"></div>
+          <div class="pin2 mono" style="left:44%;top:30%"><i class="dot"></i>Terminal gate · braking zone</div>
+          <div class="pin2 mono" style="left:18%;top:52%"><i class="dot"></i>Weigh station</div>
+          <div class="in">
+            <div class="mono g">Ports / Terminals</div>
+            <h3 class="h3" style="margin-top:12px">High-frequency heavy trucks and defined traffic flows make ports ideal for clean on-site power.</h3>
+            <div class="cols">
+              <div><div class="mono dim">Best locations</div><p>Terminal gates, entry and exit lanes, ramps, weigh stations and internal port roads with recurring stop-and-go.</p></div>
+              <div><div class="mono dim">Traffic profile</div><p>High frequency of heavy trucks, repeated braking zones and predictable daily patterns.</p></div>
+              <div><div class="mono dim">Electricity usage</div><p>Lighting, terminal infrastructure, charging systems, battery storage or grid feed-in.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" data-name="11 Potential calculator">
+      <div class="calc">
+        <div><div class="mono k g">(04) Potential</div><h2 class="h2">What would<br>your road<br><span class="dim">give back?</span></h2><p class="body" style="width:460px">Move the sliders. We scale from the Hamburg projection — 229 plates, ~1,000 trucks a day, ~10 GWh a year — so you can see the order of magnitude before we run a real analysis.</p></div>
+        <div class="panel glass">
+          <div class="sl"><div class="t"><span class="mono dim">Heavy vehicles per day</span><output>1,000</output></div><div class="track"><i style="width:18%"></i><b style="left:calc(18% - 12px)"></b></div></div>
+          <div class="sl"><div class="t"><span class="mono dim">REPS plates</span><output>24</output></div><div class="track"><i style="width:10%"></i><b style="left:calc(10% - 12px)"></b></div></div>
+          <div class="out">
+            <div><div class="mono dim">Clean electricity</div><div class="cn">1,048<small>MWh/yr</small></div></div>
+            <div><div class="mono dim">CO₂ avoided*</div><div class="cn">398<small>t/yr</small></div></div>
+            <div><div class="mono dim">Truck charges (400 kWh)</div><div class="cn">2,620<small>/yr</small></div></div>
+            <div><div class="mono dim">Households powered</div><div class="cn">299</div></div>
+          </div>
+          <span class="btn btn-g wide">Get the real numbers for my site <span>→</span></span>
+          <p class="fine">*Illustrative. Linear scale of the HCS projection; 380 g CO₂/kWh grid mix; 3,500 kWh per household.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bel" data-name="12 What we believe (pinned manifesto)">
+      <img data-src="C:6a15c9c5876beb93bf3458a8_Team_picture.jpeg" alt="" style="object-position:50% 60%"><div class="tint"></div>
+      <div class="top"><div><div class="mono g">(05) What we believe</div><h2 class="h2" style="margin-top:20px">Four rules behind<br>the first road power plant.</h2></div>
+        <div style="text-align:right"><div class="faces"><img data-src="C9:69b198e08b9f915f85b75eb5_IMG_6621.JPG" alt=""><img data-src="C9:6a33d9953b99fca6b6885de8_Laurabearbeitet.png" alt=""><img data-src="C9:69b1762a081ece215160dded_A6700881-2.jpg" alt=""><img data-src="C9:69b17869fc7e9a0c183f47b8_A6701078-2.jpg" alt=""><img data-src="C9:69b1760fca36a89e871413ae_A6701012-2.jpg" alt=""><img data-src="C9:69b174ffe71fea2ea55a151c_A6700870-2.jpg" alt=""></div><div class="mono dim" style="margin-top:12px">9 people · Austria → Hamburg</div></div></div>
+      <div class="rows">
+        <div class="br"><span class="n">01</span><div class="w">Innovation through action</div><p>We didn’t stop at a lab prototype — the first plate is carrying real trucks at the Port of Hamburg.</p></div>
+        <div class="br on"><span class="n">02 ——</span><div class="w">Ownership with <b>purpose</b></div><p>Every plate we ship is measured against one goal: cleaner traffic. At HCS that means ~10% less port-traffic CO₂.</p></div>
+        <div class="br"><span class="n">03</span><div class="w">Human, honest, driven</div><p>Real numbers, real sites, real people. No renders pretending to be reality.</p></div>
+        <div class="br"><span class="n">04</span><div class="w">Team first, always</div><p>Nine engineers and operators, one system. Join us — open roles below.</p></div>
+      </div>
+    </section>
+    <section class="sec" data-name="13 Team" style="padding-top:110px">
+      <div class="people">
+        <div class="per c"><img data-src="C9:69b198e08b9f915f85b75eb5_IMG_6621.JPG" alt=""><b>Alfons Huber</b><span class="mono dim">Founder &amp; CEO</span></div>
+        <div class="per"><img data-src="C9:6a33d9953b99fca6b6885de8_Laurabearbeitet.png" alt=""><b>Laura Wiedmann</b><span class="mono dim">COO</span></div>
+        <div class="per"><img data-src="C9:69b1762a081ece215160dded_A6700881-2.jpg" alt=""><b>Sai Kumar Konduru</b><span class="mono dim">CTO</span></div>
+        <div class="vals"><p class="mono g">+6 more</p><ol><li><span>→</span>Business Operations</li><li><span>→</span>Electrical Engineering</li><li><span>→</span>Commercial Development</li><li><span>→</span>Field Engineering</li></ol><span class="link" style="margin-top:auto">Meet the team · Career ↗</span></div>
+      </div>
+    </section>
+
+    <section class="sec" data-name="14 Press">
+      <div class="head"><div class="mono k">(06) In the press</div><h2 class="h2">$23.6M to put<br>power plants <span class="dim">in roads.</span></h2><p class="body">Covered by AP, Yahoo Finance, Business Insider, Forbes, Tech.eu and more.</p></div>
+      <div class="press">
+        <div class="art"><div class="ti"><img data-src="C9:6a17069be900a98e33706aa5_6.png" alt=""><span class="src mono">AP News</span></div><div class="bd"><div class="mono dim">Press release · 22 May 2026</div><h3 class="h3">REPS: a patented road power plant that harvests energy from passing trucks and cars.</h3><p class="body">Installs directly into existing road infrastructure without disrupting traffic flow or logistics operations.</p><div class="row"><span class="mono g">Read article</span><span>↗</span></div></div></div>
+        <div class="art"><div class="ti"><img data-src="C9:6a170692119cab63a7bfc4ed_5.png" alt=""><span class="src mono">Yahoo Finance</span></div><div class="bd"><div class="mono dim">Press release · 22 May 2026</div><h3 class="h3">REPS announces a $23.6M equity round to scale the Road Energy Production System.</h3><p class="body">A patented “road power plant” that converts vehicle traffic into electrical energy.</p><div class="row"><span class="mono g">Read article</span><span>↗</span></div></div></div>
+      </div>
+      <div class="wall">
+        <div><img data-src="L:6a16c2b13787970fe6e79560_Associated_Press_logo_2012.svg.png" alt=""></div><div><img data-src="L:6a16c297a165e032d9898e24_Yahoo!_Finance_logo_2021.png" alt=""></div><div><img data-src="L:6a16c28148006918f559f766_Business_Insider_2023_logo.svg" alt=""></div><div><img data-src="L:69a57c9f86fad92d54e286de_logo_forbes.avif" alt=""></div><div><img data-src="L:6a16c1480e05647a5fa17bf7_Tech-eu_idECVD9l5B_1.svg" alt=""></div><div><img data-src="L:6a16c22ac033a0f806c603a6_brutkasten_logo-1-1.png" alt=""></div><div><img data-src="L:6a16c25943e5083d39f1d825_67b5ba49d0e68192eed853a8_Trending-Topics-Logo-01-removebg-preview%20(1).png" alt=""></div>
+      </div>
+    </section>
+    <section class="sec" data-name="15 FAQ">
+      <div class="faq">
+        <div><div class="mono k g">(07) FAQ</div><h2 class="h2" style="margin-top:22px">Questions,<br><span class="dim">answered.</span></h2><p class="body" style="margin-top:26px;width:400px">Still unsure if your roads qualify? The potential analysis is free.</p><span class="btn btn-g" style="margin-top:26px">Free potential analysis →</span></div>
+        <div>
+          <div class="q on"><div class="t"><span>What makes REPS different from other energy harvesting?</span><span class="pm">−</span></div><p class="a">More than 250× the efficiency of existing harvesting technologies and a 20–25 year lifetime. It doesn’t depend on weather or daylight, and fits into existing roads without new sealed surfaces.</p></div>
+          <div class="q"><div class="t"><span>Where can REPS be deployed?</span><span class="pm">+</span></div></div>
+          <div class="q"><div class="t"><span>Can the system be scaled?</span><span class="pm">+</span></div></div>
+          <div class="q"><div class="t"><span>How big is one system?</span><span class="pm">+</span></div></div>
+          <div class="q"><div class="t"><span>How durable is it — heat, frost, salt?</span><span class="pm">+</span></div></div>
+          <div class="q"><div class="t"><span>What maintenance is required?</span><span class="pm">+</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" data-name="14 CTA">
+      <div class="glow"></div>
+      <div class="mono g" style="position:relative">(07) Free potential analysis</div>
+      <h2 class="ctah">REPS on<br>my roads.</h2>
+      <p class="body">Tell us where traffic slows on your site. We’ll map the plates, the energy and the payback — free.</p>
+      <span class="btn btn-g btn-xl">Start my analysis →</span>
+    </section>
+
+    <footer class="foot" data-name="15 Footer">
+      <div class="fmark" data-logo></div>
+      <div class="fcols">
+        <div><p class="mono g">REPS GmbH</p><p class="dim">Turning roads into power plants.</p></div>
+        <div><p class="mono g">Company</p><a>Technology</a><a>Impact</a><a>Team</a><a>Career</a><a>News</a></div>
+        <div><p class="mono g">Follow</p><a>LinkedIn</a><a>Instagram</a></div>
+        <div><p class="mono g">Legal</p><a>Imprint</a><a>Privacy</a><a>Culture &amp; Quality Policy</a></div>
+      </div>
+      <div class="fbase mono dim"><span>© 2026 REPS GmbH</span><span>Concept for REPS by David Adebayo</span></div>
+    </footer>
+  </div>
+</div>
+
+
+<div class="page m" data-name="Mobile — REPS A · The road is the power plant">
+  <section class="frame mh" data-name="01 Hero">
+    <img class="bgimg" data-src="R:m-hero" alt=""><div class="shade"></div>
+    <div class="nav"><span class="logo" data-logo></span><div style="display:flex;gap:8px;align-items:center"><span class="btn btn-g btn-sm" style="height:40px;padding:0 14px;font-size:13px">REPS on my roads</span><span class="burger"><i></i><i></i></span></div></div>
+    <div style="position:absolute;left:20px;right:20px;top:118px;z-index:3"><div class="mono dim">HCS · Port of Hamburg</div><h1 class="h1" style="margin-top:16px">The road is the power plant.</h1></div>
+    <div class="live glass" style="left:16px;right:16px;width:auto;bottom:20px">
+      <div class="top mono"><i class="dot"></i>Live · 1 truck · 1 plate</div>
+      <div class="row"><div><div class="mono dim">Impulses</div><div class="n">1,284</div></div><div><div class="mono dim">Harvested</div><div class="n">38.52<small>kWh</small></div></div></div>
+      <div class="hold"><span class="ring"></span><span>Hold to brake</span></div>
+    </div>
+  </section>
+  <section style="padding:26px 20px;border-bottom:1px solid rgba(237,239,234,.1)" data-name="Logos"><div class="mono dim" style="margin-bottom:16px">Deployed with</div><div class="logos" style="flex-wrap:wrap;gap:22px 28px;justify-content:flex-start"><img data-src="L:69a595cf409ad62b4c7f2d91_logo_hcs.avif" alt="" style="height:24px"><img data-src="L:69a595c6010355e4fc350a80_logo_hpa.avif" alt="" style="height:24px"><img data-src="L:69a595db963428c9303ac385_logo_hansa.avif" alt="" style="height:18px"><img data-src="L:69a596082238a24f5ea454ff_logo_dollinger.avif" alt="" style="height:24px"><img data-src="L:69a595a445911d2f0dd34097_logo_tiwag.avif" alt="" style="height:24px"></div></section>
+  <section class="frame mh" data-name="02 Scroll state · 03 Conversion">
+    <img class="bgimg" data-src="R:m-s3" alt=""><div class="shade"></div>
+    <div class="mcard"><div class="mono g" style="margin-bottom:14px">03 — Frictionless conversion</div><h2 class="h2">A shaft that floats on magnets.</h2><p class="body" style="margin-top:14px">Permanent magnetic bearings levitate the shaft. No contact, no wear — 90%+ converted.</p>
+      <dl class="spec mono" style="margin-top:16px"><div><dt>Efficiency</dt><dd>90%+</dd></div><div><dt>vs piezo</dt><dd>13,000×</dd></div></dl></div>
+  </section>
+  <section class="frame mh" data-name="03 Scroll state · Every road">
+    <img class="bgimg" data-src="R:m-city" alt=""><div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(7,8,7,.75),rgba(7,8,7,.3) 70%)"></div>
+    <div class="fin px"><div class="mono g">One plate. Every road.</div><h2 class="h2" style="font-size:48px;margin-top:18px">Every braking event is a power source.</h2></div>
+  </section>
+  <div class="sheet px" style="padding:0 20px" data-name="Content sheet">
+    <section style="padding-top:90px" data-name="04 Impact">
+      <div class="mono g">(01) Impact · Port of Hamburg</div><h2 class="h2" style="margin:18px 0 22px">The world’s first Road Power Plant <span class="dim">is already working.</span></h2>
+      <div class="photo" style="height:300px;border-radius:16px"><img data-src="C:69b12a9b451310a84fa57606_20251124-REPS-Strassenkraftwerk-patricklux.de-164.avif" alt=""></div>
+      <div class="kpis" style="grid-template-columns:1fr 1fr">
+        <div class="kpi" style="padding-bottom:22px"><div class="kn">229</div><div class="mono dim">plates · full rollout</div></div>
+        <div class="kpi" style="padding-bottom:22px"><div class="kn">~10<small>GWh</small></div><div class="mono dim">per year, projected</div></div>
+        <div class="kpi" style="padding-left:0;border-left:0"><div class="kn">~10<small>%</small></div><div class="mono dim">less port CO₂</div></div>
+        <div class="kpi"><div class="kn">&lt;4<small>yrs</small></div><div class="mono dim">payback</div></div>
+      </div>
+    </section>
+    <section style="padding-top:90px" data-name="05 Calculator">
+      <div class="mono g">(04) Potential</div><h2 class="h2" style="margin:18px 0 22px">What would your road give back?</h2>
+      <div class="panel glass" style="padding:20px">
+        <div class="sl"><div class="t"><span class="mono dim">Trucks / day</span><output>1,000</output></div><div class="track"><i style="width:18%"></i><b style="left:calc(18% - 12px)"></b></div></div>
+        <div class="sl"><div class="t"><span class="mono dim">Plates</span><output>24</output></div><div class="track"><i style="width:10%"></i><b style="left:calc(10% - 12px)"></b></div></div>
+        <div class="out"><div><div class="mono dim">MWh / yr</div><div class="cn" style="font-size:32px">1,048</div></div><div><div class="mono dim">t CO₂ / yr</div><div class="cn" style="font-size:32px">398</div></div></div>
+        <span class="btn btn-g wide" style="font-size:14px">Get my real numbers <span>→</span></span>
+      </div>
+    </section>
+    <section style="padding-top:90px" data-name="FAQ"><div class="mono g">(07) FAQ</div><h2 class="h2" style="margin:16px 0 18px">Questions, <span class="dim">answered.</span></h2>
+      <div class="q on"><div class="t" style="font-size:19px"><span>What makes REPS different?</span><span class="pm">−</span></div><p class="a" style="width:auto;font-size:15px">250×+ efficiency, 20–25 year lifetime, independent of weather and daylight.</p></div>
+      <div class="q"><div class="t" style="font-size:19px"><span>Where can it be deployed?</span><span class="pm">+</span></div></div>
+      <div class="q"><div class="t" style="font-size:19px"><span>What maintenance is required?</span><span class="pm">+</span></div></div></section>
+    <section class="cta" style="padding:110px 0 90px" data-name="06 CTA">
+      <div class="glow" style="width:500px;height:500px"></div>
+      <h2 class="ctah" style="font-size:92px">REPS on my roads.</h2>
+      <span class="btn btn-g">Start my analysis →</span>
+    </section>
+  </div>
+</div>

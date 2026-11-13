@@ -76,6 +76,28 @@ export const concepts: Concept[] = [
       themeColor: "#F3F5EF",
     },
   },
+  {
+    id: "reps",
+    name: "REPS",
+    meta: {
+      title: "REPS — The road is the power plant. · Concept by David Adebayo",
+      description:
+        "A cinematic homepage concept for REPS: follow one braking truck through a live 3D road power plant — trigger plates, hydraulics, a maglev converter and storage — out to a city lit by its roads.",
+      ogImage: "/og/reps.png",
+      themeColor: "#070807",
+    },
+  },
+  {
+    id: "reps-light",
+    name: "REPS (light)",
+    meta: {
+      title: "REPS — Turning roads into power plants. · Concept by David Adebayo",
+      description:
+        "A light, official homepage concept for REPS: a live 3D city map, the REPS plate in detail, a scroll-driven five-step system view and the Port of Hamburg in operation.",
+      ogImage: "/og/reps-light.png",
+      themeColor: "#F2F3F0",
+    },
+  },
 ];
 
 export function getConcept(id: string): Concept | undefined {
