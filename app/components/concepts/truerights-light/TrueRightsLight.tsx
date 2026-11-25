@@ -2,14 +2,12 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { geist, geistMono as mono } from "@/app/components/concepts/fonts";
 import s from "./light.module.css";
 import { Logo } from "./logo";
 import { MobileMenu } from "./menu";
 import { initTrueRightsLightMotion } from "./motion";
 
-const geist = Geist({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-geist" });
-const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-gmono" });
 const A = "/concepts/truerights/";
 const cx = (...n: (string | false | undefined)[]) => n.filter(Boolean).map((k) => s[k as string]).filter(Boolean).join(" ");
 

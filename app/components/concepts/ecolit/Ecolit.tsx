@@ -2,13 +2,11 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { Michroma, Montserrat } from "next/font/google";
+import { michroma, montserrat } from "@/app/components/concepts/fonts";
 import s from "./ecolit.module.css";
 import ConceptBadge from "../ConceptBadge";
 import { initEcolitMotion } from "./motion";
 
-const michroma = Michroma({ subsets: ["latin"], weight: "400", variable: "--font-michroma" });
-const montserrat = Montserrat({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-montserrat" });
 const cx = (...names: string[]) => names.map((n) => s[n]).filter(Boolean).join(" ");
 
 export default function Ecolit() {

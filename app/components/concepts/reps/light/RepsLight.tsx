@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { geist, geistMono as mono } from "@/app/components/concepts/fonts";
 import s from "./light.module.css";
 import { RepsLogo } from "../logo";
 import { RepsMenu } from "../menu";
@@ -10,8 +10,6 @@ import { A, BACKERS, CLIENTS, NAV } from "../data";
 import { initRepsLightMotion } from "./motion";
 import { BeliefsSection, CalculatorSection, CtaSection, FaqSection, FilmSection, FooterSection, GlanceSection, ImpactSection, LocationsSection, PressSection } from "./Sections";
 
-const geist = Geist({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-geist" });
-const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-gmono" });
 const cx = (...n: (string | false | undefined)[]) => n.filter(Boolean).map((k) => s[k as string]).filter(Boolean).join(" ");
 
 const Arrow = ({ c = "→" }: { c?: string }) => <i aria-hidden="true">{c}</i>;

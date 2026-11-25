@@ -2,12 +2,11 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { Geist } from "next/font/google";
+import { geist } from "@/app/components/concepts/fonts";
 import s from "./galcon.module.css";
 import ConceptBadge from "../ConceptBadge";
 import { initGalconMotion } from "./motion";
 
-const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600"] });
 const cx = (...names: string[]) => names.map((n) => s[n]).filter(Boolean).join(" ");
 
 export default function Galcon() {

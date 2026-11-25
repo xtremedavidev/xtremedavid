@@ -3,15 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
-import { Host_Grotesk, JetBrains_Mono } from "next/font/google";
+import { hostGrotesk as host, jetbrainsMono as mono } from "@/app/components/concepts/fonts";
 import s from "./dark.module.css";
 import { RepsLogo } from "../logo";
 import { RepsMenu } from "../menu";
 import { A, ARTICLES, BACKERS, CLIENTS, FACES, FAQ, LOCATIONS, NAV, PEOPLE, PRESS_WALL, STEPS, VALUES, potential } from "../data";
 import { initRepsDarkMotion } from "./motion";
 
-const host = Host_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--font-host" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-jbm" });
 const cx = (...n: (string | false | undefined)[]) => n.filter(Boolean).map((k) => s[k as string]).filter(Boolean).join(" ");
 const fmt = (n: number) => Math.round(n).toLocaleString("en-GB");
 

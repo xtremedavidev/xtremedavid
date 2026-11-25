@@ -2,15 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
-import { Onest, JetBrains_Mono } from "next/font/google";
+import { unumFontVars } from "@/app/components/concepts/fonts";
 import s from "./unum.module.css";
 import ConceptBadge from "../ConceptBadge";
 import { initUnumMotion } from "./motion";
 import { COPY, type Lang } from "./copy";
 import { chartSVG, waveSVG } from "./teeth";
 
-const onest = Onest({ subsets: ["latin", "cyrillic"], weight: ["300", "400", "500", "600"], variable: "--font-onest" });
-const mono = JetBrains_Mono({ subsets: ["latin", "cyrillic"], weight: ["400", "500"], variable: "--font-jb" });
 const cx = (...n: string[]) => n.map((k) => s[k]).filter(Boolean).join(" ");
 const A = "/concepts/unum/";
 const CHART = chartSVG();
@@ -52,7 +50,7 @@ function Page({ lang, pick }: { lang: Lang; pick: (l: Lang) => void }) {
   }, { scope: root });
 
   return (
-    <div ref={root} className={`${s.root} ${onest.variable} ${mono.variable}`} lang={lang}>
+    <div ref={root} className={s.root} style={unumFontVars} lang={lang}>
       <div className={s.progress} data-progress="" aria-hidden="true" />
 
       <header className={s.nav} data-nav="">

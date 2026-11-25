@@ -2,14 +2,12 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { Outfit, IBM_Plex_Mono } from "next/font/google";
+import { outfit, plexMono as plex } from "@/app/components/concepts/fonts";
 import s from "./arbe.module.css";
 import ConceptBadge from "../ConceptBadge";
 import { initArbeMotion, SCENES } from "./motion";
 import { EXPLODED, FAN, HWFAN, LOGO_PATHS, fogSVG, gridSVG, vignetteSVG } from "./art";
 
-const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--font-outfit" });
-const plex = IBM_Plex_Mono({ subsets: ["latin"], weight: ["500"], variable: "--font-plex" });
 const cx = (...n: string[]) => n.map((k) => s[k]).filter(Boolean).join(" ");
 const A = "/concepts/arbe/";
 

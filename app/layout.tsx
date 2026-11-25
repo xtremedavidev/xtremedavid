@@ -4,6 +4,7 @@ import "./globals.css";
 import PortfolioShell from "./components/PortfolioShell";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://xtreme-david.com"),
   title: "David Adebayo — Product Designer & Full-Stack Engineer",
   description:
     "David Adebayo: product designer and full-stack engineer. 8+ years, 100+ brands including TELUS, Tangible Markets and CareBond. #1 UI/UX designer on Behance in Nigeria.",
