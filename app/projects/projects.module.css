@@ -1,0 +1,131 @@
+.page {
+  padding: 150px 0 120px;
+}
+.bar {
+  position: sticky;
+  top: 84px;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 22px;
+  background: rgba(17, 17, 16, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+}
+.filters,
+.sort {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.bar button {
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 0;
+  background: none;
+  color: var(--mute);
+  font: 500 13.5px var(--font-sans);
+  transition: background 0.2s, color 0.2s;
+}
+.bar button:hover {
+  color: var(--bone);
+  background: rgba(255, 255, 255, 0.05);
+}
+.bar .on {
+  background: var(--bone);
+  color: var(--ink);
+}
+.sort .on {
+  background: var(--lime);
+}
+.list {
+  list-style: none;
+}
+.row {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 28px;
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.idx {
+  font: 500 12px var(--font-mono);
+  color: var(--lime);
+}
+.meta h2 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+.sub {
+  font: 400 12.5px var(--font-mono);
+  color: var(--mute);
+}
+.open {
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--lime);
+  padding-bottom: 2px;
+}
+.open:hover {
+  color: var(--lime);
+}
+.strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200, 255, 0, 0.5) transparent;
+}
+.shot {
+  flex: none;
+  height: clamp(200px, 22vw, 300px);
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--ink-3);
+  scroll-snap-align: start;
+  border: 1px solid var(--line);
+}
+.shotFirst {
+  aspect-ratio: 16 / 10;
+}
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.9s var(--ease), object-position 4s ease;
+}
+.shot:hover img {
+  object-position: bottom;
+}
+@media (max-width: 900px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .bar {
+    position: relative;
+    top: 0;
+  }
+  .meta h2 {
+    font-size: 24px;
+  }
+}

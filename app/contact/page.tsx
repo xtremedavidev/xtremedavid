@@ -125,10 +125,10 @@ export default function ContactPage() {
       const ctx = gsap.context(() => {
         // Page Enter
         gsap.set(pageRef.current, { clearProps: "all" });
-        gsap.fromTo(pageRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" });
+        gsap.fromTo(pageRef.current, { opacity: 1, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" });
 
         // Left Column Elements
-        gsap.from(".ct-label-main", { y: -12, opacity: 0, duration: 0.6, delay: 0.3, ease: "power2.out" });
+        gsap.from(".ct-label-main", { y: -12, opacity: 1, duration: 0.6, delay: 0.3, ease: "power2.out" });
         
         // Headings stagger
         const lines = document.querySelectorAll(".ct-head-line");
@@ -137,7 +137,7 @@ export default function ContactPage() {
           gsap.from(chars, {
             y: 80,
             rotationX: -70,
-            opacity: 0,
+            opacity: 1,
             duration: 0.8,
             ease: "expo.out",
             stagger: 0.025,
@@ -146,18 +146,18 @@ export default function ContactPage() {
         });
 
         gsap.fromTo(".ct-hr", { scaleX: 0 }, { scaleX: 1, duration: 0.8, delay: 1.2, ease: "power3.out", transformOrigin: "left" });
-        gsap.from(".ct-status-wrap", { opacity: 0, y: 10, duration: 0.8, delay: 1.5, ease: "power2.out" });
-        gsap.from(".ct-direct-row", { y: 16, opacity: 0, duration: 0.6, delay: 1.7, stagger: 0.15, ease: "power2.out" });
+        gsap.from(".ct-status-wrap", { opacity: 1, y: 10, duration: 0.8, delay: 1.5, ease: "power2.out" });
+        gsap.from(".ct-direct-row", { y: 16, opacity: 1, duration: 0.6, delay: 1.7, stagger: 0.15, ease: "power2.out" });
 
         // Form Card Enter
         if (formCardRef.current) {
           gsap.fromTo(formCardRef.current, 
-            { y: 40, opacity: 0 }, 
+            { y: 40, opacity: 1 }, 
             { y: 0, opacity: 1, duration: 1, delay: 0.6, ease: "expo.out" }
           );
           
           gsap.from(".ct-form-group", {
-            y: 24, opacity: 0, duration: 0.8, delay: 0.8, stagger: 0.12, ease: "power2.out"
+            y: 24, opacity: 1, duration: 0.8, delay: 0.8, stagger: 0.12, ease: "power2.out"
           });
         }
 
@@ -396,7 +396,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div data-page="contact" className="ct-page" ref={pageRef} style={{ opacity: 0 }}>
+    <div data-page="contact" className="ct-page" ref={pageRef}>
       {/* Background Canvas */}
       <canvas id="contact-bg-canvas" ref={canvasRef} style={{ opacity: 0 }}></canvas>
 

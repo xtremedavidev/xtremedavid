@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { concepts, getConcept } from "@/app/lib/concepts";
 import { registry } from "@/app/components/concepts/registry";
+import ConceptNav from "@/app/components/concepts/ConceptNav";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -31,5 +32,10 @@ export default async function ConceptPage({ params }: Props) {
   const { id } = await params;
   const Concept = registry[id];
   if (!getConcept(id) || !Concept) notFound();
-  return <Concept />;
+  return (
+    <>
+      <Concept />
+      <ConceptNav id={id} />
+    </>
+  );
 }

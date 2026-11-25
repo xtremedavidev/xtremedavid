@@ -1,91 +1,98 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { PROFILE } from "@/app/lib/profile";
+import s from "./site/site.module.css";
 
 const NAV_LINKS = [
-  { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#work", label: "Work", match: (p: string) => p.startsWith("/work") },
+  { href: "/concepts", label: "Concepts", match: (p: string) => p.startsWith("/concept") },
+  { href: "/projects", label: "Projects", match: (p: string) => p === "/projects" },
+  { href: "/about", label: "Experience", match: (p: string) => p === "/about" },
+  { href: "/contact", label: "Contact", match: (p: string) => p === "/contact" },
 ];
 
 export default function Navbar() {
-  const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname() ?? "/";
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  const isActive = (href: string) => {
-    if (!pathname) return false;
-    if (href === "/projects") {
-      return pathname === "/projects" || pathname.startsWith("/work");
-    }
-    return pathname === href || pathname.startsWith(href + "/");
-  };
-
-  const toggleMenu = useCallback(() => {
-    setMenuOpen((prev) => !prev);
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.round((window.scrollY / max) * 100) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const closeMenu = useCallback(() => {
-    setMenuOpen(false);
-  }, []);
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   return (
-    <nav className="navbar" id="navbar">
-      <Link href="/" className="navbar__logo" data-cursor="hover">DA</Link>
-
-      {/* Desktop links */}
-      <ul className="navbar__links">
-        {NAV_LINKS.map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              className="navbar__link nav-link-item"
-              style={isActive(link.href) ? { color: "var(--text)" } : undefined}
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <Link href="/contact" className="navbar__cta navbar__cta--desktop" data-cursor="hover">Let&apos;s Talk →</Link>
-
-      {/* Mobile hamburger */}
-      <button
-        className={`navbar__burger ${menuOpen ? "open" : ""}`}
-        onClick={toggleMenu}
-        aria-label="Toggle menu"
-        data-cursor="hover"
-      >
-        <span /><span /><span />
-      </button>
-
-      {/* Mobile overlay */}
-      <div className={`navbar__mobile ${menuOpen ? "navbar__mobile--open" : ""}`}>
-        <ul className="navbar__mobile-links">
-          {NAV_LINKS.map((link, i) => (
-            <li key={link.href} style={{ transitionDelay: `${0.05 + i * 0.05}s` }}>
-              <Link
-                href={link.href}
-                className={`navbar__mobile-link ${isActive(link.href) ? "active" : ""}`}
-                onClick={closeMenu}
-                data-cursor="hover"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link href="/contact" className="navbar__cta navbar__cta--mobile" onClick={closeMenu} data-cursor="hover">
-          Let&apos;s Talk →
+    <>
+      <header className={`${s.nav} ${scrolled ? s.navScrolled : ""}`}>
+        <Link href="/" className={s.navBrand} data-cursor="hover" aria-label="David Adebayo, home">
+          <span className={s.navMark}>DA</span>
+          <span className={s.navName}>
+            David Adebayo
+            <small>
+              <i /> {PROFILE.openTo}
+            </small>
+          </span>
         </Link>
-        <div className="navbar__mobile-footer">
-          <a href="https://www.linkedin.com/in/david-adebayo/" target="_blank" rel="noopener noreferrer" data-cursor="hover">LinkedIn</a>
-          <a href="https://www.behance.net/xtremedavid" target="_blank" rel="noopener noreferrer" data-cursor="hover">Behance</a>
-          <a href="mailto:davidadebayo702@gmail.com" data-cursor="hover">Email</a>
+
+        <nav className={s.navLinks} aria-label="Main">
+          {NAV_LINKS.map((l) => (
+            <Link key={l.href} href={l.href} className={l.match(pathname) ? s.navActive : ""} data-cursor="hover">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className={s.navRight}>
+          <span className={s.navProgress} aria-hidden="true">
+            {String(progress).padStart(2, "0")}%
+          </span>
+          <a href={PROFILE.resume} download className={s.navGhost} data-cursor="hover">
+            Résumé <span aria-hidden="true">↓</span>
+          </a>
+          <Link href="/book" className={s.navCta} data-cursor="hover">
+            Book a call
+          </Link>
+          <button className={`${s.burger} ${open ? s.burgerOpen : ""}`} onClick={() => setOpen((o) => !o)} aria-label="Menu" aria-expanded={open}>
+            <span />
+            <span />
+          </button>
+        </div>
+      </header>
+
+      <div className={`${s.sheet} ${open ? s.sheetOpen : ""}`} aria-hidden={!open}>
+        <nav>
+          {NAV_LINKS.map((l, i) => (
+            <Link key={l.href} href={l.href} style={{ transitionDelay: open ? `${80 + i * 50}ms` : "0ms" }} onClick={() => setOpen(false)}>
+              <span>0{i + 1}</span>
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <div className={s.sheetCtas}>
+          <Link href="/book" className={s.navCta} onClick={() => setOpen(false)}>
+            Book a call
+          </Link>
+          <a href={PROFILE.resume} download className={s.navGhost}>
+            Download résumé ↓
+          </a>
         </div>
       </div>
-    </nav>
+    </>
   );
 }

@@ -265,7 +265,7 @@ export default function ProjectDetailPage() {
         if (pageRef.current) {
           gsap.set(pageRef.current, { clearProps: "all" });
           gsap.fromTo(pageRef.current, 
-            { opacity: 0, y: 30 }, 
+            { opacity: 1, y: 30 }, 
             { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
           );
         }
@@ -300,18 +300,18 @@ export default function ProjectDetailPage() {
 
         /* Hero entrance */
         gsap.fromTo(".pd-hero-cover", 
-          { opacity: 0, scale: 1.08 }, 
+          { opacity: 1, scale: 1.08 }, 
           { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }
         );
         const titleChars = document.querySelectorAll(".pd-hero-char");
         if (titleChars.length) {
           gsap.fromTo(titleChars, 
-            { y: 60, opacity: 0 },
+            { y: 60, opacity: 1 },
             { y: 0, opacity: 1, stagger: 0.03, duration: 0.9, delay: 0.4, ease: "expo.out" }
           );
         }
         gsap.fromTo(".pd-hero-tags", 
-          { y: 20, opacity: 0 }, 
+          { y: 20, opacity: 1 }, 
           { y: 0, opacity: 1, duration: 0.6, delay: 0.8, ease: "expo.out" }
         );
 
@@ -364,7 +364,7 @@ export default function ProjectDetailPage() {
         el.style.opacity = "1";
         el.style.transform = "translateY(0)";
       } else {
-        el.style.opacity = "0";
+        el.style.opacity = "1";
         el.style.transform = "translateY(20px)";
         el.style.transition = "none";
         observer.observe(el);

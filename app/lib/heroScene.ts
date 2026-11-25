@@ -72,26 +72,35 @@ export function initHeroScene() {
   const raycaster = new THREE.Raycaster();
   const mousePlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 
-  window.addEventListener("mousemove", (e) => {
+  const onMouse = (e: MouseEvent) => {
     mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
     // Project mouse to world space on z=0 plane
     raycaster.setFromCamera(mouseNDC, camera);
     raycaster.ray.intersectPlane(mousePlane, mouseWorld);
-  });
+  };
+  window.addEventListener("mousemove", onMouse);
 
-  window.addEventListener("resize", () => {
+  const onResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+  };
+  window.addEventListener("resize", onResize);
+
+  // Pause rendering while the hero is off-screen
+  let visible = true;
+  const vis = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
+  vis.observe(canvas);
+  let rafId = 0;
 
   let frame = 0;
   const repulsionRadius = 2.5;
   const repulsionStrength = 0.08;
 
   function animate() {
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
+    if (!visible) return;
     frame++;
     const pos = geo.attributes.position.array as Float32Array;
     const col = geo.attributes.color.array as Float32Array;
@@ -136,5 +145,13 @@ export function initHeroScene() {
   }
   animate();
 
-  return { camera, renderer };
+  return () => {
+    cancelAnimationFrame(rafId);
+    vis.disconnect();
+    window.removeEventListener("mousemove", onMouse);
+    window.removeEventListener("resize", onResize);
+    geo.dispose();
+    mat.dispose();
+    renderer.dispose();
+  };
 }

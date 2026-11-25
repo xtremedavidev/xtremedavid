@@ -1,5 +1,5 @@
-import PortfolioClient from "./components/PortfolioClient";
+import HomeClient from "./components/home/HomeClient";
 
 export default function Home() {
-  return <PortfolioClient />;
+  return <HomeClient />;
 }

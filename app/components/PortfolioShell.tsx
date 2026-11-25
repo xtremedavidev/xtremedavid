@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
+import Footer from "./site/Footer";
+import HireToast from "./site/HireToast";
 import "@/app/lib/firebase";
 
 export default function PortfolioShell({
@@ -19,7 +21,7 @@ export default function PortfolioShell({
 
   // Concept pages (/concept/*) are standalone sites: no cursor, noise, navbar or chapter UI.
   // Their styles live in their own CSS Module; globals.css is not modified for them.
-  if (pathname?.startsWith("/concept")) {
+  if (pathname?.startsWith("/concept/")) {
     return <body data-concept="">{children}</body>;
   }
 
@@ -47,14 +49,11 @@ export default function PortfolioShell({
         </svg>
       </div>
 
-      {/* Chapter Number */}
-      <div
-        id="chapter-number"
-        dangerouslySetInnerHTML={{ __html: "01 / 04" }}
-      />
 
       <Navbar />
       {children}
+      <Footer />
+      <HireToast />
     </body>
   );
 }

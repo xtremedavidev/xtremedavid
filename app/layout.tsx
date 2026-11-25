@@ -4,9 +4,9 @@ import "./globals.css";
 import PortfolioShell from "./components/PortfolioShell";
 
 export const metadata: Metadata = {
-  title: "David Adebayo — UI/UX Designer & Software Engineer",
+  title: "David Adebayo — Product Designer & Full-Stack Engineer",
   description:
-    "Portfolio of David Adebayo — #1 on Behance Nigeria (UI/UX). Globally recognized designer & engineer building digital worlds.",
+    "David Adebayo: product designer and full-stack engineer. 8+ years, 100+ brands including TELUS, Tangible Markets and CareBond. #1 UI/UX designer on Behance in Nigeria.",
   icons: {
     icon: [
       { url: "/images/fav.jpeg", type: "image/jpeg" },
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     apple: "/images/fav.jpeg",
   },
   openGraph: {
-    title: "David Adebayo — UI/UX Designer & Software Engineer",
+    title: "David Adebayo — Product Designer & Full-Stack Engineer",
     description:
-      "Portfolio of David Adebayo — #1 on Behance Nigeria (UI/UX). Globally recognized designer & engineer building digital worlds.",
+      "David Adebayo: product designer and full-stack engineer. 8+ years, 100+ brands including TELUS, Tangible Markets and CareBond. #1 UI/UX designer on Behance in Nigeria.",
     images: [
       {
         url: "/images/image.jpeg",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "David Adebayo — UI/UX Designer & Software Engineer",
+    title: "David Adebayo — Product Designer & Full-Stack Engineer",
     description:
-      "Portfolio of David Adebayo — #1 on Behance Nigeria (UI/UX). Globally recognized designer & engineer building digital worlds.",
+      "David Adebayo: product designer and full-stack engineer. 8+ years, 100+ brands including TELUS, Tangible Markets and CareBond. #1 UI/UX designer on Behance in Nigeria.",
     images: ["/images/image.jpeg"],
   },
 };
@@ -59,7 +59,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital@1&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap"
           rel="stylesheet"
         />
 

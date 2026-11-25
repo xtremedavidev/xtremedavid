@@ -4,6 +4,8 @@
 
 /* --- CSS Variables (Color Palette) --- */
 :root {
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --bg: #080808;
   --surface: rgba(255, 255, 255, 0.04);
   --glass: rgba(255, 255, 255, 0.06);
@@ -30,7 +32,7 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   overflow-x: hidden;
   cursor: none;
   -webkit-font-smoothing: antialiased;
@@ -109,7 +111,7 @@ a {
   position: fixed;
   bottom: 40px;
   right: 40px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   letter-spacing: 3px;
   color: var(--muted);
@@ -130,7 +132,7 @@ a {
 }
 
 .loader-text {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 48px;
   letter-spacing: 12px;
   color: var(--text);
@@ -184,7 +186,7 @@ a {
 }
 
 .navbar__logo {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 28px;
   letter-spacing: 4px;
   color: var(--accent);
@@ -199,7 +201,7 @@ a {
 }
 
 .navbar__link {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -231,7 +233,7 @@ a {
 }
 
 .navbar__cta {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   letter-spacing: 1px;
   border: 1px solid var(--accent);
@@ -322,7 +324,7 @@ a {
 }
 
 .navbar__mobile-link {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 48px;
   color: var(--muted);
   text-decoration: none;
@@ -336,7 +338,7 @@ a {
 }
 
 .navbar__cta--mobile {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   letter-spacing: 1px;
   border: 1px solid var(--accent);
@@ -359,7 +361,7 @@ a {
 }
 
 .navbar__mobile-footer a {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 3px;
   color: var(--muted);
@@ -416,7 +418,7 @@ a {
 }
 
 .hero__name {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(80px, 12vw, 180px);
   letter-spacing: 8px;
   line-height: 1;
@@ -429,7 +431,7 @@ a {
 }
 
 .hero__tagline {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   letter-spacing: 4px;
   color: var(--muted);
@@ -438,7 +440,7 @@ a {
 }
 
 .hero__subtagline {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--text);
   opacity: 1;
@@ -467,7 +469,7 @@ a {
 }
 
 .hero__scroll-text {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 4px;
   color: var(--muted);
@@ -493,7 +495,7 @@ a {
 
 .chapter-label {
   position: absolute;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 5px;
   color: var(--accent);
@@ -530,7 +532,7 @@ a {
 }
 
 .work-section__heading h2 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(60px, 8vw, 120px);
   line-height: 1;
   color: var(--text);
@@ -603,7 +605,7 @@ a {
 }
 
 .project-card__image-initials {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 72px;
   color: rgba(200,255,0,0.12);
   letter-spacing: 8px;
@@ -618,7 +620,7 @@ a {
 }
 
 .project-card__tag {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 3px;
   color: var(--accent);
@@ -626,21 +628,21 @@ a {
 }
 
 .project-card__title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 36px;
   color: var(--text);
   line-height: 1.1;
 }
 
 .project-card__desc {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--muted);
   line-height: 1.5;
 }
 
 .project-card__link {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--accent);
   margin-top: auto;
@@ -679,7 +681,7 @@ a {
 }
 
 .craft-section__heading h2 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(60px, 8vw, 120px);
   color: var(--text);
   line-height: 1;
@@ -702,7 +704,7 @@ a {
 }
 
 .craft-section__copy p {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   line-height: 1.9;
   color: var(--text);
@@ -721,7 +723,7 @@ a {
 }
 
 .skill-tag {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   padding: 10px 20px;
   border-radius: 100px;
@@ -757,14 +759,14 @@ a {
 }
 
 .stat__number {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 72px;
   color: var(--accent);
   line-height: 1;
 }
 
 .stat__label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: var(--muted);
   margin-top: 12px;
@@ -794,7 +796,7 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(100px, 15vw, 250px);
   color: var(--text);
   opacity: 0.03;
@@ -869,7 +871,7 @@ a {
 }
 
 .person-section__story {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   line-height: 2.0;
   color: var(--text);
@@ -877,7 +879,7 @@ a {
 }
 
 .person-section__quote {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans);
   font-style: italic;
   font-size: 28px;
   color: var(--text);
@@ -908,7 +910,7 @@ a {
 }
 
 .testimonies__title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(60px, 8vw, 100px);
   color: var(--text);
   line-height: 1;
@@ -951,7 +953,7 @@ a {
 }
 
 .testimony-card__quote-mark {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans);
   font-size: 80px;
   color: var(--accent);
   opacity: 0.2;
@@ -962,7 +964,7 @@ a {
 }
 
 .testimony-card__text {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.8;
   color: var(--muted);
@@ -982,7 +984,7 @@ a {
 }
 
 .testimony-card__name {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--text);
   font-weight: 600;
@@ -990,7 +992,7 @@ a {
 }
 
 .testimony-card__role {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: var(--accent);
   letter-spacing: 1px;
@@ -1032,7 +1034,7 @@ a {
 }
 
 .cta-section__heading h2 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(60px, 9vw, 140px);
   line-height: 1;
   color: var(--text);
@@ -1051,7 +1053,7 @@ a {
 }
 
 .cta-section__btn-primary {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   letter-spacing: 2px;
   background: var(--accent);
@@ -1069,7 +1071,7 @@ a {
 }
 
 .cta-section__btn-secondary {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   letter-spacing: 2px;
   background: transparent;
@@ -1086,7 +1088,7 @@ a {
 }
 
 .cta-section__email {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--muted);
   margin-top: 32px;
@@ -1135,7 +1137,7 @@ a {
   display: flex;
   justify-content: space-between;
   padding: 24px 0 0;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: var(--muted);
 }
@@ -1175,7 +1177,7 @@ a {
 }
 
 .wk-marquee-span {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 200px;
   color: var(--text);
   opacity: 0.03;
@@ -1195,7 +1197,7 @@ a {
 }
 
 .wk-hero-eyebrow {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 5px;
   text-transform: uppercase;
@@ -1205,7 +1207,7 @@ a {
 }
 
 .wk-hero-heading {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(72px, 10vw, 160px);
   line-height: 1;
   margin: 0;
@@ -1243,14 +1245,14 @@ a {
 }
 
 .wk-stat-number {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 40px;
   color: var(--accent);
   line-height: 1;
 }
 
 .wk-stat-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: var(--muted);
   letter-spacing: 3px;
@@ -1267,7 +1269,7 @@ a {
 }
 
 .wk-filter-pill {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -1378,7 +1380,7 @@ a {
 }
 
 .wk-card-arrow {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 64px;
   color: var(--accent);
   transform: scale(0.6);
@@ -1400,7 +1402,7 @@ a {
   border: 1px solid var(--border);
   border-radius: 100px;
   padding: 4px 12px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 2px;
   color: var(--muted);
@@ -1426,7 +1428,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--text);
   z-index: 5;
@@ -1447,7 +1449,7 @@ a {
 }
 
 .wk-card-tag {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -1461,7 +1463,7 @@ a {
 }
 
 .wk-card-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(22px, 2.5vw, 36px);
   color: var(--text);
   line-height: 1.1;
@@ -1477,7 +1479,7 @@ a {
 }
 
 .wk-card-desc {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: var(--muted);
   line-height: 1.6;
@@ -1499,13 +1501,13 @@ a {
 .wk-card-meta {
   display: flex;
   gap: 14px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--muted);
 }
 
 .wk-card-year {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--muted);
 }
@@ -1523,7 +1525,7 @@ a {
 }
 
 .wk-bottom-left {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: var(--muted);
   white-space: nowrap;
@@ -1540,7 +1542,7 @@ a {
 }
 
 .wk-tools-marquee-span {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: var(--text);
   opacity: 0.5;
@@ -1551,7 +1553,7 @@ a {
 }
 
 .wk-bottom-right {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: var(--accent);
   white-space: nowrap;
@@ -1586,7 +1588,7 @@ a {
 }
 
 .pd-not-found-inner h1 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 48px;
   color: var(--text);
   margin-bottom: 24px;
@@ -1633,7 +1635,7 @@ a {
 }
 
 .pd-hero-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 5px;
   text-transform: uppercase;
@@ -1643,7 +1645,7 @@ a {
 }
 
 .pd-hero-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(48px, 7vw, 120px);
   color: var(--text);
   line-height: 0.95;
@@ -1663,7 +1665,7 @@ a {
 }
 
 .pd-hero-tag {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -1699,7 +1701,7 @@ a {
 }
 
 .pd-back {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   letter-spacing: 2px;
   color: var(--muted);
@@ -1718,7 +1720,7 @@ a {
 }
 
 .pd-sidebar-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(32px, 3vw, 56px);
   color: var(--text);
   line-height: 1.0;
@@ -1733,7 +1735,7 @@ a {
 }
 
 .pd-sidebar-desc {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--muted);
   line-height: 1.7;
@@ -1755,7 +1757,7 @@ a {
 }
 
 .pd-meta-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -1763,7 +1765,7 @@ a {
 }
 
 .pd-meta-value {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--text);
 }
@@ -1774,7 +1776,7 @@ a {
 }
 
 .pd-section-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -1790,7 +1792,7 @@ a {
 }
 
 .pd-pill {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--text);
   padding: 4px 12px;
@@ -1810,7 +1812,7 @@ a {
 .pd-behance-cta {
   display: block;
   text-align: center;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   letter-spacing: 1px;
   color: var(--muted);
@@ -1925,7 +1927,7 @@ a {
 }
 
 .pd-figma-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 3px;
   color: var(--accent);
@@ -1933,7 +1935,7 @@ a {
 }
 
 .pd-figma-link {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--muted);
   text-decoration: none;
@@ -1994,7 +1996,7 @@ a {
   position: absolute;
   top: 24px;
   right: 24px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   color: var(--text);
   background: rgba(255,255,255,0.06);
@@ -2020,7 +2022,7 @@ a {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 48px;
   color: var(--text);
   background: rgba(255,255,255,0.06);
@@ -2058,7 +2060,7 @@ a {
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   letter-spacing: 3px;
   color: var(--muted);
@@ -2071,7 +2073,7 @@ a {
 }
 
 .pd-related-heading {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 56px;
   color: var(--text);
   margin: 0 0 40px;
@@ -2141,7 +2143,7 @@ a {
 }
 
 .pd-related-card-arrow {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 48px;
   color: var(--accent);
 }
@@ -2151,7 +2153,7 @@ a {
 }
 
 .pd-related-card-tag {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -2159,7 +2161,7 @@ a {
 }
 
 .pd-related-card-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 24px;
   color: var(--text);
   line-height: 1.1;
@@ -2169,7 +2171,7 @@ a {
 .pd-related-card-meta {
   display: flex;
   justify-content: space-between;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--muted);
 }
@@ -2215,7 +2217,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 30vw;
   color: rgba(200, 255, 0, 0.03);
   z-index: 9999;
@@ -2260,7 +2262,7 @@ a {
 .ab-prog-tooltip {
   position: absolute;
   left: 40px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -2293,7 +2295,7 @@ a {
   top: 100px;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 5px;
   color: var(--accent);
@@ -2336,7 +2338,7 @@ a {
 }
 
 .ab-hero-eyebrow {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 6px;
   text-transform: uppercase;
@@ -2345,7 +2347,7 @@ a {
 }
 
 .ab-hero-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(72px, 10vw, 160px);
   line-height: 0.9;
   margin: 0 0 32px;
@@ -2357,7 +2359,7 @@ a {
 }
 
 .ab-hero-sub {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   color: var(--muted);
   line-height: 1.8;
@@ -2375,7 +2377,7 @@ a {
 }
 
 .ab-scroll-ind span {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 4px;
   color: var(--muted);
@@ -2479,14 +2481,14 @@ a {
 }
 
 .ab-s2-stat-num {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 48px;
   color: var(--accent);
   line-height: 1;
 }
 
 .ab-s2-stat-sub {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 3px;
   color: var(--muted);
@@ -2494,7 +2496,7 @@ a {
 }
 
 .ab-s2-open {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans);
   font-size: 28px;
   color: var(--text);
   font-style: italic;
@@ -2503,7 +2505,7 @@ a {
 }
 
 .ab-s2-p {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   color: var(--muted);
   line-height: 1.9;
@@ -2534,7 +2536,7 @@ a {
 }
 
 .ab-s3-head {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(60px, 8vw, 120px);
   color: var(--text);
   margin-bottom: 80px;
@@ -2557,7 +2559,7 @@ a {
 }
 
 .ab-s3-col-head {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -2571,7 +2573,7 @@ a {
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
   cursor: none;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--muted);
   position: relative;
@@ -2601,7 +2603,7 @@ a {
 }
 
 .ab-s3-figma-lbl {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -2610,7 +2612,7 @@ a {
 }
 
 .ab-s3-figma-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 72px;
   color: var(--text);
   line-height: 1;
@@ -2618,7 +2620,7 @@ a {
 }
 
 .ab-s3-figma-sub {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   color: var(--muted);
   font-style: italic;
@@ -2653,7 +2655,7 @@ a {
 }
 
 .ab-s4-quote {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans);
   font-size: clamp(28px, 4vw, 52px);
   color: var(--text);
   font-style: italic;
@@ -2668,7 +2670,7 @@ a {
 }
 
 .ab-s4-p {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 17px;
   color: var(--muted);
   line-height: 2.0;
@@ -2697,7 +2699,7 @@ a {
 }
 
 .ab-s5-head {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(72px, 10vw, 160px);
   line-height: 0.9;
   margin-bottom: 120px;
@@ -2717,7 +2719,7 @@ a {
   position: absolute;
   left: -20px;
   top: 40px;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 120px;
   color: rgba(200, 255, 0, 0.06);
   z-index: 0;
@@ -2731,14 +2733,14 @@ a {
 }
 
 .ab-s5-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 36px;
   color: var(--text);
   margin-bottom: 16px;
 }
 
 .ab-s5-sub {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   color: var(--muted);
   line-height: 1.7;
@@ -2765,7 +2767,7 @@ a {
 }
 
 .ab-s6-close {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans);
   font-size: 22px;
   color: var(--muted);
   font-style: italic;
@@ -2775,7 +2777,7 @@ a {
 }
 
 .ab-s6-head {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(60px, 8vw, 130px);
   line-height: 0.9;
   margin-bottom: 60px;
@@ -2798,7 +2800,7 @@ a {
 }
 
 .ab-btn-primary {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   background: var(--accent);
   color: #080808;
@@ -2816,7 +2818,7 @@ a {
 }
 
 .ab-btn-secondary {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   background: transparent;
   color: var(--text);
@@ -2843,7 +2845,7 @@ a {
 }
 
 .ab-s6-social a {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   letter-spacing: 3px;
   color: var(--muted);
@@ -2870,7 +2872,7 @@ a {
 }
 
 .ab-s6-foot {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 6px;
   color: var(--muted);
@@ -3176,7 +3178,7 @@ a {
   }
 
   .pd-mobile-strip-back {
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-sans);
     font-size: 12px;
     letter-spacing: 1px;
     color: var(--muted);
@@ -3188,7 +3190,7 @@ a {
   }
 
   .pd-mobile-strip-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--font-sans);
     font-size: 18px;
     color: var(--text);
     white-space: nowrap;
@@ -3199,7 +3201,7 @@ a {
   .pd-mobile-toggle {
     display: block;
     width: 100%;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-sans);
     font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -3335,7 +3337,7 @@ a {
 }
 
 .ct-label-main {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 6px;
   text-transform: uppercase;
@@ -3344,7 +3346,7 @@ a {
 }
 
 .ct-heading {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(56px, 7vw, 110px);
   line-height: 0.95;
   margin: 0;
@@ -3429,13 +3431,13 @@ a {
 }
 
 .ct-status-main {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: var(--text);
 }
 
 .ct-status-sub {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 2px;
   color: var(--muted);
@@ -3455,7 +3457,7 @@ a {
 }
 
 .ct-direct-lbl {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -3463,7 +3465,7 @@ a {
 }
 
 .ct-direct-val {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   color: var(--text);
   text-decoration: none;
@@ -3502,7 +3504,7 @@ a {
 }
 
 .ct-social-link {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -3542,7 +3544,7 @@ a {
 }
 
 .ct-time-display {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 48px;
   color: var(--text);
   letter-spacing: 4px;
@@ -3557,7 +3559,7 @@ a {
 }
 
 .ct-time-loc {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 3px;
   color: var(--muted);
@@ -3565,7 +3567,7 @@ a {
 }
 
 .ct-time-date {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--muted);
   opacity: 0.5;
@@ -3606,7 +3608,7 @@ a {
 }
 
 .ct-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -3632,7 +3634,7 @@ a {
   border-bottom: 1px solid var(--border);
   width: 100%;
   padding: 14px 0;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 28px;
   letter-spacing: 2px;
   color: var(--text);
@@ -3674,7 +3676,7 @@ a {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--accent);
   animation: checkPop 0.3s forwards;
@@ -3689,7 +3691,7 @@ a {
   position: absolute;
   top: -24px;
   left: 0;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   color: var(--accent);
   font-style: italic;
@@ -3714,7 +3716,7 @@ a {
   border: 1px solid var(--border);
   border-radius: 100px;
   padding: 8px 18px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   color: var(--muted);
   cursor: none;
@@ -3743,7 +3745,7 @@ a {
 }
 
 .ct-budget-val {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 22px;
   color: var(--accent);
   display: inline-block;
@@ -3805,7 +3807,7 @@ a {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--muted);
 }
@@ -3830,7 +3832,7 @@ a {
   padding: 18px 20px;
   min-height: 140px;
   resize: none;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   line-height: 1.7;
   color: var(--text);
@@ -3853,7 +3855,7 @@ a {
   position: absolute;
   bottom: -24px;
   right: 0;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--muted);
   transition: color 0.3s ease;
@@ -3872,7 +3874,7 @@ a {
 }
 
 .ct-error-msg {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--accent2);
   margin-top: 8px;
@@ -3888,7 +3890,7 @@ a {
   margin-top: 40px;
   background: var(--accent);
   color: #080808;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 22px;
   letter-spacing: 4px;
   border-radius: 100px;
@@ -3917,7 +3919,7 @@ a {
 .ct-loading {
   display: flex;
   gap: 4px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 24px;
   line-height: 0.5;
 }
@@ -3945,28 +3947,28 @@ a {
 }
 
 .ct-success-icon {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 100px;
   color: var(--accent);
   line-height: 1;
 }
 
 .ct-success-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 40px;
   color: var(--text);
   margin: 16px 0 8px;
 }
 
 .ct-success-desc {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   color: var(--muted);
   margin-bottom: 24px;
 }
 
 .ct-success-sig {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans);
   font-style: italic;
   font-size: 20px;
   color: var(--text);
@@ -3994,7 +3996,7 @@ a {
 .ct-marquee-inner {
   display: inline-block;
   animation: ctMarquee 25s linear infinite;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   letter-spacing: 6px;
   color: var(--muted);
@@ -4011,7 +4013,7 @@ a {
 }
 
 .ct-copyright {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 3px;
   color: var(--muted);
@@ -4040,7 +4042,7 @@ a {
 
 #cursor-ring.cursor-submit-mode::after {
   content: "→";
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   color: var(--accent);
   position: absolute;
@@ -4094,5 +4096,27 @@ a {
   }
   a, button, [data-cursor="hover"], .wk-card, .pd-related-card, .ab-btn-primary, .ab-btn-secondary {
     cursor: pointer !important;
+  }
+}
+
+
+/* ============================================
+   SURFACE-AWARE CURSOR & NAV (home redesign)
+   body[data-surface] is set by app/lib/siteMotion.ts
+   ============================================ */
+#cursor-dot,
+#cursor-ring {
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+body[data-surface="light"] #cursor-dot {
+  background: #0a0a0a;
+}
+body[data-surface="light"] #cursor-ring {
+  border-color: #0a0a0a;
+}
+@media (pointer: coarse) {
+  #cursor-dot,
+  #cursor-ring {
+    display: none;
   }
 }

@@ -40,7 +40,7 @@ export async function submitContactForm(data: ContactData) {
       service: "gmail",
       auth: {
         user: process.env.GMAIL_USER || "davidadebayo702@gmail.com",
-        pass: process.env.GMAIL_APP_PASSWORD || "frdovhwgloyqhlii",
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
     });
 

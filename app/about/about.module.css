@@ -1,0 +1,160 @@
+.page {
+  padding-top: 140px;
+}
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
+  gap: clamp(30px, 6vw, 100px);
+  align-items: center;
+  padding-bottom: 70px;
+}
+.heroText h1 {
+  margin: 20px 0 28px;
+  font-size: clamp(42px, 6vw, 92px);
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -0.06em;
+}
+.heroText h1 span {
+  color: var(--lime);
+}
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 60ch;
+  margin-bottom: 30px;
+}
+.bio p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(240, 237, 230, 0.72);
+}
+.portrait {
+  --rx: 0deg;
+  --ry: 0deg;
+  --lx: 50%;
+  --ly: 30%;
+  perspective: 1000px;
+}
+.portraitInner {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 32px;
+  overflow: hidden;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.3s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
+}
+.portraitInner img {
+  object-fit: cover;
+}
+.portraitLight {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--lx) var(--ly), rgba(200, 255, 0, 0.22), transparent 45%);
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+.portraitTag {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(10px);
+  font: 400 12px var(--font-mono);
+}
+.portraitTag i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+.stats div {
+  padding: 24px 0 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stats div + div {
+  padding-left: 24px;
+  border-left: 1px solid var(--line);
+}
+.stats strong {
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+.stats span {
+  font-size: 14px;
+  color: var(--mute);
+}
+.skills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.skillCol {
+  padding: 22px;
+  border-radius: 24px;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+}
+.skillHead {
+  font: 400 12px var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mute);
+  margin-bottom: 16px;
+}
+.skillHead span {
+  color: var(--lime);
+}
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.skillList span {
+  font-size: 14px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  transition: background 0.25s, color 0.25s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.skillList span:hover {
+  background: var(--lime);
+  color: var(--ink);
+  transform: translateY(-3px) rotate(-2deg);
+}
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .portrait {
+    max-width: 460px;
+  }
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stats div:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .skills {
+    grid-template-columns: 1fr;
+  }
+}
